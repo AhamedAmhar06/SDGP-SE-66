@@ -1,5 +1,5 @@
 import React from 'react'
-import logo from'../Assets/Logo-N.png'
+import logo from'../Assets/images/Logo-N.png'
 
 const MobileNavbar = ({ setIsMenuOpen}) => {
   return (

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import registerperson from "../Assets/registerperson.png";
+import registerperson from "../Assets/images/registerperson.png";
 
 function Register() {
   const [formData, setFormData] = useState({

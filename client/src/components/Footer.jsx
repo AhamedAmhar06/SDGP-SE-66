@@ -1,5 +1,5 @@
 import React from 'react';
-import logo from'../Assets/white logo 1.png'
+import logo from'../Assets/images/white logo 1.png'
 import {
   FaDribbbleSquare,
   FaFacebookSquare,

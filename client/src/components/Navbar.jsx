@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import logo from'../Assets/Logo-N.png'
+import logo from'../Assets/images/Logo-N.png'
 import{RiMenu4Line,RiCloseFill}from "react-icons/ri";
 import MobileNavbar from './MobileNavbar';
 

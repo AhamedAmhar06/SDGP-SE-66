@@ -1,6 +1,6 @@
 import React from 'react'
-import img from "../Assets/Asset 4.png";
-import img1 from "../Assets/Asset 6.png";
+import img from "../Assets/images/Asset 4.png";
+import img1 from "../Assets/images/Asset 6.png";
 import Button from "../layout/Button";
 import Heading from "../layout/Heading";
 /* import Courses from "Courses"; */
