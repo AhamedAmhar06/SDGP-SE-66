@@ -6,6 +6,7 @@ import Footer from './components/Footer';
 import Register from './pages/Register';
 import AboutUs from './components/AboutUs'; 
 import axios from 'axios';
+import { Toaster } from 'react-hot-toast';
 
 axios.defaults.baseURL = 'http://localhost:8000';
 axios.defaults.withCredentials = true;
@@ -18,7 +19,7 @@ function App () {
       
       <Navbar/>
       {/* <Login/>  */}
-      
+      <Toaster position='bottom-right' toastOptions={{duration: 2000}}/>
      <Routes>
         <Route path='/' element={<Login/>} />
         <Route path='/register' element={<Register/>} />

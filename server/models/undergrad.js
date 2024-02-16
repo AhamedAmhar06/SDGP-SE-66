@@ -4,7 +4,7 @@ const {Schema} = mongoose;
 const undergradSchema = new Schema({
     fName : {
         type: String,
-        required: true
+        // required: true
     },
     lName : {
         type: String,
@@ -13,24 +13,24 @@ const undergradSchema = new Schema({
     email : {
         type: String,
         unique: true,
-        required: true
+        // required: true
     },
     university : {
         type: String,
-        required: true
+        // required: true
     },
     studyLevel : {
         type: String,
-        required: true
+        // required: true
     },
     password : {
         type: String,
-        required: true
+        // required: true
     },
-    confirmPassword : {
-        type: String,
-        required: true
-    }
+    // confirmPassword : {
+    //     type: String,
+    //     required: true
+    // }
 });
 
 const Undergrad = mongoose.model('Undergrad', undergradSchema);

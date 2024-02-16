@@ -1,5 +1,7 @@
 import { useState } from "react";
 import registerperson from "../Assets/registerperson.png";
+import {toast} from 'react-hot-toast'
+import axios from "axios";
 
 function Register() {
   const [formData, setFormData] = useState({
@@ -7,21 +9,42 @@ function Register() {
     lName: "",
     email: "",
     university: "",
-    levelOfStudy: "",
+    studyLevel: "",
     password: "",
     confirmPassword: "",
   });
 
-  const handleChange = (e) => {
-    const { name, value, type, checked } = e.target;
-    setFormData((prevData) => ({
-      ...prevData,
-      [name]: type === "checkbox" ? checked : value,
-    }));
-  };
+  // const handleChange = (e) => {
+  //   const { name, value, type, checked } = e.target;
+  //   setFormData((prevData) => ({
+  //     ...prevData,
+  //     [name]: type === "checkbox" ? checked : value,
+  //   }));
+  // };
 
-  const handleSubmit = (e) => {
+  const registerUser = async (e) => {
     e.preventDefault();
+    const { fName, lName, email, university, studyLevel, password, confirmPassword } = formData;
+    try {
+      const {data} = await axios.post('/register', {
+        fName,
+        lName,
+        email,
+        university,
+        studyLevel,
+        password,
+        confirmPassword
+      })
+      if(data.error) {
+        toast.error(data.error)
+      } else {
+        setFormData({})
+        toast.success('Login Successfull. Welcome!')
+
+      }
+    } catch (error) {
+      console.log(error);
+    }
     
     console.log("Form submitted:", formData);
   };
@@ -44,16 +67,16 @@ function Register() {
             Login
           </button>
 
-          <form onSubmit={handleSubmit} className="flex flex-col gap-4">
+          <form onSubmit={registerUser} className="flex flex-col gap-4">
             <input
               className="p-2 rounded-xl border"
               type="text"
               id="fName"
               name="fName"
               value={formData.fName}
-              onChange={handleChange}
+              onChange={(e) => setFormData({...formData, fName: e.target.value})}
               placeholder="First Name"
-              required
+              // required
             />
             <input
               className="p-2 rounded-xl border"
@@ -61,9 +84,9 @@ function Register() {
               id="lName"
               name="lName"
               value={formData.lName}
-              onChange={handleChange}
+              onChange={(e) => setFormData({...formData, lName: e.target.value})}
               placeholder="Last Name"
-              required
+              // required
             />
             <input
               className="p-2 rounded-xl border"
@@ -71,9 +94,9 @@ function Register() {
               id="email"
               name="email"
               value={formData.email}
-              onChange={handleChange}
+              onChange={(e) => setFormData({...formData, email: e.target.value})}
               placeholder="Email"
-              required
+              // required
             />
             <input
               className="p-2 rounded-xl border"
@@ -81,19 +104,19 @@ function Register() {
               id="university"
               name="university"
               value={formData.university}
-              onChange={handleChange}
+              onChange={(e) => setFormData({...formData, university: e.target.value})}
               placeholder="University"
-              required
+              // required
             />
             <input
               className="p-2 rounded-xl border"
               type="text"
-              id="levelOfStudy"
-              name="levelOfStudy"
-              value={formData.levelOfStudy}
-              onChange={handleChange}
+              id="studyLevel"
+              name="studyLevel"
+              value={formData.studyLevel}
+              onChange={(e) => setFormData({...formData, studyLevel: e.target.value})}
               placeholder="Level of Study"
-              required
+              // required
             />
             <input
               className="p-2 rounded-xl border"
@@ -101,9 +124,9 @@ function Register() {
               id="password"
               name="password"
               value={formData.password}
-              onChange={handleChange}
+              onChange={(e) => setFormData({...formData, password: e.target.value})}
               placeholder="Password"
-              required
+              // required
             />
             <input
               className="p-2 rounded-xl border"
@@ -111,13 +134,13 @@ function Register() {
               id="confirmPassword"
               name="confirmPassword"
               value={formData.confirmPassword}
-              onChange={handleChange}
+              onChange={(e) => setFormData({...formData, confirmPassword: e.target.value})}
               placeholder="Confirm Password"
-              required
+              // required
             />
           
            {/* Register Button */}
-           <button className="bg-NavBlue rounded-xl text-white py-2 hover:scale-105 duration-300">
+           <button className="bg-NavBlue rounded-xl text-white py-2 hover:scale-105 duration-300" type="submit">
               Register
             </button>
           </form>
