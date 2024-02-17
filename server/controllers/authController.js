@@ -1,5 +1,6 @@
 const Undergrad = require('../models/undergrad');
 const { hashPassword, comparePassword } = require('../helpers/auth');
+const jwt = require('jsonwebtoken');
 
 const test = (req, res) => {
     res.json('test is working')
@@ -69,9 +70,51 @@ const registerUser = async (req, res) => {
     } catch (error) {
         console.log(error);
     }
+};
+
+//login user
+const loginUser = async (req, res) => {
+    try{
+        const { email, password } = req.body;
+
+        //Check if user exists
+        const user = await Undergrad.findOne({email});
+        if (!user) {
+            return res.json({
+                error: 'No user found'
+            })
+        };
+
+        //Check if password is correct
+        const match = await comparePassword(password, user.password);
+        if (!match) {
+            return res.json({
+                error: 'Incorrect password'
+            })
+        };
+
+        if (match) {
+            res.json('Login successful')
+            jwt.sign({
+                email: user.email,
+                id: user._id,
+                fName: user.fName,
+                lName: user.lName,
+                university: user.university,
+                studyLevel: user.studyLevel
+            }, process.env.JWT_SECRET, {}, (err, token) => {
+                if (err) throw err;
+                res.cookie('token', token).json(user)
+            });
+        }
+
+    } catch (error) {
+        console.log(error);
+    }
 }
 
 module.exports = {
     test,
-    registerUser
+    registerUser,
+    loginUser
 }

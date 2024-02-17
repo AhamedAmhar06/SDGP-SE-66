@@ -2,8 +2,12 @@ import { useState } from "react";
 import registerperson from "../Assets/images/registerperson.png";
 import {toast} from 'react-hot-toast'
 import axios from "axios";
+import { useNavigate } from "react-router-dom"
 
 function Register() {
+  
+  const navigate = useNavigate()
+
   const [formData, setFormData] = useState({
     fName: "",
     lName: "",
@@ -40,13 +44,14 @@ function Register() {
       } else {
         setFormData({})
         toast.success('Login Successfull. Welcome!')
-
+        navigate('/')
       }
     } catch (error) {
       console.log(error);
     }
     
-    console.log("Form submitted:", formData);
+    // console.log("Form submitted:", formData);
+
   };
 
   return (
