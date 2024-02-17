@@ -1,6 +1,6 @@
 import React from 'react';
 import axios from 'axios';
-import login from'../Assets/loginr.png'
+import login from'../Assets/images/loginr.png'
 import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 

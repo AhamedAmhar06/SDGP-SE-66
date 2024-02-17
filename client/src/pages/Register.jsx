@@ -1,5 +1,5 @@
 import { useState } from "react";
-import registerperson from "../Assets/registerperson.png";
+import registerperson from "../Assets/images/registerperson.png";
 import {toast} from 'react-hot-toast'
 import axios from "axios";
 

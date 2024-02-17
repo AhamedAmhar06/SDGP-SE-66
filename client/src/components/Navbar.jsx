@@ -1,7 +1,8 @@
 import React, { useState } from 'react'
-import logo from'../Assets/Logo-N.png'
+import logo from'../Assets/images/Logo-N.png'
 import{RiMenu4Line,RiCloseFill}from "react-icons/ri";
 import MobileNavbar from './MobileNavbar';
+import { Link } from 'react-router-dom';
 
 const Navbar = () => {
         const [isMenuOpen ,setIsMenuOpen]=useState(true);
@@ -21,7 +22,7 @@ const toggleMenu=()=>{
             <img src={logo} alt ='logo' className='h-11 w-auto object-contain'/>
             <ul className='hidden md:flex md:gap-14 '>
                 <li>
-                    <a className ="menu-item">Home</a>
+                    <Link to='/home' className='menu-item'> Home </Link> 
                 </li>
                 <li>
                     <a className ="menu-item">About US</a>
