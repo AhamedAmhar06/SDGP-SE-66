@@ -30,7 +30,7 @@ function Login  ()  {
         //If the login is successful
         setData({})
         toast.success('Login Successfull. Welcome!')
-        navigate('/home')
+        navigate('/dashboard')
       }
     } catch (error) {
       
