@@ -1,4 +1,5 @@
 const Undergrad = require('../models/undergrad');
+const { hashPassword, comparePassword } = require('../helpers/auth');
 
 const test = (req, res) => {
     res.json('test is working')
@@ -11,9 +12,16 @@ const registerUser = async (req, res) => {
         //Check if name was entered
         if (!fName || !lName) {
             return res.json({
-                error: 'name is required'
+                error: 'Name is required'
             })
         };
+
+        //Check university was entered
+        if (!university) {
+            return res.json({
+                error: 'University is required'
+            })
+        }
 
         //Check if study level was entered
         if (!studyLevel) {
@@ -44,6 +52,8 @@ const registerUser = async (req, res) => {
             })
         };
         
+        const hashedPassword = await hashPassword(password);
+
         //Create new user
         const undergrad = await Undergrad.create({
             fName,
@@ -51,7 +61,7 @@ const registerUser = async (req, res) => {
             email,
             university,
             studyLevel,
-            password
+            password : hashedPassword
         });
 
         return res.json(undergrad)
