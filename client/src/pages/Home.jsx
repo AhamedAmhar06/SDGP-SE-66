@@ -12,10 +12,13 @@ import sitting from "../Assets/images/sitting.png";
 import smallicon1 from "../Assets/images/smallicon1.png";
 import smallicon2 from "../Assets/images/smallicon2.png";
 import smallicon3 from "../Assets/images/smallicon3.png";
+import tutormf from "../Assets/images/tutormf.png";
+import sessionmf from "../Assets/images/online-learningmf.png";
+import communitymf from "../Assets/images/communitiesmf.png";
 
 const Home = () => {
   const imageStyle = {
-    width: '60%',  // Set the desired width for the images
+    width: '60%',  
     height: '50%',
     marginBottom: '10px',
   };
@@ -90,50 +93,83 @@ const Home = () => {
 
       <div style={{ paddingBottom: '40px' }}></div>
 
-      {/* Main Features part */}
-  <div className='max-w-[900px] m-auto px-4 py-4 text-center'>
-    <p className='text-sm mb-10 font-bold'>
-      Build connections with your peers and fellow graduates <br />
-      across the nation with CampusKuppi and start learning/tutoring.
-    </p>
+   {/* Main Features part */}
+<div className='max-w-[900px] m-auto px-4 py-4 text-center'>
+  <p className='text-sm mb-10 font-bold'>
+    Build connections with your peers and fellow graduates <br />
+    across the nation with CampusKuppi and start learning/tutoring.
+  </p>
 
-    <div className='flex flex-wrap justify-between'>
-      <div>
-        <img
-          src={becomeatutor}
-          alt='Become a Tutor'
-          style={{ ...imageZoomStyle }}
-          onMouseEnter={(e) => (e.target.style.transform = 'scale(1.1)')}
-          onMouseLeave={(e) => (e.target.style.transform = 'scale(1)')}
-        />
-        
-      </div>
-      <div>
-        <img
-          src={booksessions}
-          alt='Book Sessions'
-          style={{ ...imageZoomStyle }}
-          onMouseEnter={(e) => (e.target.style.transform = 'scale(1.1)')}
-          onMouseLeave={(e) => (e.target.style.transform = 'scale(1)')}
-        />
-        
-      </div>
-      <div>
-        <img
-          src={community}
-          alt='Community'
-          style={{ ...imageZoomStyle }}
-          onMouseEnter={(e) => (e.target.style.transform = 'scale(1.1)')}
-          onMouseLeave={(e) => (e.target.style.transform = 'scale(1)')}
-        />
-       
-      </div>
-    </div>
+  <div className='flex flex-wrap justify-between'>
+
+    
+   {/* Blue Square 1 */}
+<div className='w-[200px] h-[200px] bg-blue-900 rounded-md relative overflow-hidden transition-transform transform hover:scale-110'>
+  <img
+    src={tutormf}
+    alt='Tutoring Session Image'
+    style={{
+      width: '40%',
+      height: '40%',
+      objectFit: 'cover',
+      borderRadius: '8px',
+      position: 'absolute',
+      top: '30%', 
+      left: '50%', 
+      transform: 'translate(-50%, -50%)',
+    }}
+  />
+  <div className="absolute bottom-4 text-white text-center left-16">
+    <p style={{ fontSize: '12px' }}>Become a</p>
+    <p style={{ fontSize: '18px', fontWeight: 'bold' }}>TUTOR</p>
   </div>
+</div>
 
+{/* Blue Square 2 */}
+<div className='w-[200px] h-[200px] bg-blue-900 rounded-md relative overflow-hidden transition-transform transform hover:scale-110'>
+  <img
+    src={sessionmf}
+    alt='Online Learning Image'
+    style={{
+      width: '40%',
+      height: '40%',
+      objectFit: 'cover',
+      borderRadius: '8px',
+      position: 'absolute',
+      top: '35%', 
+      left: '50%', 
+      transform: 'translate(-50%, -50%)', 
+    }}
+  />
+  <div className="absolute bottom-4 text-white text-center left-14">
+    <p style={{ fontSize: '12px' }}>Book your</p>
+    <p style={{ fontSize: '18px', fontWeight: 'bold' }}>SESSIONS</p>
+  </div>
+</div>
 
-      <div style={{ paddingBottom: '70px' }}></div>
-
+{/* Blue Square 3 */}
+<div className='w-[200px] h-[200px] bg-blue-900 rounded-3x1 relative overflow-hidden transition-transform transform hover:scale-110'>
+  <img
+    src={communitymf}
+    alt='Communities Image'
+    style={{
+      width: '40%',
+      height: '40%',
+      objectFit: 'cover',
+      borderRadius: '8px',
+      position: 'absolute',
+      top: '35%', 
+      left: '50%', 
+      transform: 'translate(-50%, -50%)', 
+    }}
+  />
+  <div className="absolute bottom-4 text-white text-center left-10">
+    <p style={{ fontSize: '12px' }}>Join the</p>
+    <p style={{ fontSize: '18px', fontWeight: 'bold' }}>COMMUNITY</p>
+  </div>
+</div>
+</div>
+</div>
   {/* Why part */}
 
   <div className='max-w-[1400px] m-auto py-16 px-4 relative'>
