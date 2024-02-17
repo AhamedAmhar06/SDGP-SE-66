@@ -1,28 +1,44 @@
-import React, { useState } from 'react'
-import logo from'../Assets/images/Logo-N.png'
-import{RiMenu4Line,RiCloseFill}from "react-icons/ri";
+import React, { useState, useEffect } from 'react';
+import logo from '../Assets/images/Logo-N.png';
+import { RiMenu4Line } from "react-icons/ri";
 import MobileNavbar from './MobileNavbar';
 import { Link } from 'react-router-dom';
 
 const Navbar = () => {
-        const [isMenuOpen ,setIsMenuOpen]=useState(true);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [showButton, setShowButton] = useState(false);
 
-const toggleMenu=()=>{
-    setIsMenuOpen(!isMenuOpen);
-};
+  useEffect(() => {
+    // Function to handle window resize event
+    const handleResize = () => {
+      if (window.innerWidth <= 768) { // You can adjust the threshold according to your requirements
+        setShowButton(true);
+      } else {
+        setShowButton(false);
+      }
+    };
 
+    // Add event listener for window resize
+    window.addEventListener('resize', handleResize);
+
+    // Initial check for window size
+    handleResize();
+
+    // Cleanup function to remove event listener
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
 
   return (
     <>
      {isMenuOpen && <MobileNavbar setIsMenuOpen={setIsMenuOpen} />}
-    <div className='bg-background sticky top-0 z-10 '>
-      <nav className='max-w-screen-xl mx-auto py-4 px-6'>
+    <div className='sticky top-0 z-10 bg-background '>
+      <nav className='max-w-screen-xl px-6 py-4 mx-auto'>
         <div className='flex items-center justify-between'>
-            <img src={logo} alt ='logo' className='h-11 w-auto object-contain'/>
+            <img src={logo} alt ='logo' className='object-contain w-auto h-11'/>
             <ul className='hidden md:flex md:gap-14 '>
                 <li>
-                    <Link to='/home' className='menu-item'> Home </Link> 
+                  <Link to='/home' className='menu-item'> Home </Link>
                 </li>
                 <li>
                     <a className ="menu-item">About US</a>
@@ -37,10 +53,18 @@ const toggleMenu=()=>{
                     <a className ="menu-item">Question Bank</a>
                 </li>
             </ul>
-            <button className="hidden h-10 bg-NavBlue text-white text-sm px-6 rounded hover:bg-blue-700 hover:text-primary md:block">Join Us</button>
-            <button  onClick={()=>{setIsMenuOpen(true)}} className="w-11 h-11 bg-NavBlue text-2xl text-white flex items-center justify-center rounded-md:hidden z-50">
-           {isMenuOpen?<RiCloseFill/> :<RiMenu4Line />}
-           </button>
+            
+            <button className="hidden h-10 px-6 text-sm text-white rounded bg-NavBlue hover:bg-blue-700 hover:text-primary md:block">Join Us</button>
+         
+
+          
+            {showButton && !isMenuOpen && // Render the button only when showButton is true and isMenuOpen is false
+              <button onClick={() => { setIsMenuOpen(true) }} className="z-50 flex items-center justify-center text-2xl text-white w-11 h-11 bg-NavBlue rounded-md:hidden">
+                <RiMenu4Line />
+              </button>
+            }
+           
+
         </div>
       </nav>
     </div>
