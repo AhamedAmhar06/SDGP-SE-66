@@ -1,4 +1,6 @@
 const Undergrad = require('../models/undergrad');
+const { hashPassword, comparePassword } = require('../helpers/auth');
+const jwt = require('jsonwebtoken');
 
 const test = (req, res) => {
     res.json('test is working')
@@ -11,9 +13,16 @@ const registerUser = async (req, res) => {
         //Check if name was entered
         if (!fName || !lName) {
             return res.json({
-                error: 'name is required'
+                error: 'Name is required'
             })
         };
+
+        //Check university was entered
+        if (!university) {
+            return res.json({
+                error: 'University is required'
+            })
+        }
 
         //Check if study level was entered
         if (!studyLevel) {
@@ -44,6 +53,8 @@ const registerUser = async (req, res) => {
             })
         };
         
+        const hashedPassword = await hashPassword(password);
+
         //Create new user
         const undergrad = await Undergrad.create({
             fName,
@@ -51,7 +62,7 @@ const registerUser = async (req, res) => {
             email,
             university,
             studyLevel,
-            password
+            password : hashedPassword
         });
 
         return res.json(undergrad)
@@ -59,9 +70,65 @@ const registerUser = async (req, res) => {
     } catch (error) {
         console.log(error);
     }
+};
+
+//login user
+const loginUser = async (req, res) => {
+    try{
+        const { email, password } = req.body;
+
+        //Check if user exists
+        const user = await Undergrad.findOne({email});
+        if (!user) {
+            return res.json({
+                error: 'No user found'
+            })
+        };
+
+        //Check if password is correct
+        const match = await comparePassword(password, user.password);
+        if (!match) {
+            return res.json({
+                error: 'Incorrect password'
+            })
+        };
+
+        if (match) {
+            // res.json('Login successful')
+            jwt.sign({
+                email: user.email,
+                id: user._id,
+                fName: user.fName,
+                lName: user.lName,
+                university: user.university,
+                studyLevel: user.studyLevel
+            }, process.env.JWT_SECRET, {}, (err, token) => {
+                if (err) throw err;
+                res.cookie('token', token).json(user)
+            });
+        }
+
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+//get user profile
+const getProfile = (req, res) => {
+    const {token} = req.cookies
+    if(token){
+        jwt.verify(token, process.env.JWT_SECRET, {}, (err, user) => {
+            if(err) throw err;
+            res.json(user)
+        })
+    } else {
+        res.json(null)
+    }
 }
 
 module.exports = {
     test,
-    registerUser
+    registerUser,
+    loginUser,
+    getProfile
 }
