@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import logo from '../Assets/images/Logo-N.png';
 import { RiMenu4Line } from "react-icons/ri";
 import MobileNavbar from './MobileNavbar';
+import { Link } from 'react-router-dom';
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -37,7 +38,7 @@ const Navbar = () => {
             <img src={logo} alt ='logo' className='object-contain w-auto h-11'/>
             <ul className='hidden md:flex md:gap-14 '>
                 <li>
-                    <a className ="menu-item">Home</a>
+                  <Link to='/home' className='menu-item'> Home </Link>
                 </li>
                 <li>
                     <a className ="menu-item">About US</a>
