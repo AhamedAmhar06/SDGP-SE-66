@@ -1,5 +1,5 @@
 import { useState } from "react";
-import registerperson from "../Assets/registerperson.png";
+import registerperson from "../Assets/images/registerperson.png";
 import {toast} from 'react-hot-toast'
 import axios from "axios";
 import { useNavigate } from "react-router-dom"
@@ -51,6 +51,7 @@ function Register() {
     }
     
     // console.log("Form submitted:", formData);
+
   };
 
   return (

@@ -6,6 +6,7 @@ import Footer from './components/Footer';
 import Register from './pages/Register';
 import AboutUs from './components/AboutUs'; 
 import axios from 'axios';
+import Home from './pages/Home';
 import { Toaster } from 'react-hot-toast';
 
 axios.defaults.baseURL = 'http://localhost:8000';
@@ -24,6 +25,7 @@ function App () {
         <Route path='/' element={<Login/>} />
         <Route path='/register' element={<Register/>} />
         <Route path='/about' element={<AboutUs/>} />
+        <Route path="/home" element={<Home />} />
      </Routes>
 
       <Footer/>
