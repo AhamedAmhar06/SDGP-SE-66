@@ -15,6 +15,13 @@ const registerUser = async (req, res) => {
             })
         };
 
+        //Check if study level was entered
+        if (!studyLevel) {
+            return res.json({
+                error: 'Study level is required'
+            })
+        }
+
         //Check if password has been entered with correct length
         if (password.length < 6) {
             return res.json({
@@ -37,6 +44,7 @@ const registerUser = async (req, res) => {
             })
         };
         
+        //Create new user
         const undergrad = await Undergrad.create({
             fName,
             lName,
