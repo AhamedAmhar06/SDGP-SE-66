@@ -27,9 +27,10 @@ function Login  ()  {
       if(data.error) {
         toast.error(data.error)
       } else {
+        //If the login is successful
         setData({})
         toast.success('Login Successfull. Welcome!')
-        navigate('/')
+        navigate('/home')
       }
     } catch (error) {
       

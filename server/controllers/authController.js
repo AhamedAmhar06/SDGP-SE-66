@@ -94,7 +94,7 @@ const loginUser = async (req, res) => {
         };
 
         if (match) {
-            res.json('Login successful')
+            // res.json('Login successful')
             jwt.sign({
                 email: user.email,
                 id: user._id,
