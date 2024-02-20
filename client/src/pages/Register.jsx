@@ -44,7 +44,7 @@ function Register() {
       } else {
         setFormData({})
         toast.success('Login Successfull. Welcome!')
-        navigate('/')
+        navigate('/login')
       }
     } catch (error) {
       console.log(error);

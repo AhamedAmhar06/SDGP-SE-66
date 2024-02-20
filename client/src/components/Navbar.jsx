@@ -53,9 +53,9 @@ const Navbar = () => {
                     <a className ="menu-item">Question Bank</a>
                 </li>
             </ul>
-            
-            <button className="hidden h-10 px-6 text-sm text-white rounded bg-NavBlue hover:bg-blue-700 hover:text-primary md:block">Join Us</button>
-         
+            <Link to={'/login'}>
+              <button className="hidden h-10 px-6 text-sm text-white rounded bg-NavBlue hover:bg-blue-700 hover:text-primary md:block">Join Us</button>
+            </Link>
 
           
             {showButton && !isMenuOpen && // Render the button only when showButton is true and isMenuOpen is false

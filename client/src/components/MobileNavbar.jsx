@@ -1,5 +1,6 @@
 import React from 'react'
 import logo from'../Assets/images/Logo-N.png'
+import { Link } from 'react-router-dom';
 
 const MobileNavbar = ({ setIsMenuOpen}) => {
   return (
@@ -9,7 +10,7 @@ const MobileNavbar = ({ setIsMenuOpen}) => {
 
         <ul>
             <li className="mb-5">
-                <a className="menu-item">Home</a>
+            <Link to='/' className='menu-item'> Home </Link>
             </li>
             <li className="mb-5">
                 <a className="menu-item">About Us</a>
@@ -24,7 +25,9 @@ const MobileNavbar = ({ setIsMenuOpen}) => {
                 <a className="menu-item">Question Bank</a>
             </li>
         </ul>
-        <button  className="h-10 bg-NavBlue text-white text-sm px-2 rounded hover:bg-blue-700 hover:text-white md:block" >Join Us</button>
+        <Link to={'/login'}>
+            <button  className="h-10 bg-NavBlue text-white text-sm px-2 rounded hover:bg-blue-700 hover:text-white md:block" >Join Us</button>
+        </Link>
     </div>
     <div onClick={()=>{
         setIsMenuOpen(false)

@@ -24,10 +24,10 @@ function App () {
         {/* <Login/>  */}
         <Toaster position='bottom-right' toastOptions={{duration: 2000}}/>
       <Routes>
-          <Route path='/' element={<Login/>} />
+          <Route path="/" element={<Home />} />
+          <Route path='/login' element={<Login/>} />
           <Route path='/register' element={<Register/>} />
           <Route path='/about' element={<AboutUs/>} />
-          <Route path="/home" element={<Home />} />
           <Route path='/dashboard' element={<Dashboard/>} />
       </Routes>
 
