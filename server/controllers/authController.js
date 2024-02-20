@@ -77,6 +77,20 @@ const loginUser = async (req, res) => {
     try{
         const { email, password } = req.body;
 
+        //Check if email and password are entered
+        if (!email || !password) {
+            return res.json({
+                error: 'Email and password are required'
+            })
+        };
+
+        //Check if password lenght is correct
+        if (password.length < 6) {
+            return res.json({
+                error: 'Password must be at least 6 characters long'
+            })
+        };
+
         //Check if user exists
         const user = await Undergrad.findOne({email});
         if (!user) {
@@ -126,9 +140,22 @@ const getProfile = (req, res) => {
     }
 }
 
+//Logout user
+const logout = async (req, res) => {
+    try {
+        //Clear cookie
+        res.clearCookie('token');
+        res.json('Logged out');
+    } catch (error) {
+        console.log(error);
+        res.json('Error logging out');
+    }
+}
+
 module.exports = {
     test,
     registerUser,
     loginUser,
-    getProfile
+    getProfile,
+    logout
 }

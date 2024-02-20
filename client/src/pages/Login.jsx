@@ -31,6 +31,7 @@ function Login  ()  {
         setData({})
         toast.success('Login Successfull. Welcome!')
         navigate('/dashboard')
+        window.location.reload();
       }
     } catch (error) {
       

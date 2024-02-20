@@ -3,6 +3,7 @@ import { UndergradContext } from "../context/undergradContext"
 
 export default function Dashboard() {
     const {undergrad} = useContext(UndergradContext);
+    
   return (
     <div>
         <center><h1>Dashboard</h1>
