@@ -30,6 +30,7 @@ function Login  ()  {
         //If the login is successful
         setData({})
         toast.success('Login Successfull. Welcome!')
+        localStorage.setItem('undergrad', 'true')
         navigate('/dashboard')
         window.location.reload();
       }

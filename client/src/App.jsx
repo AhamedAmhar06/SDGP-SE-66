@@ -28,6 +28,7 @@ function App () {
           <Route path='/register' element={<Register/>} />
           {/* <Route path='/about' element={<AboutUs/>} /> */}
           <Route path='/dashboard' element={<Dashboard/>} />
+          <Route path='*' element={<h1>Not Found</h1>} />
       </Routes>
 
         <Footer/>
