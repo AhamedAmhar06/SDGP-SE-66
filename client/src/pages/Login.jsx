@@ -103,7 +103,7 @@ function Login  ()  {
           </button> */}
 
           <div className="py-4 mt-5 text-xs border-b border-NavBlue text-NavBlue">
-            <a href="#">Forgot your password?</a>
+            <Link to="/forgetpassword">Forgot your password?</Link>
           </div>
 
           <div className="flex items-center justify-between mt-3 text-xs text-NavBlue">
