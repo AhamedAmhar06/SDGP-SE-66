@@ -77,11 +77,36 @@ const Home = () => {
     transition: 'transform 0.3s ease'
   }
 
-  const [isMinimized, setIsMinimized] = useState(false);
+ 
+  // State for FAQ sections
+  const [isMinimized1, setIsMinimized1] = useState(false);
+  const [isMinimized2, setIsMinimized2] = useState(false);
+  const [isMinimized3, setIsMinimized3] = useState(false);
+  const [isMinimized4, setIsMinimized4] = useState(false); // Added state for isMinimized4
 
-  const toggleMinimize = () => {
-    setIsMinimized(!isMinimized);
-  }
+  // Function to toggle FAQ section minimize/maximize
+  const toggleMinimize = (section) => {
+    switch (section) {
+      case 1:
+        setIsMinimized1(!isMinimized1);
+        break;
+      case 2:
+        setIsMinimized2(!isMinimized2);
+        break;
+      case 3:
+        setIsMinimized3(!isMinimized3);
+        break;
+      case 4:
+        setIsMinimized4(!isMinimized4); 
+        break;
+      default:
+        break;
+    }
+  };
+  
+  
+
+  
 
   return (
     <div>
@@ -397,120 +422,115 @@ const Home = () => {
   <h1 className='text-4xl font-bold mb-20 text-blue-900'>
     Frequently Asked Questions <span className="text-black font-bold">(FAQ)</span>
   </h1>
-      </div>
+</div>
 
-   {/* How does undergrad uplift Work? */}
-  <div className='bg-gray-100 flex shadow-lg p-8 rounded-md relative mx-auto' style={{ border: '2px solid black', borderRadius: '12px', width: '900px', height: 'auto', marginBottom: '40px' }}>
-    <div className='text-center'>
-      <div className="flex justify-center items-center mb-4">
-        <h2 className='text-2xl font-bold'>How does undergrad uplift Work?</h2>
-        <button onClick={toggleMinimize} className='text-blue-900 focus:outline-none'>
-          {isMinimized ? '▼' : '▲'}
-        </button>
-      </div>
-      {!isMinimized && (
-        <p className='text-gray-700'>
-          We are a form of collaborative learning where students of similar academic levels are paired to work together. The tutor helps the peer by providing explanations, feedback, and academic assistance. Both parties benefit as the tutor reinforces their knowledge and skills while the student gains a better understanding of the subject matter. Kuppi tutoring is a beneficial learning strategy, especially in small groups for students who require a unique preference for the subject.
-        </p>
-      )}
-    </div>
+{/* How does undergrad uplift Work? */}
+<div className='bg-gray-100 flex flex-col items-center shadow-lg p-8 rounded-md mx-auto' style={{ border: '2px solid black', borderRadius: '12px', width: '900px', height: 'auto', marginBottom: '40px' }}>
+  <div className='mb-4 flex justify-between items-center w-full'>
+    <h2 className='text-2xl font-bold text-left'>How does undergrad uplift Work?</h2>
+    <button onClick={() => toggleMinimize(1)} className='text-blue-900 focus:outline-none'>
+      {isMinimized1 ? '▼' : '▲'}
+    </button>
   </div>
-
+  <div className='w-full'>
+    {!isMinimized1 && (
+      <p className='text-gray-700'>
+        We are a form of collaborative learning where students of similar academic levels are paired to work together. The tutor helps the peer by providing explanations, feedback, and academic assistance. Both parties benefit as the tutor reinforces their knowledge and skills while the student gains a better understanding of the subject matter. Kuppi tutoring is a beneficial learning strategy, especially in small groups for students who require a unique preference for the subject.
+      </p>
+    )}
+  </div>
+</div>
 
       {/* How to Book A Session part */}
-      <div className='bg-gray-100 flex shadow-lg p-8 rounded-md relative mx-auto' style={{ border: '2px solid black', borderRadius: '12px', width: '900px', height: 'auto',marginBottom: '40px'  }}>
-        <div className='w-full'>
-          <div className="flex justify-between items-center mb-4">
-            <h2 className='text-2xl font-bold'>How to Book A Session</h2>
-            <button onClick={toggleMinimize} className='text-blue-900 focus:outline-none'>
-              {isMinimized ? '▼' : '▲'}
-            </button>
-          </div>
-          {!isMinimized && (
-            <div>
-              {/* Circles and Texts */}
-              <div className="flex justify-between mb-4">
-                {/* Circle 1 */}
-                <div className="relative flex flex-col items-center">
-                  <div className="w-14 h-14 bg-white-900 rounded-full flex items-center justify-center border-2 border-black mb-2 hover:scale-110 transition-transform">
-                    <img src={number1} alt="Image 1" className="w-8 h-8 object-contain rounded-contain" />
-                  </div>
-                  <p className="text-gray-700 text-center">Register</p>
-                </div>
-
-                {/* Circle 2 */}
-                <div className="relative flex flex-col items-center">
-                  <div className="w-14 h-14 bg-white-900 rounded-full flex items-center justify-center border-2 border-black mb-2 hover:scale-110 transition-transform">
-                    <img src={number2} alt="Image 2" className="w-8 h-8 object-contain rounded-contain" />
-                  </div>
-                  <p className="text-gray-700 text-center">Choose A Tutor</p>
-                </div>
-
-                {/* Circle 3 */}
-                <div className="relative flex flex-col items-center">
-                  <div className="w-14 h-14 bg-white-900 rounded-full flex items-center justify-center border-2 border-black mb-2 hover:scale-110 transition-transform">
-                    <img src={number3} alt="Image 3" className="w-8 h-8 object-contain rounded-contain" />
-                  </div>
-                  <p className="text-gray-700 text-center">Book A Session</p>
-                </div>
-
-                {/* Circle 4 */}
-                <div className="relative flex flex-col items-center">
-                  <div className="w-14 h-14 bg-white-900 rounded-full flex items-center justify-center border-2 border-black mb-2 hover:scale-110 transition-transform">
-                    <img src={number4} alt="Image 4" className="w-8 h-8 object-contain rounded-contain" />
-                  </div>
-                  <p className="text-gray-700 text-center">Make The Payment</p>
-                </div>
-              </div>
-
-              {/* Additional Texts */}
-              <p className='text-gray-700'>
-                {/* ... (your content here) ... */}
-              </p>
+<div className='bg-gray-100 flex flex-col items-center shadow-lg p-8 rounded-md mx-auto' style={{ border: '2px solid black', borderRadius: '12px', width: '900px', height: 'auto', marginBottom: '40px' }}>
+  <div className='w-full'>
+    <div className="flex justify-between items-center mb-4">
+      <h2 className='text-2xl font-bold'>How to Book A Session</h2>
+      <button onClick={() => toggleMinimize(2)} className='text-blue-900 focus:outline-none'>
+        {isMinimized2 ? '▼' : '▲'}
+      </button>
+    </div>
+    {!isMinimized2 && (
+      <div>
+        {/* Circles and Texts */}
+        <div className="flex justify-between mb-4">
+          {/* Circle 1 */}
+          <div className="relative flex flex-col items-center">
+            <div className="w-14 h-14 bg-white-900 rounded-full flex items-center justify-center border-2 border-black mb-2 hover:scale-110 transition-transform">
+              <img src={number1} alt="Image 1" className="w-8 h-8 object-contain rounded-contain" />
             </div>
-          )}
-        </div>
-      </div>
-
-      {/* How to Become a Tutor part */}
-      <div className='bg-gray-100 flex shadow-lg p-8 rounded-md relative mx-auto' style={{ border: '2px solid black', borderRadius: '12px', width: '900px', height: 'auto',marginBottom: '40px'  }}>
-        <div className='w-full'>
-          <div className="flex justify-between items-center mb-4">
-            <h2 className='text-2xl font-bold'>How to Become a Tutor?</h2>
-            <button onClick={toggleMinimize} className='text-blue-900 focus:outline-none'>
-              {isMinimized ? '▼' : '▲'}
-            </button>
+            <p className="text-gray-700 text-center">Register</p>
           </div>
-          {!isMinimized && (
-            <div>
-              {/* Content for "How to Become a Tutor?" */}
-              <p className='text-gray-700'>
-                {/* ... (your content here) ... */}
-              </p>
-            </div>
-          )}
-        </div>
-      </div>
 
-      {/* How Does the Post Bank Work? part */}
-      <div className='bg-gray-100 flex shadow-lg p-8 rounded-md relative mx-auto' style={{ border: '2px solid black', borderRadius: '12px', width: '900px', height: 'auto',marginBottom: '40px'  }}>
-        <div className='w-full'>
-          <div className="flex justify-between items-center mb-4">
-            <h2 className='text-2xl font-bold'>How Does the Post Bank Work?</h2>
-            <button onClick={toggleMinimize} className='text-blue-900 focus:outline-none'>
-              {isMinimized ? '▼' : '▲'}
-            </button>
-          </div>
-          {!isMinimized && (
-            <div>
-              {/* Content for "How Does the Post Bank Work?" */}
-              <p className='text-gray-700'>
-                {/* ... (your content here) ... */}
-              </p>
+          {/* Circle 2 */}
+          <div className="relative flex flex-col items-center">
+            <div className="w-14 h-14 bg-white-900 rounded-full flex items-center justify-center border-2 border-black mb-2 hover:scale-110 transition-transform">
+              <img src={number2} alt="Image 2" className="w-8 h-8 object-contain rounded-contain" />
             </div>
-          )}
+            <p className="text-gray-700 text-center">Choose A Tutor</p>
+          </div>
+
+          {/* Circle 3 */}
+          <div className="relative flex flex-col items-center">
+            <div className="w-14 h-14 bg-white-900 rounded-full flex items-center justify-center border-2 border-black mb-2 hover:scale-110 transition-transform">
+              <img src={number3} alt="Image 3" className="w-8 h-8 object-contain rounded-contain" />
+            </div>
+            <p className="text-gray-700 text-center">Book A Session</p>
+          </div>
+
+          {/* Circle 4 */}
+          <div className="relative flex flex-col items-center">
+            <div className="w-14 h-14 bg-white-900 rounded-full flex items-center justify-center border-2 border-black mb-2 hover:scale-110 transition-transform">
+              <img src={number4} alt="Image 4" className="w-8 h-8 object-contain rounded-contain" />
+            </div>
+            <p className="text-gray-700 text-center">Make The Payment</p>
+          </div>
         </div>
+
+        {/* Additional Texts */}
+        <p className='text-gray-700'>
+          {/* ... (content here) ... */}
+        </p>
       </div>
+    )}
+  </div>
+</div>
+
+    {/* How to Become a Tutor part */}
+<div className='bg-gray-100 flex flex-col items-center shadow-lg p-8 rounded-md mx-auto' style={{ border: '2px solid black', borderRadius: '12px', width: '900px', height: 'auto', marginBottom: '40px' }}>
+  <div className='w-full'>
+    <div className="flex justify-between items-center mb-4">
+      <h2 className='text-2xl font-bold'>How to Become a Tutor?</h2>
+      <button onClick={() => toggleMinimize(3)} className='text-blue-900 focus:outline-none'>
+        {isMinimized3 ? '▼' : '▲'}
+      </button>
+    </div>
+    {!isMinimized3 && (
+      <div>
+        {/* Content for "How to Become a Tutor?" */}
+        {/* ... (content here) ... */}
+      </div>
+    )}
+  </div>
+</div>
+
+{/* How Does the Post Bank Work? part */}
+<div className='bg-gray-100 flex flex-col items-center shadow-lg p-8 rounded-md mx-auto' style={{ border: '2px solid black', borderRadius: '12px', width: '900px', height: 'auto', marginBottom: '40px' }}>
+  <div className='w-full'>
+    <div className="flex justify-between items-center mb-4">
+      <h2 className='text-2xl font-bold'>How Does the Post Bank Work?</h2>
+      <button onClick={() => toggleMinimize(4)} className='text-blue-900 focus:outline-none'>
+        {isMinimized4 ? '▼' : '▲'}
+      </button>
+    </div>
+    {!isMinimized4 && (
+      <div>
+        {/* Content for "How Does the Post Bank Work?" */}
+        {/* ... (content here) ... */}
+      </div>
+    )}
+  </div>
+</div>
     </div>
   );
 };
