@@ -58,8 +58,8 @@ const Home = () => {
       height: '50%',
       objectFit: 'cover',
       position: 'absolute',
-      borderRadius: '4%', // You can try adjusting this value or use 'clip-path' below
-      clipPath: 'circle(100%)', // Use this to create a circular shape without cutting off corners
+      borderRadius: '4%', 
+      clipPath: 'circle(100%)', 
       transition: 'box-shadow 0.3s ease, transform 0.3s ease',
       bottom: '19%',
       left: '25%',
@@ -110,7 +110,9 @@ const Home = () => {
     </span>
   </h1>
   
-  <button className='bg-black text-white mt-4 mb-4'>About Us</button>
+  <button className='bg-black text-white rounded-full mt-4 mb-2 px-6 py-3 w-8px'>About Us</button>
+
+ 
 </div>
         </div>
 
@@ -136,7 +138,7 @@ const Home = () => {
 
 
 {/* Blue Square 1 */}
-<div className='w-[200px] h-[200px] bg-blue-900 rounded-md relative overflow-hidden transition-transform transform hover:scale-110'>
+<div className='w-[200px] h-[200px] bg-blue-900 rounded-2xl relative overflow-hidden transition-transform transform hover:scale-110'>
   <img
     src={tutormf}
     alt='Tutoring Session Image'
@@ -158,7 +160,7 @@ const Home = () => {
 </div>
 
 {/* Blue Square 2 */}
-<div className='w-[200px] h-[200px] bg-blue-900 rounded-md relative overflow-hidden transition-transform transform hover:scale-110'>
+<div className='w-[200px] h-[200px] bg-blue-900 rounded-2xl relative overflow-hidden transition-transform transform hover:scale-110'>
   <img
     src={sessionmf}
     alt='Online Learning Image'
@@ -180,7 +182,7 @@ const Home = () => {
 </div>
 
 {/* Blue Square 3 */}
-<div className='w-[200px] h-[200px] bg-blue-900 rounded-3x1 relative overflow-hidden transition-transform transform hover:scale-110'>
+<div className='w-[200px] h-[200px] bg-blue-900 rounded-2xl relative overflow-hidden transition-transform transform hover:scale-110'>
   <img
     src={communitymf}
     alt='Communities Image'
@@ -390,32 +392,33 @@ const Home = () => {
   </div>
 </div>
 
-      {/* FAQ part */}
-      <div className='text-center'>
-        <h1 className='text-4xl font-bold mb-20 text-blue-900'>
-          Frequently Asked Questions <span className="text-black font-bold">(FAQ)</span>
-        </h1>
+  {/* FAQ part */}
+<div className='text-center mx-auto'>
+  <h1 className='text-4xl font-bold mb-20 text-blue-900'>
+    Frequently Asked Questions <span className="text-black font-bold">(FAQ)</span>
+  </h1>
       </div>
 
-      {/* How does undergrad uplift Work? */}
-      <div className='bg-gray-100 flex shadow-lg p-8 rounded-md relative' style={{ border: '2px solid black', borderRadius: '12px', width: '900px', height: 'auto', marginLeft: '240px' }}>
-        <div className='text-center'>
-          <div className="flex justify-between items-center mb-4">
-            <h2 className='text-2xl font-bold'>How does undergrad uplift Work?</h2>
-            <button onClick={toggleMinimize} className='text-blue-900 focus:outline-none'>
-              {isMinimized ? '▼' : '▲'}
-            </button>
-          </div>
-          {!isMinimized && (
-            <p className='text-gray-700'>
-              we are a form of collaborative learning where students of similar academic levels are paired to work together. The tutor helps the peer by providing explanations, feedback, and academic assistance. Both parties benefit as the tutor reinforces their knowledge and skills while the student gains a better understanding of the subject matter. Kuppi tutoring is a beneficial learning strategy, especially in small groups for students who require unique preference of the subject.
-            </p>
-          )}
-        </div>
+   {/* How does undergrad uplift Work? */}
+  <div className='bg-gray-100 flex shadow-lg p-8 rounded-md relative mx-auto' style={{ border: '2px solid black', borderRadius: '12px', width: '900px', height: 'auto', marginBottom: '40px' }}>
+    <div className='text-center'>
+      <div className="flex justify-center items-center mb-4">
+        <h2 className='text-2xl font-bold'>How does undergrad uplift Work?</h2>
+        <button onClick={toggleMinimize} className='text-blue-900 focus:outline-none'>
+          {isMinimized ? '▼' : '▲'}
+        </button>
       </div>
+      {!isMinimized && (
+        <p className='text-gray-700'>
+          We are a form of collaborative learning where students of similar academic levels are paired to work together. The tutor helps the peer by providing explanations, feedback, and academic assistance. Both parties benefit as the tutor reinforces their knowledge and skills while the student gains a better understanding of the subject matter. Kuppi tutoring is a beneficial learning strategy, especially in small groups for students who require a unique preference for the subject.
+        </p>
+      )}
+    </div>
+  </div>
+
 
       {/* How to Book A Session part */}
-      <div className='bg-gray-100 flex shadow-lg p-8 rounded-md relative mt-8' style={{ border: '2px solid black', borderRadius: '12px', width: '900px', height: 'auto', marginLeft: '240px' }}>
+      <div className='bg-gray-100 flex shadow-lg p-8 rounded-md relative mx-auto' style={{ border: '2px solid black', borderRadius: '12px', width: '900px', height: 'auto',marginBottom: '40px'  }}>
         <div className='w-full'>
           <div className="flex justify-between items-center mb-4">
             <h2 className='text-2xl font-bold'>How to Book A Session</h2>
@@ -470,7 +473,7 @@ const Home = () => {
       </div>
 
       {/* How to Become a Tutor part */}
-      <div className='bg-gray-100 flex shadow-lg p-8 rounded-md relative mt-8' style={{ border: '2px solid black', borderRadius: '12px', width: '900px', height: '', marginLeft: '240px' }}>
+      <div className='bg-gray-100 flex shadow-lg p-8 rounded-md relative mx-auto' style={{ border: '2px solid black', borderRadius: '12px', width: '900px', height: 'auto',marginBottom: '40px'  }}>
         <div className='w-full'>
           <div className="flex justify-between items-center mb-4">
             <h2 className='text-2xl font-bold'>How to Become a Tutor?</h2>
@@ -490,7 +493,7 @@ const Home = () => {
       </div>
 
       {/* How Does the Post Bank Work? part */}
-      <div className='bg-gray-100 flex shadow-lg p-8 rounded-md relative my-8' style={{ border: '2px solid black', borderRadius: '12px', width: '900px', height: 'auto', marginLeft: '240px' }}>
+      <div className='bg-gray-100 flex shadow-lg p-8 rounded-md relative mx-auto' style={{ border: '2px solid black', borderRadius: '12px', width: '900px', height: 'auto',marginBottom: '40px'  }}>
         <div className='w-full'>
           <div className="flex justify-between items-center mb-4">
             <h2 className='text-2xl font-bold'>How Does the Post Bank Work?</h2>
