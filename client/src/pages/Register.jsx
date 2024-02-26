@@ -18,13 +18,11 @@ function Register() {
     confirmPassword: "",
   });
 
-  // const handleChange = (e) => {
-  //   const { name, value, type, checked } = e.target;
-  //   setFormData((prevData) => ({
-  //     ...prevData,
-  //     [name]: type === "checkbox" ? checked : value,
-  //   }));
-  // };
+  const [otpData, setOtpData] = useState({
+    userEmail: "",
+    serverOTP: "",
+    userOTP: "",
+  });
 
   const registerUser = async (e) => {
     e.preventDefault();
@@ -44,15 +42,42 @@ function Register() {
       } else {
         setFormData({})
         toast.success('Login Successfull. Welcome!')
-        navigate('/')
+        navigate('/login')
       }
     } catch (error) {
       console.log(error);
     }
     
     // console.log("Form submitted:", formData);
-
   };
+
+  const generateOTP = async (e) => {
+    e.preventDefault();
+    const {userEmail, serverOTP} = otpData;
+    // Check if serverOTP is already generated
+    if (!otpData.serverOTP) {
+      const serverOTP = `${Math.floor(100000 + Math.random() * 900000)}`;
+      setOtpData({...otpData, serverOTP: serverOTP});
+      console.log("Email:", otpData.userEmail);
+        console.log("OTP generated:", otpData.serverOTP);
+    } else {
+      console.log("OTP already generated:", otpData.serverOTP);
+    }
+    try {
+      const {data} = await axios.post('/otpMail', {
+        userEmail,
+        serverOTP
+      });
+      
+      if(data.error) {
+        toast.error(data.error)
+      } else {
+        toast.success('OTP sent to your email')
+      }
+    } catch (error) {
+        console.log(error);
+    }
+  }
 
   return (
     <section className="bg-gray-50 min-h-screen flex items-center justify-center">
@@ -72,7 +97,7 @@ function Register() {
             Login
           </button>
 
-          <form onSubmit={registerUser} className="flex flex-col gap-4">
+          <form className="flex flex-col gap-4">
             <input
               className="p-2 rounded-xl border"
               type="text"
@@ -99,10 +124,33 @@ function Register() {
               id="email"
               name="email"
               value={formData.email}
-              onChange={(e) => setFormData({...formData, email: e.target.value})}
-              placeholder="Email"
-              // required
+              onChange={(e) => {
+                setFormData({...formData, email: e.target.value})
+                setOtpData({...otpData, userEmail: e.target.value})
+              }}
+              placeholder="Email" 
             />
+
+            <button className="bg-NavBlue rounded-xl text-white py-2 hover:scale-105 duration-300" onClick={generateOTP}>
+              Generate OTP
+            </button>
+
+            <input
+              className="p-2 rounded-xl border"
+              type="text"
+              id="userOTP"
+              name="userOTP"
+              value={otpData.userOTP}
+              onChange={(e) => {
+                setOtpData({...otpData, userOTP: e.target.value})
+              }}
+              placeholder="OTP" 
+            />
+
+            <button className="bg-NavBlue rounded-xl text-white py-2 hover:scale-105 duration-300" onClick={generateOTP}>
+              Verify OTP
+            </button>
+
             <input
               className="p-2 rounded-xl border"
               type="text"
@@ -145,7 +193,7 @@ function Register() {
             />
           
            {/* Register Button */}
-           <button className="bg-NavBlue rounded-xl text-white py-2 hover:scale-105 duration-300" type="submit">
+           <button className="bg-NavBlue rounded-xl text-white py-2 hover:scale-105 duration-300" type="submit" onClick={registerUser}>
               Register
             </button>
           </form>
