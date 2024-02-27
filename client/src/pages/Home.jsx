@@ -24,7 +24,15 @@ import number2 from "../Assets/images/2.png";
 import number3 from "../Assets/images/3.png";
 import number4 from "../Assets/images/4.png";
 
+import Slider from 'react-slick';
+import 'slick-carousel/slick/slick.css';
+import 'slick-carousel/slick/slick-theme.css';
+import Box from '@mui/material/Box';
+import Rating from '@mui/material/Rating';
+import Typography from '@mui/material/Typography';
+
 const Home = () => {
+  const [value, setValue] = useState(0);
   const imageStyle = {
     width: '60%',  
     height: '50%',
@@ -103,6 +111,43 @@ const Home = () => {
         break;
     }
   };
+
+   //   content for image slider
+   const sliderContent = [
+    {
+      topic: '3.Risini Bolgoda',
+      text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud',
+      color: '#3498db',
+    },
+    {
+      topic: '2.Risini Bolgoda',
+      text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud',
+      color: '#3498db',
+    },
+    {
+      topic: '1.Risini Bolgoda',
+      text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud',
+      color: '#3498db',
+    },
+  ];
+
+  const [ratings, setRatings] = useState(Array(sliderContent.length).fill(0));
+
+  const handleRatingChange = (index, newValue) => {
+    setRatings((prevRatings) => {
+      const newRatings = [...prevRatings];
+      newRatings[index] = newValue;
+      return newRatings;
+    });
+  };
+
+  const sliderSettings = {
+    dots: true,
+    infinite: true,
+    speed: 500,
+    slidesToShow: 3,
+    slidesToScroll: 1,
+  };
   
   
 
@@ -163,7 +208,7 @@ const Home = () => {
 
 
 {/* Blue Square 1 */}
-<div className='w-[200px] h-[200px] bg-blue-900 rounded-2xl relative overflow-hidden transition-transform transform hover:scale-110'>
+<div className='w-[200px] h-[200px] bg-blue-950 rounded-2xl relative overflow-hidden transition-transform transform hover:scale-110'>
   <img
     src={tutormf}
     alt='Tutoring Session Image'
@@ -185,7 +230,7 @@ const Home = () => {
 </div>
 
 {/* Blue Square 2 */}
-<div className='w-[200px] h-[200px] bg-blue-900 rounded-2xl relative overflow-hidden transition-transform transform hover:scale-110'>
+<div className='w-[200px] h-[200px] bg-blue-950 rounded-2xl relative overflow-hidden transition-transform transform hover:scale-110'>
   <img
     src={sessionmf}
     alt='Online Learning Image'
@@ -207,7 +252,7 @@ const Home = () => {
 </div>
 
 {/* Blue Square 3 */}
-<div className='w-[200px] h-[200px] bg-blue-900 rounded-2xl relative overflow-hidden transition-transform transform hover:scale-110'>
+<div className='w-[200px] h-[200px] bg-blue-950 rounded-2xl relative overflow-hidden transition-transform transform hover:scale-110'>
   <img
     src={communitymf}
     alt='Communities Image'
@@ -367,7 +412,7 @@ const Home = () => {
 <div style={{ paddingBottom: '300px' }} />
 
 {/* Join us today part */}
-<div className='w-[900px] h-[250px] bg-blue-900 rounded-md relative overflow-visible transition-transform transform hover:scale-110' style={{ left: '50%', transform: 'translateX(-50%)', paddingTop: '60px' }}>
+<div className='w-[900px] h-[250px] bg-blue-950 rounded-md relative overflow-visible transition-transform transform hover:scale-110' style={{ left: '50%', transform: 'translateX(-50%)', paddingTop: '60px' }}>
   <img
     src={whyperson}
     alt='Whyperson Image'
@@ -388,7 +433,7 @@ const Home = () => {
     <p className='text-2xl'>
       empowers your success
     </p>
-    <button className='bg-white text-blue-900 px-6 py-2 rounded-full mt-5'>
+    <button className='bg-white text-blue-950 px-6 py-2 rounded-full mt-5'>
       Join us today
     </button>
   </div>
@@ -531,7 +576,42 @@ const Home = () => {
     )}
   </div>
 </div>
-    </div>
+
+{/* Text Slider */}
+
+<div className="text-center mb-8">
+          <h1 className="text-3xl font-thin text-blue-900">Testimonials</h1>
+       </div>
+
+
+<Slider {...sliderSettings} className='my-10'>
+        {sliderContent.map((item, index) => (
+          <div key={index} className="text-center relative">
+            <div style={{ backgroundColor: '#19216C', width: '400px', height: '200px', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', margin: '0 auto', borderRadius: '16px' }}>
+              {/* Topic and Stars */}
+              <div className="flex justify-between items-start w-full px-4 mb-4">
+                <p className="text-xl font-bold text-white">{item.topic}</p>
+                <Box
+                  sx={{
+                    '& > legend': { mb: 0 },  
+                  }}
+                >
+                  <Typography component="legend"></Typography>
+                  <Rating
+                    name={`rating-${index}`}  
+                    value={ratings[index]}
+                    onChange={(event, newValue) => handleRatingChange(index, newValue)}
+                  />
+                </Box>
+              </div>
+              
+              {/* Content Text */}
+              <p className="text-white">{item.text}</p>
+            </div>
+          </div>
+        ))}
+      </Slider>
+</div>
   );
 };
 
