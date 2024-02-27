@@ -51,6 +51,7 @@ function Register() {
     // console.log("Form submitted:", formData);
   };
 
+  //Generate OTP code
   const generateOTP = async (e) => {
     e.preventDefault();
     const {userEmail, serverOTP} = otpData;
@@ -76,6 +77,16 @@ function Register() {
       }
     } catch (error) {
         console.log(error);
+    }
+  }
+
+  const verifyOTP = async (e) => {
+    e.preventDefault();
+    const {userEmail, serverOTP, userOTP} = otpData;
+    if (serverOTP === userOTP) {
+      console.log("OTP verified:", otpData.serverOTP);
+    } else {
+      console.log("OTP not verified:", otpData.serverOTP);
     }
   }
 
@@ -147,7 +158,7 @@ function Register() {
               placeholder="OTP" 
             />
 
-            <button className="bg-NavBlue rounded-xl text-white py-2 hover:scale-105 duration-300" onClick={generateOTP}>
+            <button className="bg-NavBlue rounded-xl text-white py-2 hover:scale-105 duration-300" onClick={verifyOTP}>
               Verify OTP
             </button>
 
