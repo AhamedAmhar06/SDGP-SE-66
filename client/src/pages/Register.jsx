@@ -8,6 +8,7 @@ function Register() {
   
   const navigate = useNavigate()
 
+  //UseState for form data
   const [formData, setFormData] = useState({
     fName: "",
     lName: "",
@@ -18,12 +19,16 @@ function Register() {
     confirmPassword: "",
   });
 
+  //UseState for OTP
   const [otpData, setOtpData] = useState({
     userEmail: "",
     serverOTP: "",
     userOTP: "",
+    otpGenerated: false,
+    verified: false
   });
 
+  //Register user
   const registerUser = async (e) => {
     e.preventDefault();
     const { fName, lName, email, university, studyLevel, password, confirmPassword } = formData;
@@ -55,38 +60,44 @@ function Register() {
   const generateOTP = async (e) => {
     e.preventDefault();
     const {userEmail, serverOTP} = otpData;
+    const { fName, lName, email } = formData;
+
+    //Check if email and names are entered
+    if (!fName || !lName || !email) {
+      return toast.error('First Name, Last Name and Email are required')
+    }
     // Check if serverOTP is already generated
     if (!otpData.serverOTP) {
       const serverOTP = `${Math.floor(100000 + Math.random() * 900000)}`;
-      setOtpData({...otpData, serverOTP: serverOTP});
-      console.log("Email:", otpData.userEmail);
-        console.log("OTP generated:", otpData.serverOTP);
-    } else {
-      console.log("OTP already generated:", otpData.serverOTP);
-    }
-    try {
-      const {data} = await axios.post('/otpMail', {
-        userEmail,
-        serverOTP
-      });
-      
-      if(data.error) {
-        toast.error(data.error)
-      } else {
-        toast.success('OTP sent to your email')
+      setOtpData({...otpData, serverOTP: serverOTP, otpGenerated: true});
+      console.log("Email:", userEmail);
+        console.log("OTP generated:", serverOTP);
+    
+      try {
+        const {data} = await axios.post('/otpMail', {
+          userEmail,
+          serverOTP
+        });
+        
+        if(data.error) {
+          toast.error(data.error)
+        } else {
+          toast.success('OTP sent to your email')
+        }
+      } catch (error) {
+          console.log(error);
       }
-    } catch (error) {
-        console.log(error);
-    }
-  }
+    }}
+    
 
   const verifyOTP = async (e) => {
     e.preventDefault();
-    const {userEmail, serverOTP, userOTP} = otpData;
+    const {serverOTP, userOTP, verified} = otpData;
     if (serverOTP === userOTP) {
-      console.log("OTP verified:", otpData.serverOTP);
+      toast.success('Email verified')
+      setOtpData({...otpData, verified: true});
     } else {
-      console.log("OTP not verified:", otpData.serverOTP);
+      toast.error('Email not verified')
     }
   }
 
@@ -104,7 +115,7 @@ function Register() {
           <h2 className="font-bold text-2xl text-NavBlue">Register</h2>
           <p className="text-xs mt-4 text-NavBlue">Registered already? </p>
           {/* Login Button */}
-          <button className="text-NavBlue" onClick={() => console.log("Navigate to login page")}>
+          <button className="text-NavBlue" onClick={(e) => navigate('/login')}>
             Login
           </button>
 
@@ -140,9 +151,12 @@ function Register() {
                 setOtpData({...otpData, userEmail: e.target.value})
               }}
               placeholder="Email" 
+              disabled={otpData.otpGenerated}
             />
 
-            <button className="bg-NavBlue rounded-xl text-white py-2 hover:scale-105 duration-300" onClick={generateOTP}>
+            <button className={`bg-NavBlue rounded-xl text-white py-2 hover:scale-105 duration-300 ${otpData.otpGenerated && "bg-gray-300 pointer-events-none"}`}
+              disabled={otpData.otpGenerated}
+             onClick={generateOTP}>
               Generate OTP
             </button>
 
@@ -156,9 +170,11 @@ function Register() {
                 setOtpData({...otpData, userOTP: e.target.value})
               }}
               placeholder="OTP" 
+              disabled={otpData.verified}
             />
 
-            <button className="bg-NavBlue rounded-xl text-white py-2 hover:scale-105 duration-300" onClick={verifyOTP}>
+            <button className={`bg-NavBlue rounded-xl text-white py-2 hover:scale-105 duration-300 ${otpData.verified && "bg-gray-300 pointer-events-none"}`}
+              onClick={verifyOTP}>
               Verify OTP
             </button>
 
