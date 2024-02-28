@@ -9,7 +9,7 @@ const { EMAIL, PASSWORD } = process.env;
 // Send OTP verification
 const OTPVerification = async (req, res) => {
     try {
-        const { userEmail, serverOTP } = req.body;
+        const { userEmail, serverOTP, fName, lName } = req.body;
 
         const email = userEmail;
 
@@ -43,7 +43,7 @@ const OTPVerification = async (req, res) => {
 
         const emailContent = {
             body: {
-                name: 'Testing Brother',
+                name: `${fName} ${lName}`,
                 intro: 'Welcome to Undergrad! We are very excited to have you on board.',
                 action: {
                     instructions: 'Requested OTP is given below',
@@ -81,7 +81,82 @@ const OTPVerification = async (req, res) => {
     }
 }
 
+// Send Code when password is forgotten
+const sendCode = async (req, res) => {
+    try {
+        const { userEmail, serverOTP } = req.body;
 
+        // const email = userEmail;
+
+        const exist = await Undergrad.findOne({ email : userEmail});
+
+        console.log(userEmail, serverOTP);
+
+        
+        if (!exist) {
+            return res.json({
+            error: 'Email not found'
+            })
+        };
+
+        console.log(exist.fName , exist.lName);
+        
+        // Configure transporter for Gmail
+        const transporter = nodemailer.createTransport({
+            service: 'gmail',
+            auth: {
+                user: EMAIL,
+                pass: PASSWORD
+            }
+        });
+
+        // Create Mailgen instance and generate email content
+        const MailGenerator = new Mailgen({
+            theme: 'cerberus',
+            product: {
+                name: 'UndergradUpLift',
+                link: 'https://www.iit.ac.lk/'
+            }
+        });
+
+        const emailContent = {
+            body: {
+                name: `${exist.fName} ${exist.lName}`,
+                intro: 'Please use the following code to reset your password. If you did not request a password reset, please ignore this email. Your code is valid for 10 minutes.',
+                action: {
+                    instructions: 'Requested OTP is given below',
+                    button: {
+                        color: '#22BC66',
+                        text: serverOTP
+                    }
+                },
+                outro: 'Need help, or have questions? Just reply to this email, we\'d love to help.'
+            }
+        };
+
+        const mail = MailGenerator.generate(emailContent);
+
+        // Define message object
+        const message = {
+            from: EMAIL,
+            to: userEmail,
+            subject: 'Forgot Password',
+            html: mail
+        };
+
+        // Send email
+        const info = await transporter.sendMail(message);
+
+        // Log message ID and preview URL for testing
+        console.log('Message ID:', info.messageId);
+        console.log('Preview URL:', nodemailer.getTestMessageUrl(info));
+
+        return res.status(201).json({ message: 'Email sent successfully' });
+    } catch (error) {
+        console.error('Error sending email:', error);
+        return res.status(500).json({ error: 'An error occurred while sending the email' });
+    }
+}
 
 
 // Send profile
@@ -145,4 +220,7 @@ const getProfileMail = async (req, res) => {
     }
 }
 
-module.exports = { OTPVerification };
+module.exports = { 
+    OTPVerification,
+    sendCode, 
+};

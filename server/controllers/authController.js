@@ -78,8 +78,6 @@ const registerUser = async (req, res) => {
 };
 
 
-
-
 //login user
 const loginUser = async (req, res) => {
     try{
@@ -160,10 +158,45 @@ const logout = async (req, res) => {
     }
 }
 
+//Reset password
+const resetPassword = async (req, res) => {
+    try {
+        const { userEmail, password } = req.body;
+
+        console.log(userEmail, password);
+
+        //Check if email is valid
+        const user = await Undergrad.findOne({ email: userEmail });
+        // if (!user) {
+        //     return res.json({
+        //         error: 'Email not found'
+        //     })
+        // };
+
+        //Check if password has been entered with correct length
+        if (password.length < 6) {
+            return res.json({
+                error: 'Password must be at least 6 characters long'
+            })
+        };
+
+        const hashedPassword = await hashPassword(password);
+
+        //Update password
+        user.password = hashedPassword;
+        user.save(); 
+        return res.json(user);
+
+    } catch (error) {
+        console.log(error);
+    }
+}
+
 module.exports = {
     test,
     registerUser,
     loginUser,
     getProfile,
     logout,
+    resetPassword
 }
