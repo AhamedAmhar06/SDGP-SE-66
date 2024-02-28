@@ -1,54 +1,50 @@
-const readline = require('readline');
-const fs = require('fs');
+var Express= require("express");
+var Mongoclient = require('mongodb').MongoClient;
+var cors = require('cors');
 
-const rl = readline.createInterface({
-  input: process.stdin,
-  output: process.stdout
-});
+const multer = require('multer');
 
-// Define the questions
-let questions = [
-  { question: "username ", response: "" },
-  { question: "questions from which topic? ", response: "" },
-  { question: "Q1: Define OOP ", response: "" },
-];
-
-// Function to ask questions
-function askQuestion(questionObject, callback) {
-  rl.question(questionObject.question, (response) => {
-    questionObject.response = response;
-    callback();
-  });
-}
-
-// Function to start the questionnaire
-function startQuestionnaire(index = 0) {
-  if (index === questions.length) {
-    rl.close();
-    //displayResponses();
-    saveResponses(); // save the responses 
-    return;
-  }
-
-  askQuestion(questions[index], () => startQuestionnaire(index + 1));
-}
-
-// Function to display the responses
-function displayResponses() {
-  for (let i = 0; i < questions.length; i++) {
-    console.log(`${questions[i].question} ${questions[i].response}`);
-  }
-}
-
-// Function to save responses to a file
-function saveResponses() {
-  fs.writeFile('responses.json', JSON.stringify(questions, null, 2), (err) => {
-    if (err) throw err;
-    console.log('Responses saved to responses.json');
-    
-  });
-}
+var app=Express();
+app.use(cors());
+var CONNECTION_STRING="mongodb+srv://ahamed:Ahamed0606@cluster0.dujzim0.mongodb.net/?retryWrites=true&w=majority";
 
 
-// Start the questionnaire
-startQuestionnaire();
+
+
+var DATABASENAME="todoappdb";
+var database;
+
+app.listen(5039,()=>{
+    console.log("server started");
+    Mongoclient.connect(CONNECTION_STRING,(error,client)=>{
+        if (error) {
+            console.error('Failed to connect to MongoDB:', error);
+            return;
+        }
+        
+        database=client.db(DATABASENAME);
+        console.log("connected to database successfully");
+        
+    });
+})
+app.get('/api/todoapp/notes',(request,response)=>{
+    database.collection('todoappcollection').find({}).toArray((error,result)=>{
+        response.send(result);
+    });
+})
+app.post('/api/todoapp/AddNotes',multer().none(),(request,response)=>{
+    database.collection("todoappcollection").count({},function(error,numOfDocs){
+        database.collection("todoappcollection").insertOne({
+            id:(numOfDocs+1).toString(),
+            description:request.body.newNotes
+        });
+        response.json("Added succesfully");
+    })
+})
+app.delete('/api/todoapp/DeleteNotes',(request,response)=>{
+    database.collection("todoappcollection").deleteOne({
+        id:request.query.id
+    });
+    response.json("Deleted succesfully");
+
+})
