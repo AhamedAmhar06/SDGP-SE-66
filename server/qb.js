@@ -6,12 +6,22 @@ const multer = require('multer');
 
 var app=Express();
 app.use(cors());
-var CONNECTION_STRING="mongodb+srv://SDGP-SE-66:<password>@sdgp-se-66.t5y5dxv.mongodb.net/?retryWrites=true&w=majority&appName=SDGP-SE-66";
+var CONNECTION_STRING="mongodb+srv://SDGP-SE-66:SDGPgroupNo66@sdgp-se-66.t5y5dxv.mongodb.net/?retryWrites=true&w=majority&appName=SDGP-SE-66";
+
+// //# MONGO_URL = mongodb+srv://SDGPse66:modaKavin@users.z9lrpe6.mongodb.net/?retryWrites=true&w=majority
+// MONGO_URL = mongodb+srv://SDGP-SE-66:SDGPgroupNo66@sdgp-se-66.t5y5dxv.mongodb.net/?retryWrites=true&w=majority
+// # AUTH_EMAIL = undergraduplift@gmail.com
+// JWT_SECRET = 202221231149
+// # EMAIL : 'undergraduplift@gmail.com'
+// # PASSWORD: 'geuttcjtpprirqwz'
+
+// module.exports ={
+//     EMAIL: undergraduplift@gmail.com
+//     PASSWORD: 'qjnsxcpryxrqnwlv'
+// }
 
 
-
-
-var DATABASENAME="todoappdb";
+var DATABASENAME="questionBank";
 var database;
 
 app.listen(5039,()=>{
@@ -27,24 +37,24 @@ app.listen(5039,()=>{
         
     });
 })
-app.get('/api/todoapp/notes',(request,response)=>{
-    database.collection('todoappcollection').find({}).toArray((error,result)=>{
-        response.send(result);
-    });
-})
-app.post('/api/todoapp/AddNotes',multer().none(),(request,response)=>{
-    database.collection("todoappcollection").count({},function(error,numOfDocs){
-        database.collection("todoappcollection").insertOne({
+// app.get('/api/todoapp/notes',(request,response)=>{
+//     database.collection('todoappcollection').find({}).toArray((error,result)=>{
+//         response.send(result);
+//     });
+// })
+app.post('/server/questionBank/AddQuestion',multer().none(),(request,response)=>{
+    database.collection("questionBank").count({},function(error,numOfDocs){
+        database.collection("questionBank").insertOne({
             id:(numOfDocs+1).toString(),
             description:request.body.newNotes
         });
         response.json("Added succesfully");
     })
 })
-app.delete('/api/todoapp/DeleteNotes',(request,response)=>{
-    database.collection("todoappcollection").deleteOne({
+app.delete('/server/questionBank/DeleteQuestion',(request,response)=>{
+    database.collection("questionBank").deleteOne({
         id:request.query.id
     });
-    response.json("Deleted succesfully");
+   response.json("Deleted succesfully");
 
 })
