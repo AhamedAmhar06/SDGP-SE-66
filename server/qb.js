@@ -6,7 +6,7 @@ const multer = require('multer');
 
 var app=Express();
 app.use(cors());
-var CONNECTION_STRING="mongodb+srv://ahamed:Ahamed0606@cluster0.dujzim0.mongodb.net/?retryWrites=true&w=majority";
+var CONNECTION_STRING="mongodb+srv://SDGP-SE-66:<password>@sdgp-se-66.t5y5dxv.mongodb.net/?retryWrites=true&w=majority&appName=SDGP-SE-66";
 
 
 
