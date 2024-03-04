@@ -4,8 +4,6 @@ const cors = require('cors');
 const { test, loginUser, registerUser, getProfile, logout, resetPassword } = require('../controllers/authController');
 const { OTPVerification, sendCode } = require('../controllers/authMail');
 
-import * as controller from '../controllers/controller.js';
-
 //middleware
 router.use(
     cors({
