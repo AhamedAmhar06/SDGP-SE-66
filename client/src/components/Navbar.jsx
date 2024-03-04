@@ -5,9 +5,11 @@ import MobileNavbar from './MobileNavbar';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import { toast } from 'react-hot-toast';
+import { useNavigate } from 'react-router-dom';
 
 function Navbar()  {
   
+  const navigate = useNavigate();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [showButton, setShowButton] = useState(false);
   const [auth, setAuth] = useState(false);
@@ -45,7 +47,9 @@ const authStatus = localStorage.getItem('undergrad');
       await axios.get('/logout');
       toast.success('Logout Successful');
       localStorage.removeItem('undergrad');
-      window.location.reload();
+      // window.location.reload();
+      navigate('/login');
+
     } catch (error) {
       toast.error('An error occurred. Please try again');
     }

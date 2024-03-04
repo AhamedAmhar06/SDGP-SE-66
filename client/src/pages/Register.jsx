@@ -32,6 +32,7 @@ function Register() {
   const registerUser = async (e) => {
     e.preventDefault();
     const { fName, lName, email, university, studyLevel, password, confirmPassword } = formData;
+    const { verified } = otpData;
     try {
       const {data} = await axios.post('/register', {
         fName,
@@ -42,6 +43,10 @@ function Register() {
         password,
         confirmPassword
       })
+
+      if(!verified) {
+        return toast.error('Email not verified')
+      }
       if(data.error) {
         toast.error(data.error)
       } else {
@@ -76,7 +81,9 @@ function Register() {
       try {
         const {data} = await axios.post('/otpMail', {
           userEmail,
-          serverOTP
+          serverOTP,
+          fName,
+          lName
         });
         
         if(data.error) {
@@ -93,6 +100,9 @@ function Register() {
   const verifyOTP = async (e) => {
     e.preventDefault();
     const {serverOTP, userOTP, verified} = otpData;
+    if(!serverOTP) {
+      return toast.error('OTP not requested')
+    }
     if (serverOTP === userOTP) {
       toast.success('Email verified')
       setOtpData({...otpData, verified: true});
@@ -206,7 +216,6 @@ function Register() {
               value={formData.password}
               onChange={(e) => setFormData({...formData, password: e.target.value})}
               placeholder="Password"
-              // required
             />
             <input
               className="p-2 rounded-xl border"
@@ -216,7 +225,6 @@ function Register() {
               value={formData.confirmPassword}
               onChange={(e) => setFormData({...formData, confirmPassword: e.target.value})}
               placeholder="Confirm Password"
-              // required
             />
           
            {/* Register Button */}
