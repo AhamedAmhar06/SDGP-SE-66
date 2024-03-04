@@ -1,5 +1,6 @@
 
-import React from 'react';
+
+import React, { useState } from 'react';
 import headerImg from "../Assets/images/header-img.png";
 import contactimg from "../Assets/images/grad-img.png";
 import becomeatutor from "../Assets/images/become a tutor.png";
@@ -15,6 +16,13 @@ import smallicon3 from "../Assets/images/smallicon3.png";
 import tutormf from "../Assets/images/tutormf.png";
 import sessionmf from "../Assets/images/online-learningmf.png";
 import communitymf from "../Assets/images/communitiesmf.png";
+import whyperson from "../Assets/images/Whyperson.png"
+import book from "../Assets/images/Book.png"
+import questionbank from "../Assets/images/questionbank.png";
+import number1 from "../Assets/images/1.png";
+import number2 from "../Assets/images/2.png";
+import number3 from "../Assets/images/3.png";
+import number4 from "../Assets/images/4.png";
 
 const Home = () => {
   const imageStyle = {
@@ -31,17 +39,35 @@ const Home = () => {
     marginRight: '5px',
     transition: 'box-shadow 0.3s ease',
   };
-  const smalliconStyle = {
-    width: '40px',
-    height: '45px',
-    objectFit: 'cover',
-    borderRadius: '50%',
-    ransition: 'box-shadow 0.3s ease, transform 0.3s ease',
-    display: 'flex',  
-    alignItems: 'center',
-    justifyContent: 'center',
-    transform: 'scale(1)',
-  }
+
+  /* <img
+    src={communitymf}
+    alt='Communities Image'
+    style={{
+      width: '40%',
+      height: '40%',
+      objectFit: 'cover',
+      borderRadius: '8px',
+      position: 'absolute',
+      top: '35%', 
+      left: '50%', 
+      transform: 'translate(-50%, -50%)', 
+    }} */
+    const smallIconStyle = {
+      width: '50%',
+      height: '50%',
+      objectFit: 'cover',
+      position: 'absolute',
+      borderRadius: '4%', // You can try adjusting this value or use 'clip-path' below
+      clipPath: 'circle(100%)', // Use this to create a circular shape without cutting off corners
+      transition: 'box-shadow 0.3s ease, transform 0.3s ease',
+      bottom: '19%',
+      left: '25%',
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      transform: 'scale(1)',
+    };
 
   const imageZoomStyle = {
     width: '96%',  
@@ -49,6 +75,12 @@ const Home = () => {
     marginBottom: '10px',
     borderRadius: '40px',
     transition: 'transform 0.3s ease'
+  }
+
+  const [isMinimized, setIsMinimized] = useState(false);
+
+  const toggleMinimize = () => {
+    setIsMinimized(!isMinimized);
   }
 
   return (
@@ -91,7 +123,7 @@ const Home = () => {
         />
       </div>
 
-      <div style={{ paddingBottom: '40px' }}></div>
+     
 
    {/* Main Features part */}
 <div className='max-w-[900px] m-auto px-4 py-4 text-center'>
@@ -102,8 +134,8 @@ const Home = () => {
 
   <div className='flex flex-wrap justify-between'>
 
-    
-   {/* Blue Square 1 */}
+
+{/* Blue Square 1 */}
 <div className='w-[200px] h-[200px] bg-blue-900 rounded-md relative overflow-hidden transition-transform transform hover:scale-110'>
   <img
     src={tutormf}
@@ -170,14 +202,12 @@ const Home = () => {
 </div>
 </div>
 </div>
-  {/* Why part */}
-
-  <div className='max-w-[1400px] m-auto py-16 px-4 relative'>
+ {/* Why part */}
+<div className='max-w-[1400px] m-auto py-16 px-4 relative'>
   <h1 className='text-4xl font-bold mb-4 text-left ml-14'>Why</h1>
-  <h2 className='text-3xl font-bold mb-0 text-left ml-14'>Undergraduplif?</h2>
-  </div>
-  <div className='max-w-[1400px] m-auto py-16 px-4'>
-        <div className='bg-white-500 p-8 grid lg:grid-cols-2 gap-4 relative'>
+  <h2 className='text-3xl font-bold mb-0 text-left ml-14'>Undergraduplift?</h2>
+
+  <div className='bg-white-500 p-8 grid lg:grid-cols-2 gap-4 relative'>
           <div className='flex flex-col justify-center items-center text-white w-full'>
             {/* First Circle */}
             <div
@@ -185,9 +215,11 @@ const Home = () => {
               style={{ marginLeft: '-100px' }}
               onMouseEnter={() => {
                 document.getElementById('circle1').style.transform = 'scale(1.1)';
+                document.getElementById('text1').style.transform = 'scale(1.1)';
               }}
               onMouseLeave={() => {
                 document.getElementById('circle1').style.transform = 'scale(1)';
+                document.getElementById('text1').style.transform = 'scale(1)';
               }}
             >
               <div
@@ -202,10 +234,16 @@ const Home = () => {
                   src={smallicon1}
                   alt='Image 1'
                   className='w-15 h-25 object-cover rounded-full'
-                  style={smalliconStyle}
+                  style={smallIconStyle}
                 />
               </div>
-              <p className="font-bold text-black" style={{ marginLeft: '10px' }}>Gain access to 100+ tutors</p>
+              <p
+                id="text1"
+                className="font-bold text-black"
+                style={{ marginLeft: '10px' }}
+              >
+                Gain access to 100+ tutors
+              </p>
             </div>
 
             {/* Second Circle */}
@@ -214,9 +252,11 @@ const Home = () => {
               style={{ marginLeft: '-175px' }}
               onMouseEnter={() => {
                 document.getElementById('circle2').style.transform = 'scale(1.1)';
+                document.getElementById('text2').style.transform = 'scale(1.1)';
               }}
               onMouseLeave={() => {
                 document.getElementById('circle2').style.transform = 'scale(1)';
+                document.getElementById('text2').style.transform = 'scale(1)';
               }}
             >
               <div
@@ -231,10 +271,16 @@ const Home = () => {
                   src={smallicon2}
                   alt='Image 2'
                   className='w-8 h-8 object-cover rounded-full'
-                  style={smalliconStyle}
+                  style={smallIconStyle}
                 />
               </div>
-              <p className="font-bold text-black" style={{ marginLeft: '10px' }}>1000+ members</p>
+              <p
+                id="text2"
+                className="font-bold text-black"
+                style={{ marginLeft: '10px' }}
+              >
+                1000+ members
+              </p>
             </div>
 
             {/* Third Circle */}
@@ -243,9 +289,11 @@ const Home = () => {
               style={{ marginLeft: '-50px' }}
               onMouseEnter={() => {
                 document.getElementById('circle3').style.transform = 'scale(1.1)';
+                document.getElementById('text3').style.transform = 'scale(1.1)';
               }}
               onMouseLeave={() => {
                 document.getElementById('circle3').style.transform = 'scale(1)';
+                document.getElementById('text3').style.transform = 'scale(1)';
               }}
             >
               <div
@@ -260,10 +308,16 @@ const Home = () => {
                   src={smallicon3}
                   alt='Image 3'
                   className='w-15 h-15 object-cover rounded-full'
-                  style={smalliconStyle}
+                  style={smallIconStyle}
                 />
               </div>
-              <p className="font-bold text-black" style={{ marginLeft: '10px' }}>Connect with like-minded people</p>
+              <p
+                id="text3"
+                className="font-bold text-black"
+                style={{ marginLeft: '10px' }}
+              >
+                Connect with like-minded people
+              </p>
             </div>
 
             {/* Lines connecting circles */}
@@ -277,33 +331,181 @@ const Home = () => {
                 alt='Why Image'
                 className='object-cover w-90 h-90'
               />
-              </div>
+            </div>
           </div>
         </div>
       </div>
 
-      <div style={{ paddingBottom: '70px' }}></div>
-      {/* More Info part */}
-      <div className='max-w-[1400px] h-[500px] bg-blue-100 mx-auto my-20 pt-16 lg:mb-[20%] md:mb-[35%] px-4 grid lg:grid-cols-3 gap-4'>
-        <div className='lg:top-20 relative lg:col-span-1 col-span-2'>
-          <h3 className='text-2xl font-bold'>More Info</h3>
+
+<div style={{ paddingBottom: '300px' }} />
+
+{/* Join us today part */}
+<div className='w-[900px] h-[250px] bg-blue-900 rounded-md relative overflow-visible transition-transform transform hover:scale-110' style={{ left: '50%', transform: 'translateX(-50%)', paddingTop: '60px' }}>
+  <img
+    src={whyperson}
+    alt='Whyperson Image'
+    className='absolute bottom-[-150px] left-[-150px] w-[500px] h-[500px]'
+  />
+  <img
+    src={book}
+    alt='Book Image'
+    className='absolute top-[-150px] right-[-100px] w-[400px] h-[400px]'
+  />
+   <div className='text-center text-white'>
+    <p className='text-2xl font-bold'>
+      Join <span className="font-normal">undergrad uplift</span> today
+    </p>
+    <p className='text-2xl mb-5'>
+      and experience personalized tutoring that
+    </p>
+    <p className='text-2xl'>
+      empowers your success
+    </p>
+    <button className='bg-white text-blue-900 px-6 py-2 rounded-full mt-5'>
+      Join us today
+    </button>
+  </div>
+</div>
+
+
+
+{/* Question Bank part */}
+<div className='max-w-[1400px] m-auto my-20 px-4 grid lg:grid-cols-2 gap-4'>
+  <div className='relative flex justify-end items-center'>
+    <img
+      className='object-cover w-[600px] h-[600px] rounded-md'
+      src={questionbank}
+      alt='Question Bank Image'
+      style={{ marginRight: '-460px' }}
+    />
+    <div className='absolute top-50 left-36 p-6 text-left'>
+      <p className='text-sm text-black'>TRY QUIZZES WITH OUR</p>
+      <p className='text-4xl text-blue-900 mb-2'>QUESTION</p>
+      <p className='text-4xl text-blue-900 mb-2'>BANK FEATURE</p>
+      <p className='text-sm text-blue-900'>And Check Your Answers Real Time</p>
+      <button className='bg-blue-900 text-white px-6 py-2 rounded-full mt-4'>
+        Sign up today
+      </button>
+    </div>
+  </div>
+</div>
+
+      {/* FAQ part */}
+      <div className='text-center'>
+        <h1 className='text-4xl font-bold mb-20 text-blue-900'>
+          Frequently Asked Questions <span className="text-black font-bold">(FAQ)</span>
+        </h1>
+      </div>
+
+      {/* How does undergrad uplift Work? */}
+      <div className='bg-gray-100 flex shadow-lg p-8 rounded-md relative' style={{ border: '2px solid black', borderRadius: '12px', width: '900px', height: 'auto', marginLeft: '240px' }}>
+        <div className='text-center'>
+          <div className="flex justify-between items-center mb-4">
+            <h2 className='text-2xl font-bold'>How does undergrad uplift Work?</h2>
+            <button onClick={toggleMinimize} className='text-blue-900 focus:outline-none'>
+              {isMinimized ? '▼' : '▲'}
+            </button>
+          </div>
+          {!isMinimized && (
+            <p className='text-gray-700'>
+              we are a form of collaborative learning where students of similar academic levels are paired to work together. The tutor helps the peer by providing explanations, feedback, and academic assistance. Both parties benefit as the tutor reinforces their knowledge and skills while the student gains a better understanding of the subject matter. Kuppi tutoring is a beneficial learning strategy, especially in small groups for students who require unique preference of the subject.
+            </p>
+          )}
         </div>
-        <div className='grid grid-cols-2 col-span-2 gap-2 ml-[-250px]'>
-          <img
-            className='object-cover w-[150px]h-[150px] rounded-md'
-            src={tut}
-            alt='Tutoring Session Image'
-          />
-          <img
-            className='row-span-2 object-cover w-full h-[300px] rounded-md'
-            src={qbank}
-            alt='QBank Image'
-          />
-          <img
-            className='object-cover w-[200px] h-[200px] rounded-md'
-            src={greet}
-            alt='Greet Image'
-          />
+      </div>
+
+      {/* How to Book A Session part */}
+      <div className='bg-gray-100 flex shadow-lg p-8 rounded-md relative mt-8' style={{ border: '2px solid black', borderRadius: '12px', width: '900px', height: 'auto', marginLeft: '240px' }}>
+        <div className='w-full'>
+          <div className="flex justify-between items-center mb-4">
+            <h2 className='text-2xl font-bold'>How to Book A Session</h2>
+            <button onClick={toggleMinimize} className='text-blue-900 focus:outline-none'>
+              {isMinimized ? '▼' : '▲'}
+            </button>
+          </div>
+          {!isMinimized && (
+            <div>
+              {/* Circles and Texts */}
+              <div className="flex justify-between mb-4">
+                {/* Circle 1 */}
+                <div className="relative flex flex-col items-center">
+                  <div className="w-14 h-14 bg-white-900 rounded-full flex items-center justify-center border-2 border-black mb-2 hover:scale-110 transition-transform">
+                    <img src={number1} alt="Image 1" className="w-8 h-8 object-contain rounded-contain" />
+                  </div>
+                  <p className="text-gray-700 text-center">Register</p>
+                </div>
+
+                {/* Circle 2 */}
+                <div className="relative flex flex-col items-center">
+                  <div className="w-14 h-14 bg-white-900 rounded-full flex items-center justify-center border-2 border-black mb-2 hover:scale-110 transition-transform">
+                    <img src={number2} alt="Image 2" className="w-8 h-8 object-contain rounded-contain" />
+                  </div>
+                  <p className="text-gray-700 text-center">Choose A Tutor</p>
+                </div>
+
+                {/* Circle 3 */}
+                <div className="relative flex flex-col items-center">
+                  <div className="w-14 h-14 bg-white-900 rounded-full flex items-center justify-center border-2 border-black mb-2 hover:scale-110 transition-transform">
+                    <img src={number3} alt="Image 3" className="w-8 h-8 object-contain rounded-contain" />
+                  </div>
+                  <p className="text-gray-700 text-center">Book A Session</p>
+                </div>
+
+                {/* Circle 4 */}
+                <div className="relative flex flex-col items-center">
+                  <div className="w-14 h-14 bg-white-900 rounded-full flex items-center justify-center border-2 border-black mb-2 hover:scale-110 transition-transform">
+                    <img src={number4} alt="Image 4" className="w-8 h-8 object-contain rounded-contain" />
+                  </div>
+                  <p className="text-gray-700 text-center">Make The Payment</p>
+                </div>
+              </div>
+
+              {/* Additional Texts */}
+              <p className='text-gray-700'>
+                {/* ... (your content here) ... */}
+              </p>
+            </div>
+          )}
+        </div>
+      </div>
+
+      {/* How to Become a Tutor part */}
+      <div className='bg-gray-100 flex shadow-lg p-8 rounded-md relative mt-8' style={{ border: '2px solid black', borderRadius: '12px', width: '900px', height: '', marginLeft: '240px' }}>
+        <div className='w-full'>
+          <div className="flex justify-between items-center mb-4">
+            <h2 className='text-2xl font-bold'>How to Become a Tutor?</h2>
+            <button onClick={toggleMinimize} className='text-blue-900 focus:outline-none'>
+              {isMinimized ? '▼' : '▲'}
+            </button>
+          </div>
+          {!isMinimized && (
+            <div>
+              {/* Content for "How to Become a Tutor?" */}
+              <p className='text-gray-700'>
+                {/* ... (your content here) ... */}
+              </p>
+            </div>
+          )}
+        </div>
+      </div>
+
+      {/* How Does the Post Bank Work? part */}
+      <div className='bg-gray-100 flex shadow-lg p-8 rounded-md relative my-8' style={{ border: '2px solid black', borderRadius: '12px', width: '900px', height: 'auto', marginLeft: '240px' }}>
+        <div className='w-full'>
+          <div className="flex justify-between items-center mb-4">
+            <h2 className='text-2xl font-bold'>How Does the Post Bank Work?</h2>
+            <button onClick={toggleMinimize} className='text-blue-900 focus:outline-none'>
+              {isMinimized ? '▼' : '▲'}
+            </button>
+          </div>
+          {!isMinimized && (
+            <div>
+              {/* Content for "How Does the Post Bank Work?" */}
+              <p className='text-gray-700'>
+                {/* ... (your content here) ... */}
+              </p>
+            </div>
+          )}
         </div>
       </div>
     </div>

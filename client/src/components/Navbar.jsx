@@ -3,10 +3,16 @@ import logo from '../Assets/images/Logo-N.png';
 import { RiMenu4Line } from "react-icons/ri";
 import MobileNavbar from './MobileNavbar';
 import { Link } from 'react-router-dom';
+import axios from 'axios';
+import { toast } from 'react-hot-toast';
+import { useNavigate } from 'react-router-dom';
 
-const Navbar = () => {
+function Navbar()  {
+  
+  const navigate = useNavigate();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [showButton, setShowButton] = useState(false);
+  const [auth, setAuth] = useState(false);
 
   useEffect(() => {
     // Function to handle window resize event
@@ -28,6 +34,26 @@ const Navbar = () => {
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
+  useEffect(() => {
+const authStatus = localStorage.getItem('undergrad');
+    if(authStatus === 'true'){
+      setAuth(true);
+    }
+  });
+
+  //Logout button logic
+  const logoutUser = async () => {
+    try{
+      await axios.get('/logout');
+      toast.success('Logout Successful');
+      localStorage.removeItem('undergrad');
+      // window.location.reload();
+      navigate('/login');
+
+    } catch (error) {
+      toast.error('An error occurred. Please try again');
+    }
+  }
 
   return (
     <>
@@ -35,10 +61,16 @@ const Navbar = () => {
     <div className='sticky top-0 z-10 bg-background '>
       <nav className='max-w-screen-xl px-6 py-4 mx-auto'>
         <div className='flex items-center justify-between'>
+
+          
+           
+
+          <Link to='/'>
             <img src={logo} alt ='logo' className='object-contain w-auto h-11'/>
+          </Link>
             <ul className='hidden md:flex md:gap-14 '>
                 <li>
-                  <Link to='/home' className='menu-item'> Home </Link>
+                  <Link to='/' className='menu-item'> Home </Link>
                 </li>
                 <li>
                     <Link to='/about' className='menu-item'> About Us </Link>
@@ -52,10 +84,28 @@ const Navbar = () => {
                 <li>
                     <a className ="menu-item">Question Bank</a>
                 </li>
+            
+
+            {auth ? (
+              <>
+              <li>
+                  <Link to={'/dashboard'} className='menu-item'>Dashboard</Link>
+              </li>
+              <li>
+                  <button onClick={logoutUser} className="hidden h-10 px-6 text-sm text-white rounded bg-NavBlue hover:bg-blue-700 hover:text-primary md:block">Logout</button>
+              </li>
+              </>
+              
+            ) : (
+              <>
+                <Link to={'/login'}>
+                  <button className="hidden h-10 px-6 text-sm text-white rounded bg-NavBlue hover:bg-blue-700 hover:text-primary md:block">Join Us</button>
+                 </Link>
+              </>
+            )}
             </ul>
             
-            <button className="hidden h-10 px-6 text-sm text-white rounded bg-NavBlue hover:bg-blue-700 hover:text-primary md:block">Join Us</button>
-         
+           
 
           
             {showButton && !isMenuOpen && // Render the button only when showButton is true and isMenuOpen is false
@@ -63,7 +113,7 @@ const Navbar = () => {
                 <RiMenu4Line />
               </button>
             }
-           
+          
 
         </div>
       </nav>

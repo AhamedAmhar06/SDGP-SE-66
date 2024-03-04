@@ -7,6 +7,7 @@ import {
   FaInstagram,
   FaTwitterSquare,
 } from 'react-icons/fa';
+import { Link } from 'react-router-dom';
 
 const Footer = () => {
   return (
@@ -26,8 +27,8 @@ and fellow graduates across the nation with CampusKuppi and start learning/tutor
       <div className='lg:col-span-2 flex justify-between mt-6'>
     <div>
         <h6 className='font-medium text-gray-400'>Quick Links</h6>
-        <ul>
-            <li className='py-2 text-sm'>Home</li>
+        <ul >
+            <li className='py-2 text-sm'><Link to={'/'}>Home</Link></li>
             <li className='py-2 text-sm'>AboutUs</li>
             <li className='py-2 text-sm'>Sessions</li>
             <li className='py-2 text-sm'>Tutors</li>

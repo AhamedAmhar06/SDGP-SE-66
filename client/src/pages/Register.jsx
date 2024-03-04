@@ -8,6 +8,7 @@ function Register() {
   
   const navigate = useNavigate()
 
+  //UseState for form data
   const [formData, setFormData] = useState({
     fName: "",
     lName: "",
@@ -18,17 +19,20 @@ function Register() {
     confirmPassword: "",
   });
 
-  // const handleChange = (e) => {
-  //   const { name, value, type, checked } = e.target;
-  //   setFormData((prevData) => ({
-  //     ...prevData,
-  //     [name]: type === "checkbox" ? checked : value,
-  //   }));
-  // };
+  //UseState for OTP
+  const [otpData, setOtpData] = useState({
+    userEmail: "",
+    serverOTP: "",
+    userOTP: "",
+    otpGenerated: false,
+    verified: false
+  });
 
+  //Register user
   const registerUser = async (e) => {
     e.preventDefault();
     const { fName, lName, email, university, studyLevel, password, confirmPassword } = formData;
+    const { verified } = otpData;
     try {
       const {data} = await axios.post('/register', {
         fName,
@@ -39,20 +43,73 @@ function Register() {
         password,
         confirmPassword
       })
+
+      if(!verified) {
+        return toast.error('Email not verified')
+      }
       if(data.error) {
         toast.error(data.error)
       } else {
         setFormData({})
         toast.success('Login Successfull. Welcome!')
-        navigate('/')
+        navigate('/login')
       }
     } catch (error) {
       console.log(error);
     }
     
     // console.log("Form submitted:", formData);
-
   };
+
+  //Generate OTP code
+  const generateOTP = async (e) => {
+    e.preventDefault();
+    const {userEmail, serverOTP} = otpData;
+    const { fName, lName, email } = formData;
+
+    //Check if email and names are entered
+    if (!fName || !lName || !email) {
+      return toast.error('First Name, Last Name and Email are required')
+    }
+    // Check if serverOTP is already generated
+    if (!otpData.serverOTP) {
+      const serverOTP = `${Math.floor(100000 + Math.random() * 900000)}`;
+      setOtpData({...otpData, serverOTP: serverOTP, otpGenerated: true});
+      console.log("Email:", userEmail);
+        console.log("OTP generated:", serverOTP);
+    
+      try {
+        const {data} = await axios.post('/otpMail', {
+          userEmail,
+          serverOTP,
+          fName,
+          lName
+        });
+        
+        if(data.error) {
+          toast.error(data.error)
+        } else {
+          toast.success('OTP sent to your email')
+        }
+      } catch (error) {
+          console.log(error);
+      }
+    }}
+    
+
+  const verifyOTP = async (e) => {
+    e.preventDefault();
+    const {serverOTP, userOTP, verified} = otpData;
+    if(!serverOTP) {
+      return toast.error('OTP not requested')
+    }
+    if (serverOTP === userOTP) {
+      toast.success('Email verified')
+      setOtpData({...otpData, verified: true});
+    } else {
+      toast.error('Email not verified')
+    }
+  }
 
   return (
     <section className="bg-gray-50 min-h-screen flex items-center justify-center">
@@ -68,11 +125,11 @@ function Register() {
           <h2 className="font-bold text-2xl text-NavBlue">Register</h2>
           <p className="text-xs mt-4 text-NavBlue">Registered already? </p>
           {/* Login Button */}
-          <button className="text-NavBlue" onClick={() => console.log("Navigate to login page")}>
+          <button className="text-NavBlue" onClick={(e) => navigate('/login')}>
             Login
           </button>
 
-          <form onSubmit={registerUser} className="flex flex-col gap-4">
+          <form className="flex flex-col gap-4">
             <input
               className="p-2 rounded-xl border"
               type="text"
@@ -99,10 +156,38 @@ function Register() {
               id="email"
               name="email"
               value={formData.email}
-              onChange={(e) => setFormData({...formData, email: e.target.value})}
-              placeholder="Email"
-              // required
+              onChange={(e) => {
+                setFormData({...formData, email: e.target.value})
+                setOtpData({...otpData, userEmail: e.target.value})
+              }}
+              placeholder="Email" 
+              disabled={otpData.otpGenerated}
             />
+
+            <button className={`bg-NavBlue rounded-xl text-white py-2 hover:scale-105 duration-300 ${otpData.otpGenerated && "bg-gray-300 pointer-events-none"}`}
+              disabled={otpData.otpGenerated}
+             onClick={generateOTP}>
+              Generate OTP
+            </button>
+
+            <input
+              className="p-2 rounded-xl border"
+              type="text"
+              id="userOTP"
+              name="userOTP"
+              value={otpData.userOTP}
+              onChange={(e) => {
+                setOtpData({...otpData, userOTP: e.target.value})
+              }}
+              placeholder="OTP" 
+              disabled={otpData.verified}
+            />
+
+            <button className={`bg-NavBlue rounded-xl text-white py-2 hover:scale-105 duration-300 ${otpData.verified && "bg-gray-300 pointer-events-none"}`}
+              onClick={verifyOTP}>
+              Verify OTP
+            </button>
+
             <input
               className="p-2 rounded-xl border"
               type="text"
@@ -131,7 +216,6 @@ function Register() {
               value={formData.password}
               onChange={(e) => setFormData({...formData, password: e.target.value})}
               placeholder="Password"
-              // required
             />
             <input
               className="p-2 rounded-xl border"
@@ -141,11 +225,10 @@ function Register() {
               value={formData.confirmPassword}
               onChange={(e) => setFormData({...formData, confirmPassword: e.target.value})}
               placeholder="Confirm Password"
-              // required
             />
           
            {/* Register Button */}
-           <button className="bg-NavBlue rounded-xl text-white py-2 hover:scale-105 duration-300" type="submit">
+           <button className="bg-NavBlue rounded-xl text-white py-2 hover:scale-105 duration-300" type="submit" onClick={registerUser}>
               Register
             </button>
           </form>

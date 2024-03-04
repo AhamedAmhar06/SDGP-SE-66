@@ -1,10 +1,15 @@
 const Undergrad = require('../models/undergrad');
 const { hashPassword, comparePassword } = require('../helpers/auth');
 const jwt = require('jsonwebtoken');
+const nodemailer = require('nodemailer');
+const Mailgen = require('mailgen');
+const { EMAIL, PASSWORD } = process.env;
+
 
 const test = (req, res) => {
-    res.json('test is working')
-} 
+    const otp = `${Math.floor(100000 + Math.random() * 900000)}`
+    res.json({otp})
+}
 
 const registerUser = async (req, res) => {
     try {
@@ -72,10 +77,25 @@ const registerUser = async (req, res) => {
     }
 };
 
+
 //login user
 const loginUser = async (req, res) => {
     try{
         const { email, password } = req.body;
+
+        //Check if email and password are entered
+        if (!email || !password) {
+            return res.json({
+                error: 'Email and password are required'
+            })
+        };
+
+        //Check if password lenght is correct
+        if (password.length < 6) {
+            return res.json({
+                error: 'Password must be at least 6 characters long'
+            })
+        };
 
         //Check if user exists
         const user = await Undergrad.findOne({email});
@@ -126,9 +146,57 @@ const getProfile = (req, res) => {
     }
 }
 
+//Logout user
+const logout = async (req, res) => {
+    try {
+        //Clear cookie
+        res.clearCookie('token');
+        res.json('Logged out');
+    } catch (error) {
+        console.log(error);
+        res.json('Error logging out');
+    }
+}
+
+//Reset password
+const resetPassword = async (req, res) => {
+    try {
+        const { userEmail, password } = req.body;
+
+        console.log(userEmail, password);
+
+        //Check if email is valid
+        const user = await Undergrad.findOne({ email: userEmail });
+        // if (!user) {
+        //     return res.json({
+        //         error: 'Email not found'
+        //     })
+        // };
+
+        //Check if password has been entered with correct length
+        if (password.length < 6) {
+            return res.json({
+                error: 'Password must be at least 6 characters long'
+            })
+        };
+
+        const hashedPassword = await hashPassword(password);
+
+        //Update password
+        user.password = hashedPassword;
+        user.save(); 
+        return res.json(user);
+
+    } catch (error) {
+        console.log(error);
+    }
+}
+
 module.exports = {
     test,
     registerUser,
     loginUser,
-    getProfile
+    getProfile,
+    logout,
+    resetPassword
 }
