@@ -4,7 +4,7 @@ const cors = require('cors');
 const{mongoose} = require('mongoose');
 const app = express();
 const cookieParser = require('cookie-parser');
-
+const questionRoutes = require('./routes/questionRoutes'); 
 //Connecting database
 mongoose.connect(process.env.MONGO_URL)
 .then(() => console.log('Database connected'))
@@ -12,6 +12,7 @@ mongoose.connect(process.env.MONGO_URL)
 
 //middleware
 app.use(express.json());
+app.use('/api', questionRoutes);
 app.use(cookieParser());
 app.use(express.urlencoded({extended: false}));
 
