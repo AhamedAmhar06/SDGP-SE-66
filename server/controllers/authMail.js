@@ -1,4 +1,5 @@
 const Undergrad = require('../models/undergrad');
+const Tutor = require('../models/tutor');
 // const { hashPassword, comparePassword } = require('../helpers/auth');
 // const jwt = require('jsonwebtoken');
 const nodemailer = require('nodemailer');
@@ -86,9 +87,9 @@ const sendCode = async (req, res) => {
     try {
         const { userEmail, serverOTP } = req.body;
 
-        // const email = userEmail;
+        const email = userEmail;
 
-        const exist = await Undergrad.findOne({ email : userEmail});
+        const exist = await Undergrad.findOne({ email });
 
         console.log(userEmail, serverOTP);
 
@@ -158,6 +159,100 @@ const sendCode = async (req, res) => {
     }
 }
 
+//Generate OTP for the tutor registration
+const tutorRegisterOTP = async (req, res) => {
+    // const { fName, lName, email, university, studyLevel, password, confirmPassword } = req.body;
+    const { email, serverOTP } = req.body;
+    
+    try {
+        
+        if (!email) {
+            return res.json({
+                error: 'Email is required'
+            })
+        };
+        console.log(email, serverOTP);
+        const undergrad = await Undergrad.findOne({ email });
+        
+        if (!undergrad) {
+            return res.json({
+                error: 'Register as an Undergraduate first'
+            })
+        };
+
+        if(undergrad){
+            const tutor = await Tutor.findOne({ email });
+            if (tutor) {
+                return res.json({
+                    error: 'Already registered as a tutor'
+                })
+            };
+        }
+       
+        const fName = undergrad.fName;
+        const lName = undergrad.lName;
+
+        // Configure transporter for Gmail
+        const transporter = nodemailer.createTransport({
+            service: 'gmail',
+            auth: {
+                user: EMAIL,
+                pass: PASSWORD
+            }
+        });
+
+        // Create Mailgen instance and generate email content
+        const MailGenerator = new Mailgen({
+            theme: 'cerberus',
+            product: {
+                name: 'UndergradUpLift',
+                link: 'https://www.iit.ac.lk/'
+            }
+        });
+
+        const emailContent = {
+            body: {
+                name: `${fName} ${lName}`,
+                intro: 'Please use the following code to create the Tutor profile. If you did not request a OTP, please ignore this email. Your code is valid for 10 minutes.',
+                action: {
+                    instructions: 'Requested OTP is given below',
+                    button: {
+                        color: '#22BC66',
+                        text: serverOTP
+                    }
+                },
+                outro: 'Need help, or have questions? Just reply to this email, we\'d love to help.'
+            }
+        };
+
+        const mail = MailGenerator.generate(emailContent);
+
+        // Define message object
+        const message = {
+            from: EMAIL,
+            to: email,
+            subject: 'Tutor Registration OTP',
+            html: mail
+        };
+
+        // Send email
+        const info = await transporter.sendMail(message);
+
+        // Log message ID and preview URL for testing
+        console.log('Message ID:', info.messageId);
+        console.log('Preview URL:', nodemailer.getTestMessageUrl(info));
+
+        return res.status(201).json({ message: 'Email sent successfully' });
+        
+        // return res.json({
+        //     message: 'Email verified'
+        // })
+        
+
+    } catch (error) {
+        console.log(error);
+    }
+}
 
 // Send profile
 const getProfileMail = async (req, res) => {
@@ -223,4 +318,5 @@ const getProfileMail = async (req, res) => {
 module.exports = { 
     OTPVerification,
     sendCode, 
+    tutorRegisterOTP
 };
