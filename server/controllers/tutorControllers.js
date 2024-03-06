@@ -72,6 +72,24 @@ const tutorRegister = async (req, res) => {
     }
 }
 
+
+const handleTutorLogin = async (req, res) => {
+    try {
+        const { email } = req.body;
+        // console.log(email);
+
+        //Check whether tutor exists
+        const tutor = await Tutor.findOne({ email });
+        if (!tutor) {
+            return res.json(false)
+        }
+        return res.json(true)
+    } catch (error) {
+        console.log(error);
+    }
+}
+
 module.exports = {
-    tutorRegister
+    tutorRegister,
+    handleTutorLogin
 }

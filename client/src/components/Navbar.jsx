@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import logo from '../Assets/images/Logo-N.png';
 import { RiMenu4Line } from "react-icons/ri";
 import MobileNavbar from './MobileNavbar';
@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom';
 import axios from 'axios';
 import { toast } from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
+import { UndergradContext } from '../context/undergradContext';
 
 function Navbar()  {
   
@@ -13,6 +14,10 @@ function Navbar()  {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [showButton, setShowButton] = useState(false);
   const [auth, setAuth] = useState(false);
+  const {undergrad} = useContext(UndergradContext);
+  const [data, setData] = useState({
+    email: '',
+  });
 
   useEffect(() => {
     // Function to handle window resize event
@@ -35,7 +40,7 @@ function Navbar()  {
   }, []);
 
   useEffect(() => {
-const authStatus = localStorage.getItem('undergrad');
+    const authStatus = localStorage.getItem('undergrad');
     if(authStatus === 'true'){
       setAuth(true);
     }
@@ -47,13 +52,38 @@ const authStatus = localStorage.getItem('undergrad');
       await axios.get('/logout');
       toast.success('Logout Successful');
       localStorage.removeItem('undergrad');
-      // window.location.reload();
       navigate('/login');
+      window.location.reload();
 
     } catch (error) {
       toast.error('An error occurred. Please try again');
     }
   }
+
+  //Check if user is a tutor
+  const handleTutorLogin = async () => {
+    try {
+       let { email } = data;
+      if (undergrad){
+        email = undergrad.email;
+        // console.log(email);
+        const {data} = await axios.post('/tutorLogin', {
+          email
+        });
+        // console.log(data);
+
+        //If user is not a tutor, redirect to tutor register page
+        if(!data){
+          navigate('/tutorRegister');
+        } else {
+          navigate('/tutorDashboard');
+          //Do the local storage thing here
+        }
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <>
@@ -90,6 +120,9 @@ const authStatus = localStorage.getItem('undergrad');
               <>
               <li>
                   <Link to={'/dashboard'} className='menu-item'>Dashboard</Link>
+              </li>
+              <li>
+                  <button onClick={handleTutorLogin} className='menu-item'>Switch to Tutor</button>
               </li>
               <li>
                   <button onClick={logoutUser} className="hidden h-10 px-6 text-sm text-white rounded bg-NavBlue hover:bg-blue-700 hover:text-primary md:block">Logout</button>
