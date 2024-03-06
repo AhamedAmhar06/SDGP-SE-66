@@ -12,7 +12,7 @@ mongoose.connect(process.env.MONGO_URL)
 
 //middleware
 app.use(express.json());
-app.use('/api', questionRoutes);
+app.use('./api/questions', questionRoutes);
 app.use(cookieParser());
 app.use(express.urlencoded({extended: false}));
 
