@@ -6,9 +6,11 @@ const Mailgen = require('mailgen');
 const { EMAIL, PASSWORD } = process.env;
 
 
-const test = (req, res) => {
-    const otp = `${Math.floor(100000 + Math.random() * 900000)}`
-    res.json({otp})
+const test = async(req, res) => {
+    // console.log('Hello');
+    const email = "Check";
+    console.log(email);
+    res.json()
 }
 
 const registerUser = async (req, res) => {

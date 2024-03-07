@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const {Schema} = mongoose;
 
-const undergradSchema = new Schema({
+const tutorSchema = new Schema({
     fName : {
         type: String,
     },
@@ -22,9 +22,20 @@ const undergradSchema = new Schema({
     password : {
         type: String,
     },
-
+    subjects : {
+        type: String,
+    },
+    rating : {
+        type: Number,
+    },
+    reviews : {
+        type: String,
+    },
+    price : {
+        type: Number,
+    },
 });
 
-const Undergrad = mongoose.model('Undergrad', undergradSchema);
+const Tutor = mongoose.model('Tutor', tutorSchema);
 
-module.exports = Undergrad;
+module.exports = Tutor;
