@@ -20,8 +20,6 @@ const tutorRegister = async (req, res) => {
             })
         };
 
-        
-
         //Check if password length is correct
         if (password.length < 6) {
             return res.json({
@@ -89,7 +87,17 @@ const handleTutorLogin = async (req, res) => {
     }
 }
 
+const tutorList = async (req, res) => {
+    try {
+        const tutors = await Tutor.find();
+        return res.json(tutors);
+    } catch (error) {
+        console.log(error);
+    }
+}
+
 module.exports = {
     tutorRegister,
-    handleTutorLogin
+    handleTutorLogin,
+    tutorList
 }
