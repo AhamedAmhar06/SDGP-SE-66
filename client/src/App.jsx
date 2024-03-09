@@ -11,6 +11,8 @@ import Dashboard from './pages/Dashboard';
 import ForgetPassword from './pages/ForgetPassword';
 import TutorRegister from './pages/TutorRegister';
 import TutorDashboard from './pages/TutorDashboard';
+import Tutors from './pages/Tutors';
+import TutorDetails from './pages/TutorDetails';
 import { Toaster } from 'react-hot-toast';
 import { UndergradContextProvider } from './context/undergradContext';
 
@@ -35,7 +37,8 @@ function App () {
           <Route path='/forgetpassword' element={<ForgetPassword/>} />
           <Route path='/tutorRegister' element={<TutorRegister/>} />
           <Route path='/tutorDashboard' element={<TutorDashboard/>} />
-          
+          <Route path='/tutors' element={<Tutors/>} />
+          <Route path='/tutors/:id' element={<TutorDetails />} />
       </Routes>
 
         <Footer/>

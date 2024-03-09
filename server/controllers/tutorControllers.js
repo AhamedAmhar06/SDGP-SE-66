@@ -9,9 +9,9 @@ const { EMAIL, PASSWORD } = process.env;
 //Create tutor account
 const tutorRegister = async (req, res) => {
     try {
-        const { email, password } = req.body;
+        const { email, password, subjects } = req.body;
 
-        console.log(email, password);
+        // console.log(email, password, subjects);
 
         //Check if password are entered
         if (!password) {
@@ -19,8 +19,6 @@ const tutorRegister = async (req, res) => {
                 error: 'Password is required'
             })
         };
-
-        
 
         //Check if password length is correct
         if (password.length < 6) {
@@ -32,7 +30,7 @@ const tutorRegister = async (req, res) => {
         //Check if user exists
         const undergrad = await Undergrad.findOne({ email });
 
-        console.log(undergrad.password)
+        // console.log(undergrad.password)
 
         //Check if password is correct
         const match = await comparePassword(password, undergrad.password);
@@ -48,7 +46,6 @@ const tutorRegister = async (req, res) => {
             const university = undergrad.university;
             const studyLevel = undergrad.studyLevel;
             const hashedPassword = undergrad.password;
-            const subjects = "None";
             const rating = 0;
             const reviews = "None";
             const price = 0;
@@ -89,7 +86,29 @@ const handleTutorLogin = async (req, res) => {
     }
 }
 
+const tutorList = async (req, res) => {
+    try {
+        const tutors = await Tutor.find();
+        return res.json(tutors);
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+const tutorDetails = async (req, res) => {
+    try {
+        const { id } = req.body;
+        const tutor = await Tutor.findById(id);
+        // console.log(id);
+        return res.json(tutor);
+    } catch (error) {
+        console.log(error);
+    }
+}
+
 module.exports = {
     tutorRegister,
-    handleTutorLogin
+    handleTutorLogin,
+    tutorDetails,
+    tutorList
 }
