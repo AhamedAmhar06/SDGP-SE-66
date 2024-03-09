@@ -23,13 +23,13 @@ const tutorSchema = new Schema({
         type: String,
     },
     subjects : {
-        type: String,
+        type: [String],
     },
     rating : {
-        type: Number,
+        type: mongoose.Decimal128,
     },
     reviews : {
-        type: String,
+        type: [String],
     },
     price : {
         type: Number,
