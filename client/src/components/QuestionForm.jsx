@@ -10,11 +10,12 @@ const QuestionForm = () => {
   const [correctAnswer, setCorrectAnswer] = useState('');
   const [category, setCategory] = useState('');
   const [newCategory, setNewCategory] = useState('');
+  const [categories, setCategories] = useState(['java', 'python', 'javascript', 'New Category']); // Add your categories here
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const finalCategory = newCategory || category;
+    const finalCategory = category === 'New Category' ? newCategory : category;
 
     try {
       await axios.post('http://localhost:8000/questions', {
@@ -66,13 +67,16 @@ const QuestionForm = () => {
           <label htmlFor="category">Category:</label>
           <select id="category" value={category} onChange={(e) => setCategory(e.target.value)} required>
             <option value="">Select...</option>
-            <option value="java">java</option>
-            <option value="python">python</option>
-            <option value="javascript">javascript</option>
-            // Add more categories as needed
+            {categories.map((category, index) => (
+              <option key={index} value={category}>{category}</option>
+            ))}
           </select>
-          <label htmlFor="newCategory">New Category:</label>
-          <input type="text" id="newCategory" value={newCategory} onChange={(e) => setNewCategory(e.target.value)} />
+          {category === 'New Category' && (
+            <>
+              <label htmlFor="newCategory">New Category:</label>
+              <input type="text" id="newCategory" value={newCategory} onChange={(e) => setNewCategory(e.target.value)} required />
+            </>
+          )}
         </div>
         <button type="submit">Submit</button>
       </form>

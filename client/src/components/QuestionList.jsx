@@ -7,6 +7,7 @@ const QuestionList = () => {
   const [questions, setQuestions] = useState([]);
   const [editingId, setEditingId] = useState(null);
   const [editingValue, setEditingValue] = useState({});
+  const [categories, setCategories] = useState(['Category 1', 'Category 2', 'New Category']); // Add your categories here
 
   useEffect(() => {
     axios.get('http://localhost:8000/questions')
@@ -25,6 +26,14 @@ const QuestionList = () => {
 
   const handleInputChange = (event) => {
     setEditingValue({...editingValue, [event.target.name]: event.target.value});
+  };
+
+  const handleCategoryChange = (event) => {
+    if (event.target.value === 'New Category') {
+      setEditingValue({...editingValue, category: ''});
+    } else {
+      setEditingValue({...editingValue, category: event.target.value});
+    }
   };
 
   const handleSaveClick = async (id) => {
@@ -72,7 +81,18 @@ const QuestionList = () => {
               <td>{editingId === question._id ? <input type="text" name="type" value={editingValue.type || ''} onChange={handleInputChange} /> : question.type}</td>
               <td>{editingId === question._id ? <input type="text" name="answers" value={editingValue.answers || ''} onChange={handleInputChange} /> : question.answers.join(', ')}</td>
               <td>{editingId === question._id ? <input type="text" name="correctAnswer" value={editingValue.correctAnswer || ''} onChange={handleInputChange} /> : question.correctAnswer}</td>
-              <td>{editingId === question._id ? <input type="text" name="category" value={editingValue.category || ''} onChange={handleInputChange} /> : question.category}</td>
+              <td>
+                {editingId === question._id ? (
+                  <>
+                    <select name="category" value={editingValue.category || ''} onChange={handleCategoryChange}>
+                      {categories.map((category, index) => (
+                        <option key={index} value={category}>{category}</option>
+                      ))}
+                    </select>
+                    {editingValue.category === '' && <input type="text" name="category" value={editingValue.category || ''} onChange={handleInputChange} />}
+                  </>
+                ) : question.category}
+              </td>
               <td>
                 {editingId === question._id ? (
                   <button onClick={() => handleSaveClick(question._id)}>Save</button>

@@ -1,3 +1,5 @@
+// Question.js
+
 const mongoose = require('mongoose');
 
 const questionSchema = new mongoose.Schema({
@@ -19,8 +21,7 @@ const questionSchema = new mongoose.Schema({
     required: true
   },
   category: {
-    type: String,
-    enum: ['python', 'java', 'javascript'], // dropdown for category
+    type: String, // removed enum constraint
     required: true
   }
 });
