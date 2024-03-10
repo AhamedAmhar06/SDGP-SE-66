@@ -73,7 +73,7 @@ const authStatus = localStorage.getItem('undergrad');
                   <Link to='/' className='menu-item'> Home </Link>
                 </li>
                 <li>
-                    <Link to='/about' className='menu-item'> About Us </Link>
+                   <Link to='/AboutUs' className='menu-item'> About Us </Link>
                 </li>
                 <li>
                     <a className="menu-item">Tutors</a>

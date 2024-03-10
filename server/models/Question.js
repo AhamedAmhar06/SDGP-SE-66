@@ -1,18 +1,22 @@
+// models/Question.js
+
 const mongoose = require('mongoose');
 
 const questionSchema = new mongoose.Schema({
-  title: {
+  question: {
     type: String,
     required: true
   },
-  description: {
+  answer: {
     type: String,
     required: true
   },
-  createdBy: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'Undergrad' //check model name Undergad
+  difficulty: {
+    type: String,
+    required: true
   }
 });
 
-module.exports = mongoose.model('Question', questionSchema);
+const Question = mongoose.model('Question', questionSchema);
+
+module.exports = Question;

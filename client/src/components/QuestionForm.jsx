@@ -1,28 +1,50 @@
 // src/components/QuestionForm.js
+
 import React, { useState } from 'react';
-import { addQuestion } from '../services/questionService.jsx';
+import axios from 'axios';
 
 const QuestionForm = () => {
-  const [formData, setFormData] = useState({ title: '', description: '' });
+  const [question, setQuestion] = useState('');
+  const [answer, setAnswer] = useState('');
+  const [difficulty, setDifficulty] = useState('');
 
-  const handleChange = e => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
-  };
-
-  const handleSubmit = async e => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    const createdBy = 'Undergrad'; // Change to the actual user Id
-    await addQuestion({ ...formData, createdBy });
-    setFormData({ title: '', description: '' });
+
+    try {
+      await axios.post('http://localhost:3000/questions', {
+        question,
+        answer,
+        difficulty
+      });
+      alert('Question submitted successfully!');
+      // Clear form fields after submission
+      setQuestion('');
+      setAnswer('');
+      setDifficulty('');
+    } catch (error) {
+      console.error('Error submitting question:', error);
+      alert('Failed to submit question. Please try again.');
+    }
   };
 
   return (
     <div>
-      <h2>Add Question</h2>
+      <h2>Post a Question</h2>
       <form onSubmit={handleSubmit}>
-        <input type="text" name="title" value={formData.title} onChange={handleChange} placeholder="Title" />
-        <textarea name="description" value={formData.description} onChange={handleChange} placeholder="Description" />
-        <button type="submit">Add Question</button>
+        <div>
+          <label htmlFor="question">Question:</label>
+          <textarea id="question" value={question} onChange={(e) => setQuestion(e.target.value)} required />
+        </div>
+        <div>
+          <label htmlFor="answer">Answer:</label>
+          <input type="text" id="answer" value={answer} onChange={(e) => setAnswer(e.target.value)} required />
+        </div>
+        <div>
+          <label htmlFor="difficulty">Difficulty:</label>
+          <input type="text" id="difficulty" value={difficulty} onChange={(e) => setDifficulty(e.target.value)} required />
+        </div>
+        <button type="submit">Submit</button>
       </form>
     </div>
   );
