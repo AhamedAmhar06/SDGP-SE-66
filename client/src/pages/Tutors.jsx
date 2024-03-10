@@ -45,21 +45,19 @@ export default function Tutors() {
             <ul>
                 {tutors.map(tutor => (
                     <li key={tutor._id} className="md:flex bg-slate-100 rounded-xl p-8 md:p-1 dark:bg-gray-300">
-                      <Link to={`/tutors/${tutor._id}`}>
-                        <div className="pt-6 md:p-8 text-center md:text-left space-y-4">
-                          <p className="text-lg font-medium">
-                            {tutor.fName} {tutor.lName}
-                            <br />
-                            <span className="text-slate-700 dark:text-slate-500 text-sm">
-                              {tutor.university}
-                            </span>
-                            <br />
-                            Subjects : {tutor.subjects.join(', ')}
-                          </p>
-                          Rating : {generateStars(tutor.rating)}
+                      <Link to={`/tutors/${tutor._id}`} className="pt-6 md:p-8 text-center md:text-left space-y-4">
+                       
+                        <p className="text-lg font-medium">
+                          {tutor.fName} {tutor.lName}
                           <br />
-                          
-                        </div>
+                          <span className="text-slate-700 dark:text-slate-500 text-sm">
+                            {tutor.university}
+                          </span>
+                          <br />
+                          Subjects : {tutor.subjects.join(', ')}
+                        </p>
+                        Rating : {generateStars(tutor.rating)}
+                        
                       </Link>
                     </li>
                 ))}
