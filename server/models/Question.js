@@ -1,5 +1,3 @@
-// models/Question.js
-
 const mongoose = require('mongoose');
 
 const questionSchema = new mongoose.Schema({
@@ -7,12 +5,22 @@ const questionSchema = new mongoose.Schema({
     type: String,
     required: true
   },
-  answer: {
+  type: {
+    type: String,
+    enum: ['multiple_choice', 'open_ended'], // dropdown for type
+    required: true
+  },
+  answers: [{
+    type: String,
+    required: function() { return this.type === 'multiple_choice'; } // 4 answers if multiple_choice, 1 answer if open_ended
+  }],
+  correctAnswer: {
     type: String,
     required: true
   },
-  difficulty: {
+  category: {
     type: String,
+    enum: ['python', 'java', 'javascript'], // dropdown for category
     required: true
   }
 });

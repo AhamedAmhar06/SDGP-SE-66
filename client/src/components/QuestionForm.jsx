@@ -5,23 +5,33 @@ import axios from 'axios';
 
 const QuestionForm = () => {
   const [question, setQuestion] = useState('');
-  const [answer, setAnswer] = useState('');
-  const [difficulty, setDifficulty] = useState('');
+  const [type, setType] = useState('');
+  const [answers, setAnswers] = useState(['']);
+  const [correctAnswer, setCorrectAnswer] = useState('');
+  const [category, setCategory] = useState('');
+  const [newCategory, setNewCategory] = useState('');
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    const finalCategory = newCategory || category;
+
     try {
       await axios.post('http://localhost:8000/questions', {
         question,
-        answer,
-        difficulty
+        type,
+        answers,
+        correctAnswer,
+        category: finalCategory
       });
       alert('Question submitted successfully!');
       // Clear form fields after submission
       setQuestion('');
-      setAnswer('');
-      setDifficulty('');
+      setType('');
+      setAnswers(['']);
+      setCorrectAnswer('');
+      setCategory('');
+      setNewCategory('');
     } catch (error) {
       console.error('Error submitting question:', error);
       alert('Failed to submit question. Please try again.');
@@ -37,12 +47,32 @@ const QuestionForm = () => {
           <textarea id="question" value={question} onChange={(e) => setQuestion(e.target.value)} required />
         </div>
         <div>
-          <label htmlFor="answer">Answer:</label>
-          <input type="text" id="answer" value={answer} onChange={(e) => setAnswer(e.target.value)} required />
+          <label htmlFor="type">Type:</label>
+          <select id="type" value={type} onChange={(e) => setType(e.target.value)} required>
+            <option value="">Select...</option>
+            <option value="open_ended">Open Ended</option>
+            <option value="multiple_choice">Multiple Choice</option>
+          </select>
         </div>
         <div>
-          <label htmlFor="difficulty">Difficulty:</label>
-          <input type="text" id="difficulty" value={difficulty} onChange={(e) => setDifficulty(e.target.value)} required />
+          <label htmlFor="answers">Answers:</label>
+          <textarea id="answers" value={answers.join('\n')} onChange={(e) => setAnswers(e.target.value.split('\n'))} required />
+        </div>
+        <div>
+          <label htmlFor="correctAnswer">Correct Answer:</label>
+          <input type="text" id="correctAnswer" value={correctAnswer} onChange={(e) => setCorrectAnswer(e.target.value)} required />
+        </div>
+        <div>
+          <label htmlFor="category">Category:</label>
+          <select id="category" value={category} onChange={(e) => setCategory(e.target.value)} required>
+            <option value="">Select...</option>
+            <option value="java">java</option>
+            <option value="python">python</option>
+            <option value="javascript">javascript</option>
+            // Add more categories as needed
+          </select>
+          <label htmlFor="newCategory">New Category:</label>
+          <input type="text" id="newCategory" value={newCategory} onChange={(e) => setNewCategory(e.target.value)} />
         </div>
         <button type="submit">Submit</button>
       </form>
