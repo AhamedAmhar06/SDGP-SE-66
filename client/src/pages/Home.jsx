@@ -1,6 +1,15 @@
 
+import React, { useState, useEffect } from 'react';
+import Slider from 'react-slick';
+import 'slick-carousel/slick/slick.css';
+import 'slick-carousel/slick/slick-theme.css';
+import Box from '@mui/material/Box';
+import Rating from '@mui/material/Rating';
+import Typography from '@mui/material/Typography';
+import PersonIcon from '@mui/icons-material/Person';
+import TimeFilledIcon from '@mui/icons-material/AccessTimeFilled';
+import { RiNumber1, RiNumber2, RiNumber3, RiNumber4 } from "react-icons/ri";
 
-import React, { useState } from 'react';
 import headerImg from "../Assets/images/header-img.png";
 import contactimg from "../Assets/images/grad-img.png";
 import becomeatutor from "../Assets/images/become a tutor.png";
@@ -25,22 +34,11 @@ import number3 from "../Assets/images/3.png";
 import number4 from "../Assets/images/4.png";
 import backgroundslider from "../Assets/images/imgsliderbackground.png"
 
-//sliders andy
-import Slider from 'react-slick';
-import 'slick-carousel/slick/slick.css';
-import 'slick-carousel/slick/slick-theme.css';
-
-import Box from '@mui/material/Box';
-import Rating from '@mui/material/Rating';
-import Typography from '@mui/material/Typography';
-import PersonIcon from '@mui/icons-material/Person';
-import TimeFilledIcon from '@mui/icons-material/AccessTimeFilled';
-
-
 const Home = () => {
   const [value, setValue] = useState(0);
+
   const imageStyle = {
-    width: '60%',  
+    width: '60%',
     height: '50%',
     marginBottom: '10px',
   };
@@ -54,49 +52,103 @@ const Home = () => {
     transition: 'box-shadow 0.3s ease',
   };
 
-  /* <img
-    src={communitymf}
-    alt='Communities Image'
-    style={{
-      width: '40%',
-      height: '40%',
-      objectFit: 'cover',
-      borderRadius: '8px',
-      position: 'absolute',
-      top: '35%', 
-      left: '50%', 
-      transform: 'translate(-50%, -50%)', 
-    }} */
-    const smallIconStyle = {
-      width: '50%',
-      height: '50%',
-      objectFit: 'cover',
-      position: 'absolute',
-      borderRadius: '4%', 
-      clipPath: 'circle(100%)', 
-      transition: 'box-shadow 0.3s ease, transform 0.3s ease',
-      bottom: '19%',
-      left: '25%',
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'center',
-      transform: 'scale(1)',
-    };
+  const smallIconStyle = {
+    width: '50%',
+    height: '50%',
+    objectFit: 'cover',
+    position: 'absolute',
+    borderRadius: '4%',
+    clipPath: 'circle(100%)',
+    transition: 'box-shadow 0.3s ease, transform 0.3s ease',
+    bottom: '19%',
+    left: '25%',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    transform: 'scale(1)',
+  };
 
   const imageZoomStyle = {
-    width: '96%',  
+    width: '96%',
     height: '90%',
     marginBottom: '10px',
     borderRadius: '40px',
-    transition: 'transform 0.3s ease'
+    transition: 'transform 0.3s ease',
   }
 
- 
+  const rectangleStyle = {
+    width: '90%',
+    height: '30px',
+    backgroundColor: '#FFFFFF',
+    borderRadius: '20px',
+    position: 'absolute',
+    top: '10%',
+    transform: 'translateY(-50%)',
+    marginLeft: '15px',
+    border: '2px solid #fff',
+  };
+
+  const sliderContent = [
+    {
+      topic: '3.Risini Bolgoda',
+      text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud',
+      color: '#3498db',
+    },
+    {
+      topic: '2.Risini Bolgoda',
+      text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud',
+      color: '#3498db',
+    },
+    {
+      topic: '1.Risini Bolgoda',
+      text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud',
+      color: '#3498db',
+    },
+  ];
+
+  const boxStyle = {
+    width: '65%',
+    height: '400px',
+    margin: '0 auto',
+    overflow: 'hidden',
+  };
+
+  const [ratings, setRatings] = useState(Array(sliderContent.length).fill(0));
+
+  const handleRatingChange = (index, newValue) => {
+    setRatings((prevRatings) => {
+      const newRatings = [...prevRatings];
+      newRatings[index] = newValue;
+      return newRatings;
+    });
+  };
+
+  const sliderSettings = {
+    dots: true,
+    infinite: true,
+    speed: 500,
+    slidesToShow: 3,
+    slidesToScroll: 1,
+  };
+
+  const whiteBoxStyle = {
+    position: 'absolute',
+    bottom: 0,
+    left: 0,
+    width: '100%',
+    height: '65%',
+    backgroundColor: '#fff',
+    padding: '20px',
+    boxSizing: 'border-box',
+    borderRadius: '20px',
+    border: '2px solid #3498db',
+  };
+
   // State for FAQ sections
   const [isMinimized1, setIsMinimized1] = useState(false);
   const [isMinimized2, setIsMinimized2] = useState(false);
   const [isMinimized3, setIsMinimized3] = useState(false);
-  const [isMinimized4, setIsMinimized4] = useState(false); // Added state for isMinimized4
+  const [isMinimized4, setIsMinimized4] = useState(false);
 
   // Function to toggle FAQ section minimize/maximize
   const toggleMinimize = (section) => {
@@ -111,92 +163,20 @@ const Home = () => {
         setIsMinimized3(!isMinimized3);
         break;
       case 4:
-        setIsMinimized4(!isMinimized4); 
+        setIsMinimized4(!isMinimized4);
         break;
       default:
         break;
     }
   };
 
-  
-  const rectangleStyle = {
-    width: '90%',
-    height: '30px', //height
-    backgroundColor: '#FFFFFF',
-    borderRadius: '20px', 
-    position: 'absolute',
-    top: '10%', 
-    transform: 'translateY(-50%)', 
-    marginLeft: '15px',
-    border: '2px solid #fff', // thickness 
-
-
-  };
-
-
-
-const sliderContent = [
-  {
-    topic: '3.Risini Bolgoda',
-    text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud',
-    color: '#3498db',
-  },
-  {
-    topic: '2.Risini Bolgoda',
-    text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud',
-    color: '#3498db',
-  },
-  {
-    topic: '1.Risini Bolgoda',
-    text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud',
-    color: '#3498db',
-  },
-];
-
-
-const boxStyle = {
-    width: '65%',
-    height: '400px',
-    margin: '0 auto',
-    overflow: 'hidden',
-  };
-
-
-
-
-
-const [ratings, setRatings] = useState(Array(sliderContent.length).fill(0));
-
-  const handleRatingChange = (index, newValue) => {
-    setRatings((prevRatings) => {
-      const newRatings = [...prevRatings];
-      newRatings[index] = newValue;
-      return newRatings;
-    });
-  };
-
-
-
-const sliderSettings = {
-  dots: true,
-  infinite: true,
-  speed: 500,
-  slidesToShow: 3,
-  slidesToScroll: 1,
-};
-const whiteBoxStyle = {
-  position: 'absolute',
-  bottom: 0,
-  left: 0,
-  width: '100%',
-  height: '65%', //=height of the white box
-  backgroundColor: '#fff',
-  padding: '20px',
-  boxSizing: 'border-box',
-  borderRadius: '20px', 
-  border: '2px solid #3498db',
-};
-
+  useEffect(() => {
+    // Close the FAQ sections when the component mounts
+    setIsMinimized1(true);
+    setIsMinimized2(true);
+    setIsMinimized3(true);
+    setIsMinimized4(true);
+  }, []);
 
   
 
@@ -360,15 +340,20 @@ const whiteBoxStyle = {
         </div>
         <p
           id="text1"
-          className="font-bold text-black"
-          style={{ marginLeft: '10px' }}
+          className=" text-black"
+          style={{ marginLeft: '23px' }}
         >
           Gain access to 100+ tutors
         </p>
       </div>
 
-      {/* Vertical Line 1 */}
-      <div className="absolute top-0 left-1/2 transform -translate-x-1/2 h-20 w-1 bg-blue" style={{ top: '50%', transform: 'translate(-50%, -50%)', marginright:'100px' }}></div>
+      <div style={{ paddingBottom: '60px' }} />
+
+
+
+
+      {/*Line 1 connecting Circle 1 and Circle 2 */}
+      <div className="absolute top-0 left-1/2 transform -translate-x-1/2 h-20 w-1 bg-black" style={{ top: '35%', transform: 'translate(-50%, -50%)', left: '197px' }}></div>
 
       {/* Second Circle */}
       <div
@@ -400,15 +385,19 @@ const whiteBoxStyle = {
         </div>
         <p
           id="text2"
-          className="font-bold text-black"
-          style={{ marginLeft: '10px' }}
+          className="text-black"
+          style={{ marginLeft: '20px' }}
         >
           1000+ members
         </p>
       </div>
 
-      {/* Vertical Line 2 */}
-      <div className="absolute top-0 left-1/2 transform -translate-x-1/2 h-10 w-1 bg-blue" style={{ top: '20%', transform: 'translate(-50%, -50%)', marginright:'20px' }}></div>
+      <div style={{ paddingBottom: '50px' }} />
+
+
+{/* Line 2*/}
+<div className="absolute top-0 left-1/2 transform -translate-x-1/2 h-20 w-1 bg-black" style={{ top: '70%', transform: 'translate(-50%, -50%)', left: '197px' }}></div>
+
 
       {/* Third Circle */}
       <div
@@ -440,25 +429,23 @@ const whiteBoxStyle = {
         </div>
         <p
           id="text3"
-          className="font-bold text-black"
-          style={{ marginLeft: '10px' }}
+          className="text-black"
+          style={{ marginLeft: '23px' }}
         >
           Connect with like-minded people
         </p>
-            </div>
-
-
-            <div className='hidden lg:block absolute top-[-170px] right-16 w-1/2'>
-              <img
-                src={sitting}
-                alt='Why Image'
-                className='object-cover w-90 h-90'
-              />
-            </div>
-          </div>
-        </div>
       </div>
 
+      <div className='hidden lg:block absolute top-[-170px] right-16 w-1/2'>
+        <img
+          src={sitting}
+          alt='Why Image'
+          className='object-cover w-90 h-90'
+        />
+      </div>
+    </div>
+  </div>
+</div>
 
 <div style={{ paddingBottom: '300px' }} />
 
@@ -626,31 +613,40 @@ const whiteBoxStyle = {
           {/* Circle 1 */}
           <div className="relative flex flex-col items-center">
             <div className="w-14 h-14 bg-white-900 rounded-full flex items-center justify-center border-2 border-black mb-2 hover:scale-110 transition-transform">
-              <img src={number1} alt="Image 1" className="w-8 h-8 object-contain rounded-contain" />
+              <RiNumber1 size={24} color="#000" />
             </div>
             <p className="text-gray-700 text-center">Register</p>
           </div>
 
+          {/* Line 1 */}
+          <div className="w-20 border-t border-black mt-[30px]"></div>
+
           {/* Circle 2 */}
           <div className="relative flex flex-col items-center">
             <div className="w-14 h-14 bg-white-900 rounded-full flex items-center justify-center border-2 border-black mb-2 hover:scale-110 transition-transform">
-              <img src={number2} alt="Image 2" className="w-8 h-8 object-contain rounded-contain" />
+              <RiNumber2 size={24} color="#000" />
             </div>
             <p className="text-gray-700 text-center">Choose A Tutor</p>
           </div>
 
+          {/* Line 2 */}
+          <div className="w-20 border-t border-black mt-[30px]"></div>
+
           {/* Circle 3 */}
           <div className="relative flex flex-col items-center">
             <div className="w-14 h-14 bg-white-900 rounded-full flex items-center justify-center border-2 border-black mb-2 hover:scale-110 transition-transform">
-              <img src={number3} alt="Image 3" className="w-8 h-8 object-contain rounded-contain" />
+              <RiNumber3 size={24} color="#000" />
             </div>
             <p className="text-gray-700 text-center">Book A Session</p>
           </div>
 
+          {/* Line 3 */}
+          <div className="w-20 border-t border-black mt-[30px]"></div>
+
           {/* Circle 4 */}
           <div className="relative flex flex-col items-center">
             <div className="w-14 h-14 bg-white-900 rounded-full flex items-center justify-center border-2 border-black mb-2 hover:scale-110 transition-transform">
-              <img src={number4} alt="Image 4" className="w-8 h-8 object-contain rounded-contain" />
+              <RiNumber4 size={24} color="#000" />
             </div>
             <p className="text-gray-700 text-center">Make The Payment</p>
           </div>
@@ -664,6 +660,7 @@ const whiteBoxStyle = {
     )}
   </div>
 </div>
+
 
     {/* How to Become a Tutor part */}
 <div className='bg-gray-100 flex flex-col items-center shadow-lg p-8 rounded-md mx-auto' style={{ border: '2px solid black', borderRadius: '12px', width: '900px', height: 'auto', marginBottom: '40px' }}>
