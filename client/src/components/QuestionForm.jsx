@@ -12,7 +12,7 @@ const QuestionForm = () => {
     e.preventDefault();
 
     try {
-      await axios.post('http://localhost:3000/questions', {
+      await axios.post('http://localhost:8000/questions', {
         question,
         answer,
         difficulty

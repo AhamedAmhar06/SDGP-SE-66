@@ -8,7 +8,7 @@ const QuestionList = () => {
   const [editingId, setEditingId] = useState(null);
 
   useEffect(() => {
-    axios.get('http://localhost:3000/questions')
+    axios.get('http://localhost:8000/questions')
       .then(response => {
         setQuestions(response.data);
       })
@@ -23,10 +23,10 @@ const QuestionList = () => {
 
   const handleSaveClick = async (id, updatedQuestion) => {
     try {
-      await axios.put(`http://localhost:3000/questions/${id}`, updatedQuestion);
+      await axios.put(`http://localhost:8000/questions/${id}`, updatedQuestion);
       setEditingId(null);
       // Refresh the questions after editing
-      const response = await axios.get('http://localhost:3000/questions');
+      const response = await axios.get('http://localhost:8000/questions');
       setQuestions(response.data);
     } catch (error) {
       console.error('Error updating question:', error);
@@ -35,9 +35,9 @@ const QuestionList = () => {
 
   const handleDeleteClick = async (id) => {
     try {
-      await axios.delete(`http://localhost:3000/questions/${id}`);
+      await axios.delete(`http://localhost:8000/questions/${id}`);
       // Refresh the questions after deletion
-      const response = await axios.get('http://localhost:3000/questions');
+      const response = await axios.get('http://localhost:8000/questions');
       setQuestions(response.data);
     } catch (error) {
       console.error('Error deleting question:', error);

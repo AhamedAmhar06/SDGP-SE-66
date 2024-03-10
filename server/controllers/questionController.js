@@ -10,7 +10,7 @@ exports.getAllQuestions = async (req, res) => {
     res.status(500).json({ message: err.message });
   }
 };
-pull
+
 exports.createQuestion = async (req, res) => {
   const question = new Question({
     question: req.body.question,
