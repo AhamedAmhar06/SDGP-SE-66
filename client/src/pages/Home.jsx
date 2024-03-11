@@ -108,9 +108,9 @@ const Home = () => {
 
   const boxStyle = {
     width: '65%',
-    height: '400px',
+    height: '300px',
     margin: '0 auto',
-    overflow: 'hidden',
+    
   };
 
   const [ratings, setRatings] = useState(Array(sliderContent.length).fill(0));
@@ -138,7 +138,7 @@ const Home = () => {
     width: '100%',
     height: '65%',
     backgroundColor: '#fff',
-    padding: '20px',
+    padding: '14px',
     boxSizing: 'border-box',
     borderRadius: '20px',
     border: '2px solid #3498db',
