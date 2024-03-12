@@ -1,4 +1,5 @@
 const Undergrad = require('../models/undergrad');
+const Notification = require('../models/notification');
 const { hashPassword, comparePassword } = require('../helpers/auth');
 const jwt = require('jsonwebtoken');
 const nodemailer = require('nodemailer');
@@ -72,6 +73,13 @@ const registerUser = async (req, res) => {
             password : hashedPassword
         });
 
+        //Create a notification
+        const message = `Welcome to Undergrad UpLift ${fName}!`;
+        const notification = await Notification.create({
+            email,
+            message
+        });
+        
         return res.json(undergrad)
         
     } catch (error) {
