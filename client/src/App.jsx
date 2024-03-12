@@ -4,7 +4,7 @@ import Navbar from './components/Navbar';
 import Login from './pages/Login';
 import Footer from './components/Footer';
 import Register from './pages/Register';
-// import AboutUs from './components/AboutUs'; 
+import AboutUs from './pages/AboutUs'; 
 import axios from 'axios';
 import Home from './pages/Home';
 import Dashboard from './pages/Dashboard';
@@ -32,7 +32,7 @@ function App () {
           <Route path="/" element={<Home />} />
           <Route path='/login' element={<Login/>} />
           <Route path='/register' element={<Register/>} />
-          {/* <Route path='/about' element={<AboutUs/>} /> */}
+          <Route path='/about' element={<AboutUs/>} />
           <Route path='/dashboard' element={<Dashboard/>} />
           <Route path='/forgetpassword' element={<ForgetPassword/>} />
           <Route path='/tutorRegister' element={<TutorRegister/>} />
