@@ -14,7 +14,41 @@ import { UndergradContextProvider } from './context/undergradContext';
 axios.defaults.baseURL = 'http://localhost:8000';
 axios.defaults.withCredentials = true;
 
+
 function App () {
+
+    constructor(props) 
+      super(props);
+  
+      this.state = {
+        posts: [],
+      };
+    }
+  
+    componentDidMount() 
+      this.retrievePosts();
+    
+  
+    // Use axios to retrieve data from the backend. This is the code for the GET request (url/endpoint).
+    retrievePosts() 
+      axios.get('http://localhost:8000/posts')
+        .then((res) => {
+          if (res.data.success) {
+            this.setState({
+              posts: res.data.existingPosts,
+            });
+    
+            console.log(this.state.posts);
+          }
+        })
+        .catch((error) => {
+          console.error('Error retrieving posts:', error.message);
+        });
+    
+    
+  
+    render()
+  
 
   return(
     <UndergradContextProvider>
@@ -35,6 +69,8 @@ function App () {
     </UndergradContextProvider>
     
   )
-}
+
+
+
 
 export default App;

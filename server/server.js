@@ -1,7 +1,7 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
-
+const cors = require('cors');
 // Invoke the application in express
 const app = express();
 
@@ -13,6 +13,9 @@ app.use(bodyParser.json());
 
 // Use the postRoutes with a base URL prefix
 app.use(postRoutes);
+
+// Allow all origins to access your API (you can adjust this based on your needs)
+app.use(cors());
 
 const PORT = 8000;
 const DB_URL = 'mongodb+srv://yashmitha:2004ydilshan@mern.9hdmix8.mongodb.net/merncrud?retryWrites=true&w=majority&appName=mern';
