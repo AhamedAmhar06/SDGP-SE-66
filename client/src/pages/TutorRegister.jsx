@@ -37,11 +37,6 @@ export default function TutorRegister() {
     setSelectedSubjects(selectedSubjects.filter(item => item !== subject))
   }
 
-  const testForm = (e) => {
-    e.preventDefault();
-    console.log(selectedSubjects);
-  }
-
   //Register user
   const registerUser = async (e) => {
     e.preventDefault();
@@ -182,8 +177,7 @@ export default function TutorRegister() {
 
 
             </label>
-            
-            <button onClick={testForm}>Test</button>
+
             <input
               className="p-2 rounded-xl border"
               type="email"
