@@ -7,6 +7,8 @@ import axios from 'axios';
 import { toast } from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
 import { UndergradContext } from '../context/undergradContext';
+import { FaUser } from "react-icons/fa";
+import Dropdown from './Dropdown';
 
 function Navbar()  {
   
@@ -18,6 +20,7 @@ function Navbar()  {
   const [data, setData] = useState({
     email: '',
   });
+  const[openProfile,setOpenProfile]=useState(false);
 
   useEffect(() => {
     // Function to handle window resize event
@@ -47,43 +50,43 @@ function Navbar()  {
   });
 
   //Logout button logic
-  const logoutUser = async () => {
-    try{
-      await axios.get('/logout');
-      toast.success('Logout Successful');
-      localStorage.removeItem('undergrad');
-      navigate('/login');
-      window.location.reload();
+  // const logoutUser = async () => {
+  //   try{
+  //     await axios.get('/logout');
+  //     toast.success('Logout Successful');
+  //     localStorage.removeItem('undergrad');
+  //     navigate('/login');
+  //     window.location.reload();
 
-    } catch (error) {
-      toast.error('An error occurred. Please try again');
-    }
-  }
+  //   } catch (error) {
+  //     toast.error('An error occurred. Please try again');
+  //   }
+  // }
 
   //Check if user is a tutor
-  const handleTutorLogin = async () => {
-    try {
-       let { email } = data;
-      if (undergrad){
-        email = undergrad.email;
-        // console.log(email);
-        const {data} = await axios.post('/tutorLogin', {
-          email
-        });
+  // const handleTutorLogin = async () => {
+  //   try {
+  //      let { email } = data;
+  //     if (undergrad){
+  //       email = undergrad.email;
+  //       // console.log(email);
+  //       const {data} = await axios.post('/tutorLogin', {
+  //         email
+  //       });
         // console.log(data);
 
         //If user is not a tutor, redirect to tutor register page
-        if(!data){
-          navigate('/tutorRegister');
-        } else {
-          navigate('/tutorDashboard');
+        // if(!data){
+        //   navigate('/tutorRegister');
+        // } else {
+        //   navigate('/tutorDashboard');
           //Do the local storage thing here
-        }
-      }
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  //       }
+  //     }
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // };
 
   return (
     <>
@@ -114,11 +117,23 @@ function Navbar()  {
                 <li>
                     <a className ="menu-item">Question Bank</a>
                 </li>
-            
+                
+                             
+             
 
-            {auth ? (
+             {auth ? (
+
               <>
               <li>
+                    <a className ="text-2xl menu-item" onClick={()=> setOpenProfile((prev)=>!prev)}><FaUser /></a>
+
+                    
+                   
+                </li>
+              {
+                  openProfile &&  <Dropdown/>
+                }
+              {/* <li>
                   <Link to={'/dashboard'} className='menu-item'>Dashboard</Link>
               </li>
               <li>
@@ -126,7 +141,7 @@ function Navbar()  {
               </li>
               <li>
                   <button onClick={logoutUser} className="hidden h-10 px-6 text-sm text-white rounded bg-NavBlue hover:bg-blue-700 hover:text-primary md:block">Logout</button>
-              </li>
+              </li> */}
               </>
               
             ) : (
@@ -135,7 +150,7 @@ function Navbar()  {
                   <button className="hidden h-10 px-6 text-sm text-white rounded bg-NavBlue hover:bg-blue-700 hover:text-primary md:block">Join Us</button>
                  </Link>
               </>
-            )}
+            )} 
             </ul>
             
            
