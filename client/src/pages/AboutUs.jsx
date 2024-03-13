@@ -75,21 +75,20 @@ function AboutUs() {
     fontWeight: 'bold',
   };
 
-  const paragraphStyle = {
-    position: 'absolute',
-    left: '12%',
-    top: '100%',
-    textAlign: 'left',
-    width: '25%',
-    marginBottom: '20px', 
-  };
-
+ const paragraphStyle = {
+  position: 'absolute',
+  left: '12%',
+  top: screenWidth >= 768 ? '100%' : 'calc(100% + 20px)', 
+  textAlign: 'left',
+  width: '25%',
+  marginBottom: '20px', 
+};
   const rectangleStyle = {
     position: 'absolute',
     left: '22%',
-    top: '190%',
+  top: screenWidth >= 768 ? '190%' : 'calc(100% + 20px)', 
     width: '50%',
-    height: '300px', 
+    height: screenWidth >= 768 ? '300px' : '500px',
     border: '2px solid black',
     backgroundColor: 'white',
     borderRadius: '50px', 

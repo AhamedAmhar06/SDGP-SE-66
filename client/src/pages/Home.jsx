@@ -32,7 +32,10 @@ import number1 from "../Assets/images/1.png";
 import number2 from "../Assets/images/2.png";
 import number3 from "../Assets/images/3.png";
 import number4 from "../Assets/images/4.png";
-import backgroundslider from "../Assets/images/imgsliderbackground.png"
+
+
+import FirstSlider from '../components/FirstSlider'; 
+
 
 const Home = () => {
   const [value, setValue] = useState(0);
@@ -486,63 +489,14 @@ const Home = () => {
 </div>
 
 
- <Slider {...sliderSettings} className='my-10' style={boxStyle}>
-  {sliderContent.map((item, index) => (
-    <div key={index} className="text-center relative">
-      <div style={{ marginRight: index === 0 ? '30px' : '30px', marginBottom: '110px', position: 'relative' }}>
-        {/* Image */}
-        <img
-          src={backgroundslider}
-          alt={`Background ${index}`}
-          style={{ width: '100%', height: '100%', objectFit: 'cover', borderTopLeftRadius: '8px', borderTopRightRadius: '8px' }}
+<div>
+        {/* Render the FirstSlider component */}
+        <FirstSlider
+          sliderContent={sliderContent}
+          ratings={ratings}
+          handleRatingChange={handleRatingChange}
         />
-        {/* White rectangle on top of the image */}
-        <div style={rectangleStyle}></div>
-        {/* White box */}
-        <div style={whiteBoxStyle}>
-          {/* Icon and Rating component on top of the white rectangle */}
-  <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '10px', position: 'absolute', top: '-35%', left: '50%', transform: 'translate(-50%, -50%)' }}>
-    <div style={{ display: 'flex', alignItems: 'center', marginRight: '20px' }}>
-      <PersonIcon style={{ marginBottom: '20px' }} />
-      <TimeFilledIcon style={{ marginLeft: '20px', marginBottom: '20px' }} />
-    </div>
-    <Rating
-  name={`simple-controlled-${index}`}
-  value={ratings[index]}
-  onChange={(event, newValue) => handleRatingChange(index, newValue)}
-  style={{ marginTop: item.styles?.ratingMarginTop || '-20px' }}
-
-/>
-  </div>
-          {/* Content inside the white box */}
-          <div style={{ color: '#000', fontWeight: 'bold', fontFamily: 'Bol', fontSize: '24px', marginBottom: '15px', marginRight: '100px', marginTop: '-20px' }}>
-            {/* Topic */}
-            Figma Basics
-          </div>
-          <p style={{ color: '#000', fontFamily: 'Thin', fontSize: '16px', margin: '-10px 0 10px 0', textAlign: 'left' }}>
-            {/* Paragraph */}
-            A powerful collaborative design tool for creating user interfaces with
-          </p>
-          <div style={{ textDecoration: 'underline', color: 'blue', cursor: 'pointer', marginTop: '8px', marginRight: '140px' }}>
-            {/* Clickable text */}
-            by tutor name
-          </div>
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: '15px', marginRight: '10px' }}>
-            <button style={{ backgroundColor: '#00008B', color: '#fff', padding: '10px', borderRadius: '20px', cursor: 'pointer', marginTop: '-10px' }}>
-              
-              {/* Request a Session button */}
-              Request a Session
-            </button>
-            <div style={{ color: '#3498db', fontFamily: 'Thin', fontSize: '18px' }}>
-              {/* Price */}
-              100LKR
-            </div>
-          </div>
-        </div>
       </div>
-    </div>
-  ))}
-</Slider>
 
 
 
