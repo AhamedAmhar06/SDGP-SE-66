@@ -1,4 +1,4 @@
-// Question.js
+// models/Question.js
 
 const mongoose = require('mongoose');
 
@@ -9,19 +9,17 @@ const questionSchema = new mongoose.Schema({
   },
   type: {
     type: String,
-    enum: ['multiple_choice', 'open_ended'], // dropdown for type
+    enum: ['multiple_choice', 'open_ended'],
     required: true
   },
   answers: [{
-    type: String,
-    required: function() { return this.type === 'multiple_choice'; } // 4 answers if multiple_choice, 1 answer if open_ended
+    type: String
   }],
   correctAnswer: {
-    type: String,
-    required: true
+    type: String
   },
   category: {
-    type: String, // removed enum constraint
+    type: String,
     required: true
   }
 });

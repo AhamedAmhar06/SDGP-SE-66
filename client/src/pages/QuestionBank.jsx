@@ -5,7 +5,7 @@ import QuestionForm from '../components/QuestionForm';
 
 const QuestionBank = () => {
   return (
-    <div>
+    <div className='space-y-6'>
       <h1>Quiz App</h1>
 
       <QuestionForm />

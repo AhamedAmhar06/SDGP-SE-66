@@ -11,22 +11,50 @@ exports.getAllQuestions = async (req, res) => {
   }
 };
 
+// controllers/questionController.js
+
+// controllers/questionController.js
+
+
+
+// controllers/questionController.js
+
 exports.createQuestion = async (req, res) => {
-  const question = new Question({
-    question: req.body.question,
-    type: req.body.type,
-    answers: req.body.answers,
-    correctAnswer: req.body.correctAnswer,
-    category: req.body.category
-  });
+  const { question, type, answers, correctAnswer, category } = req.body;
 
   try {
-    const newQuestion = await question.save();
-    res.status(201).json(newQuestion);
+    let newQuestion;
+
+    if (type === 'open_ended') {
+      newQuestion = new Question({
+        question,
+        type,
+        answers: [question], // For open-ended questions, use the question itself as the answer
+        correctAnswer: correctAnswer, // Store the correct answer if needed
+        category
+      });
+    } else if (type === 'multiple_choice') {
+      newQuestion = new Question({
+        question,
+        type,
+        answers,
+        correctAnswer: answers[correctAnswer], // Store the correct answer for multiple choice
+        category
+      });
+    } else {
+      return res.status(400).json({ message: 'Invalid question type.' });
+    }
+
+    const savedQuestion = await newQuestion.save();
+    res.status(201).json(savedQuestion);
   } catch (err) {
     res.status(400).json({ message: err.message });
   }
 };
+
+
+
+
 
 exports.updateQuestion = async (req, res) => {
   try {

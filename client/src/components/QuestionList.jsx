@@ -7,7 +7,7 @@ const QuestionList = () => {
   const [questions, setQuestions] = useState([]);
   const [editingId, setEditingId] = useState(null);
   const [editingValue, setEditingValue] = useState({});
-  const [categories, setCategories] = useState(['Category 1', 'Category 2', 'New Category']); // Add your categories here
+  const [categories, setCategories] = useState(['Category 1', 'Category 2', 'New Category']);
 
   useEffect(() => {
     axios.get('http://localhost:8000/questions')
@@ -41,7 +41,6 @@ const QuestionList = () => {
       await axios.put(`http://localhost:8000/questions/${id}`, editingValue);
       setEditingId(null);
       setEditingValue({});
-      // Refresh the questions after editing
       const response = await axios.get('http://localhost:8000/questions');
       setQuestions(response.data);
     } catch (error) {
@@ -52,7 +51,6 @@ const QuestionList = () => {
   const handleDeleteClick = async (id) => {
     try {
       await axios.delete(`http://localhost:8000/questions/${id}`);
-      // Refresh the questions after deletion
       const response = await axios.get('http://localhost:8000/questions');
       setQuestions(response.data);
     } catch (error) {
@@ -61,12 +59,12 @@ const QuestionList = () => {
   };
 
   return (
-    <div>
+    <div className='flex-[.33]'>
       <h2>Questions:</h2>
-      <table border="1">
+      <table border="1" className='bg-red-50'>
         <thead>
           <tr>
-            <th>Question</th>
+            <th className='border-b border-black'>Question</th>
             <th>Type</th>
             <th>Answers</th>
             <th>Correct Answer</th>
@@ -78,9 +76,9 @@ const QuestionList = () => {
           {questions.map(question => (
             <tr key={question._id}>
               <td>{editingId === question._id ? <input type="text" name="question" value={editingValue.question || ''} onChange={handleInputChange} /> : question.question}</td>
-              <td>{editingId === question._id ? <input type="text" name="type" value={editingValue.type || ''} onChange={handleInputChange} /> : question.type}</td>
-              <td>{editingId === question._id ? <input type="text" name="answers" value={editingValue.answers || ''} onChange={handleInputChange} /> : question.answers.join(', ')}</td>
-              <td>{editingId === question._id ? <input type="text" name="correctAnswer" value={editingValue.correctAnswer || ''} onChange={handleInputChange} /> : question.correctAnswer}</td>
+              <td>{question.type}</td>
+              <td>{question.type === 'open_ended' ? question.answers[0] : question.answers.join(', ')}</td>
+              <td>{question.correctAnswer}</td>
               <td>
                 {editingId === question._id ? (
                   <>
