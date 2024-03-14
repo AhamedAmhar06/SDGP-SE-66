@@ -1,5 +1,3 @@
-// src/components/QuestionList.js
-
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
@@ -78,11 +76,11 @@ const QuestionList = () => {
               <td>{editingId === question._id ? <input type="text" name="question" value={editingValue.question || ''} onChange={handleInputChange} /> : question.question}</td>
               <td>{question.type}</td>
               <td>{question.type === 'open_ended' ? question.answers[0] : question.answers.join(', ')}</td>
-              <td>{question.correctAnswer}</td>
+              <td>{question.type === 'open_ended' ? question.correctAnswer : question.correctAnswer}</td> {/* Display correct answer for open-ended questions */}
               <td>
                 {editingId === question._id ? (
                   <>
-                    <select name="category" value={editingValue.category || ''} onChange={handleCategoryChange}>
+                    <select name="category" value={editingValue.category || ''} onChange={handleInputChange}>
                       {categories.map((category, index) => (
                         <option key={index} value={category}>{category}</option>
                       ))}

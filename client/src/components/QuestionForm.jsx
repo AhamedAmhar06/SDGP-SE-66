@@ -1,14 +1,12 @@
-// src/components/QuestionForm.js
-
 import React, { useState } from 'react';
 import axios from 'axios';
 
 const QuestionForm = () => {
   const [question, setQuestion] = useState('');
   const [type, setType] = useState('');
-  const [answers, setAnswers] = useState(['', '', '', '']);
-  const [correctAnswerIndex, setCorrectAnswerIndex] = useState(-1); // Index of the correct answer for multiple choice
-  const [openEndedAnswer, setOpenEndedAnswer] = useState(''); // Answer for open-ended questions
+  const [answer, setAnswer] = useState(''); // For open-ended question
+  const [answers, setAnswers] = useState(['', '', '', '']); // For multiple choice
+  const [correctAnswerIndex, setCorrectAnswerIndex] = useState(-1);
   const [category, setCategory] = useState('');
   const [newCategory, setNewCategory] = useState('');
   const [categories, setCategories] = useState(['java', 'python', 'javascript', 'New Category']);
@@ -19,21 +17,33 @@ const QuestionForm = () => {
     const finalCategory = category === 'New Category' ? newCategory : category;
 
     try {
-      const formData = {
-        question,
-        type,
-        answers: type === 'multiple_choice' ? answers : [openEndedAnswer], // For open-ended, use openEndedAnswer
-        correctAnswer: type === 'multiple_choice' ? answers[correctAnswerIndex] : '', // Correct answer based on index
-        category: finalCategory
-      };
+      let formData = {};
+
+      if (type === 'open_ended') {
+        formData = {
+          question,
+          type,
+          answers: [answer], // Use the answer provided by the user
+          correctAnswer: answer, // Automatically set the answer as the correct answer for open-ended questions
+          category: finalCategory
+        };
+      } else if (type === 'multiple_choice') {
+        formData = {
+          question,
+          type,
+          answers,
+          correctAnswer: answers[correctAnswerIndex], // Store the correct answer for multiple choice
+          category: finalCategory
+        };
+      }
 
       await axios.post('http://localhost:8000/questions', formData);
       alert('Question submitted successfully!');
       setQuestion('');
       setType('');
+      setAnswer('');
       setAnswers(['', '', '', '']);
       setCorrectAnswerIndex(-1);
-      setOpenEndedAnswer('');
       setCategory('');
       setNewCategory('');
     } catch (error) {
@@ -61,7 +71,7 @@ const QuestionForm = () => {
         {type === 'open_ended' && (
           <div>
             <label htmlFor="openEndedAnswer">Answer:</label>
-            <input type="text" id="openEndedAnswer" value={openEndedAnswer} onChange={(e) => setOpenEndedAnswer(e.target.value)} required />
+            <input type="text" id="openEndedAnswer" value={answer} onChange={(e) => setAnswer(e.target.value)} required />
           </div>
         )}
         {type === 'multiple_choice' && (
