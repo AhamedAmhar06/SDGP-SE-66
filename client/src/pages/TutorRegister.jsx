@@ -3,6 +3,7 @@ import registerperson from "../Assets/images/registerperson.png";
 import {toast} from 'react-hot-toast'
 import axios from "axios";
 import { useNavigate } from "react-router-dom"
+import { TiDeleteOutline } from "react-icons/ti";
 
 export default function TutorRegister() {
   const navigate = useNavigate();
@@ -28,6 +29,14 @@ export default function TutorRegister() {
     verified: false
   });
 
+  //Selected Subjects
+  const [selectedSubjects, setSelectedSubjects] = useState([]);
+
+  //Remove selected subjects
+  const removeSubject = (subject) => {
+    setSelectedSubjects(selectedSubjects.filter(item => item !== subject))
+  }
+
   //Register user
   const registerUser = async (e) => {
     e.preventDefault();
@@ -38,7 +47,8 @@ export default function TutorRegister() {
 
       const {data} = await axios.post('/tutorRegister', {
         email,
-        password
+        password,
+        subjects: selectedSubjects
       })
 
       if(!emailVerified) {
@@ -132,23 +142,42 @@ export default function TutorRegister() {
             <br />
 
             <label>
-              Choose preferred subjects
+              Choose preferred subjects&nbsp; : &nbsp;
 
-              <select name="" id="">
+              <select name="subjects" 
+                id="subjects"
+                value={selectedSubjects}
+                class="appearance-none rounded-xl pt-2 pb-2 pl-2 pr-2 border border-NavBlue"
+                onChange={(e) => setSelectedSubjects([...selectedSubjects, e.target.value])}
+              >
                 <option value="">Select Option</option>
-                <option value="Java">Java</option>
-                <option value="Python">Python</option>
-                <option value="HTML">HTML</option>
-                <option value="CSS">CSS</option>
-                <option value="Javascript">JavaScript</option>
-                <option value="React">React</option>
-                <option value="React_native">React Native</option>
-                <option value="Kotlin">Kotlin</option>
+                <option value="Java" disabled={selectedSubjects.includes("Java")}>Java</option>
+                <option value="Python" disabled={selectedSubjects.includes("Python")}>Python</option>
+                <option value="HTML" disabled={selectedSubjects.includes("HTML")}>HTML</option>
+                <option value="CSS" disabled={selectedSubjects.includes("CSS")}>CSS</option>
+                <option value="JavaScript" disabled={selectedSubjects.includes("JavaScript")}>JavaScript</option>
+                <option value="React" disabled={selectedSubjects.includes("React")}>React</option>
+                <option value="React-Native" disabled={selectedSubjects.includes("React-Native")}>React-Native</option>
+                <option value="Kotlin" disabled={selectedSubjects.includes("Kotlin")}>Kotlin</option>
                 <option value=""></option>
               </select>
 
+              {/* Display selected subjects */}
+              <div>
+                Selected Subjects &nbsp; :&nbsp;
+                  {selectedSubjects.map((subject, index) => (
+                    <span key={index} className="selected-subject">
+                      {subject}
+                      <span className="remove-icon" onClick={() => removeSubject(subject)}>
+                        &nbsp; X &nbsp; 
+                      </span>
+                    </span>
+                  ))}
+              </div>
+
+
             </label>
-            
+
             <input
               className="p-2 rounded-xl border"
               type="email"
