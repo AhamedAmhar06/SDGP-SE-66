@@ -14,7 +14,7 @@ function Dropdown({ onClose }) {
       await axios.get('/logout');
       toast.success('Logout Successful');
       localStorage.removeItem('undergrad');
-      onClose(); 
+      // onClose(); 
       navigate('/login');
       window.location.reload();
     } catch (error) {

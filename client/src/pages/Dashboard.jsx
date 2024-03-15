@@ -21,7 +21,7 @@ export default function Dashboard() {
               <img src={profileImage} alt="Profile" className="h-[225px] w-[225px] ml-2.5 rounded-[50%] hover:scale-110 duration-300" />
               {!!undergrad && <h2 className="text-xl font-bold text-center text-NavBlue">Hi {undergrad.fName}!</h2>}
               <p className="mt-4 font-bold text-center text-s text-NavBlue">Student</p>
-              <p className="mt-2 font-bold text-center text-s text-NavBlue">University of Westminster</p>
+              <p className="mt-2 font-bold text-center text-s text-NavBlue">{!!undergrad && <>{undergrad.university}</>}</p>
               <div className="flex flex-col items-center justify-start w-full mt-[72px]">
                 <div className="w-full sm:w-[100%] md:w-[100%] lg:w-[100%]">
                   <button className="w-full px-5 py-3 mt-0 mb-2 duration-300 bg-white border rounded-xl hover:scale-110">Edit Profile</button>
@@ -135,7 +135,7 @@ export default function Dashboard() {
                       </h1>
                       <div className="flex flex-row justify-start mt-[18px] gap-[5px]">
                         <button className="font-helvetica font-bold min-w-[55px] bg-gray-100 rounded-[6px] text-sm hover:scale-110 px-[5px] py-[3px] ">  Figma</button>
-                        <button className="font-helvetica font-bold min-w-[53px] bg-NavBlue rounded-[6px] text-sm hover:scale-110 px-[5px] py-[3px] ">   CSS</button>
+                        <button className="font-helvetica font-bold min-w-[53px] bg-gray-100 rounded-[6px] text-sm hover:scale-110 px-[5px] py-[3px] ">   CSS</button>
                         <button className="font-helvetica font-bold min-w-[131px] bg-gray-100 rounded-[6px] text-sm hover:scale-110  px-[5px] py-[3px]">   machine learning</button>
                       </div>
                         <div className="flex flex-row justify-start mt-[5px] gap-1.5">
@@ -147,7 +147,7 @@ export default function Dashboard() {
                       </div>
                       <button className="uppercase min-w-[252px] rounded-[18px] bg-gray-400 text-sm hover:scale-110 px-[5px] py-[3px] ">  try a new quizz{" "}</button>
                      <div className="flex flex-col items-center justify-start w-full gap-5">
-                      <QuestionCards/>
+                      {/* <QuestionCards/> */}
 
 
                      </div>
