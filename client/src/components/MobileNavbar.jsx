@@ -50,14 +50,23 @@ function MobileNavbar({ setIsMenuOpen }) {
                         <a className="menu-item">Question Bank</a>
                     </li>
 
+                    <li className="mb-5">
+                        <a className="menu-item">Tutors</a>
+                    </li>
+
                     {auth ? (
                         <>
-                            <li>
+                            <li className="mb-5">
                                 <Link to={'/dashboard'} className='menu-item'>Dashboard</Link>
                             </li>
+                            <li className="mb-5">
+                                <a className="menu-item">Switch to Tutor</a>
+                            </li>
+
                             <li>
                                 <button onClick={logoutUser} className="h-10 px-6 mt-5 text-sm text-white rounded bg-NavBlue hover:bg-blue-700 hover:text-primary">Logout</button>
                             </li>
+                            
                         </>
                     ) : (
                         <>

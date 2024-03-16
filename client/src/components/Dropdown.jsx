@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { Link } from 'react-router-dom';
 import { toast } from 'react-hot-toast';
 import axios from 'axios';
@@ -6,8 +6,12 @@ import { useNavigate } from 'react-router-dom';
 import { UndergradContext } from '../context/undergradContext';
 
 function Dropdown({ onClose }) {
+
+  const {undergrad} = useContext(UndergradContext);
   const navigate = useNavigate();
-  
+  const [data, setData] = useState({
+    email: '',
+  });
 
   const logoutUser = async () => {
     try {
@@ -27,11 +31,11 @@ function Dropdown({ onClose }) {
         let { email } = data;
        if (undergrad){
          email = undergrad.email;
-          console.log(email);
+          // console.log(email);
         const {data} = await axios.post('/tutorLogin', {
            email
          });
-         console.log(data);
+        //  console.log(data);
 
         //If user is not a tutor, redirect to tutor register page
         if(!data){
