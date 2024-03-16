@@ -1,23 +1,54 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import logo from '../Assets/images/Logo-N.png';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { toast } from 'react-hot-toast';
 import { IoClose } from "react-icons/io5";
+import { UndergradContext } from '../context/undergradContext';
 
 function MobileNavbar({ setIsMenuOpen }) {
     const [auth, setAuth] = useState(false);
+    const {undergrad} = useContext(UndergradContext);
+    const navigate = useNavigate();
+    const [data, setData] = useState({
+        email: '',
+    });
 
     const logoutUser = async () => {
         try {
-            await axios.get('/logout');
-            toast.success('Logout Successful');
-            localStorage.removeItem('undergrad');
-            window.location.reload();
+          await axios.get('/logout');
+          toast.success('Logout Successful');
+          localStorage.removeItem('undergrad');
+          navigate('/login');
+          window.location.reload();
         } catch (error) {
-            toast.error('An error occurred. Please try again');
+          toast.error('An error occurred. Please try again');
         }
-    }
+    };
+
+    const handleTutorLogin = async () => {
+        try {
+          let { email } = data;
+         if (undergrad){
+           email = undergrad.email;
+            // console.log(email);
+          const {data} = await axios.post('/tutorLogin', {
+             email
+           });
+          //  console.log(data);
+  
+          //If user is not a tutor, redirect to tutor register page
+          if(!data){
+            navigate('/tutorRegister');
+           } else {
+             navigate('/tutorDashboard');
+         //   Do the local storage thing here
+          }
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    };
 
     useEffect(() => {
         const authStatus = localStorage.getItem('undergrad');
@@ -34,33 +65,37 @@ function MobileNavbar({ setIsMenuOpen }) {
                 </button>
 
                 <ul>
-                    <li className="mb-5">
-                        <Link to='/' className='menu-item'> Home </Link>
+                    <li className='menu-item mb-5'>
+                        <Link to='/'> Home </Link>
                     </li>
-                    <li className="mb-5">
-                        <a className="menu-item">About Us</a>
+                    <li className='menu-item mb-5'>
+                        <Link to='/about'> About Us </Link>
                     </li>
-                    <li className="mb-5">
-                        <a className="menu-item">Tutors</a>
+                    <li className='menu-item mb-5'>
+                        <Link to='/tutors'> Tutors </Link>
                     </li>
-                    <li className="mb-5">
-                        <a className="menu-item">Join the community</a>
-                    </li>
-                    <li className="mb-5">
-                        <a className="menu-item">Question Bank</a>
+                    <li className='menu-item mb-5'>
+                        <Link to='/community'> Community Space </Link>
                     </li>
 
-                    <li className="mb-5">
-                        <a className="menu-item">Tutors</a>
+
+                    <li className='menu-item mb-5'>
+                        <Link to='/questionBank'> Question Bank </Link>
                     </li>
 
                     {auth ? (
                         <>
-                            <li className="mb-5">
-                                <Link to={'/dashboard'} className='menu-item'>Dashboard</Link>
+                            <li className="mb-5 menu-item">
+                                <Link to={'/dashboard'} >Dashboard</Link>
                             </li>
-                            <li className="mb-5">
-                                <a className="menu-item">Switch to Tutor</a>
+                            <li className="mb-5 menu-item">
+                            <button onClick={handleTutorLogin}>
+                                Switch to Tutor
+                            </button>
+                            </li>
+
+                            <li className='mb-5 menu-item'>
+                                <Link to='/notifications'>Notifications</Link>
                             </li>
 
                             <li>
