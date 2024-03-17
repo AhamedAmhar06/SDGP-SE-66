@@ -18,7 +18,6 @@ function Dropdown({ onClose }) {
       await axios.get('/logout');
       toast.success('Logout Successful');
       localStorage.removeItem('undergrad');
-      // onClose(); 
       navigate('/login');
       window.location.reload();
     } catch (error) {
@@ -64,6 +63,9 @@ function Dropdown({ onClose }) {
             <button onClick={handleTutorLogin} className='mt-4 text-sm text-NavBlue'>
               Switch to Tutor
             </button>
+          </li>
+          <li className='mt-4 text-sm text-NavBlue'>
+              <Link to='/notifications'>Notifications</Link>
           </li>
           <li>
             <button
