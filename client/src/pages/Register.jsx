@@ -112,18 +112,18 @@ function Register() {
   }
 
   return (
-    <section className="bg-gray-50 min-h-screen flex items-center justify-center">
+    <section className="flex items-center justify-center min-h-screen bg-gray-50">
       {/* Register container */}
-      <div className="bg-gray-100 flex rounded-2xl shadow-lg max-w-3xl p-5 items-center">
+      <div className="flex items-center max-w-3xl p-5 bg-gray-100 shadow-lg rounded-2xl">
         {/* Image */}
-        <div className="md:w-1/2 hidden md:block">
-          <img className="rounded-2xl border border-NavBlue border-4" src={registerperson} alt="Register Person" />
+        <div className="hidden md:w-1/2 md:block">
+          <img className="border-4 rounded-2xl border-NavBlue" src={registerperson} alt="Register Person" />
         </div>
 
         {/* Form */}
-        <div className="md:w-1/2 px-8 md:px-16">
-          <h2 className="font-bold text-2xl text-NavBlue">Register</h2>
-          <p className="text-xs mt-4 text-NavBlue">Registered already? </p>
+        <div className="px-8 md:w-1/2 md:px-16">
+          <h2 className="text-2xl font-bold text-NavBlue">Register</h2>
+          <p className="mt-4 text-xs text-NavBlue">Registered already? </p>
           {/* Login Button */}
           <button className="text-NavBlue" onClick={(e) => navigate('/login')}>
             Login
@@ -131,7 +131,7 @@ function Register() {
 
           <form className="flex flex-col gap-4">
             <input
-              className="p-2 rounded-xl border"
+              className="p-2 border rounded-xl"
               type="text"
               id="fName"
               name="fName"
@@ -141,7 +141,7 @@ function Register() {
               // required
             />
             <input
-              className="p-2 rounded-xl border"
+              className="p-2 border rounded-xl"
               type="text"
               id="lName"
               name="lName"
@@ -151,7 +151,7 @@ function Register() {
               // required
             />
             <input
-              className="p-2 rounded-xl border"
+              className="p-2 border rounded-xl"
               type="email"
               id="email"
               name="email"
@@ -171,7 +171,7 @@ function Register() {
             </button>
 
             <input
-              className="p-2 rounded-xl border"
+              className="p-2 border rounded-xl"
               type="text"
               id="userOTP"
               name="userOTP"
@@ -189,7 +189,7 @@ function Register() {
             </button>
 
             <input
-              className="p-2 rounded-xl border"
+              className="p-2 border rounded-xl"
               type="text"
               id="university"
               name="university"
@@ -199,7 +199,7 @@ function Register() {
               // required
             />
             <input
-              className="p-2 rounded-xl border"
+              className="p-2 border rounded-xl"
               type="text"
               id="studyLevel"
               name="studyLevel"
@@ -209,7 +209,7 @@ function Register() {
               // required
             />
             <input
-              className="p-2 rounded-xl border"
+              className="p-2 border rounded-xl"
               type="password"
               id="password"
               name="password"
@@ -218,7 +218,7 @@ function Register() {
               placeholder="Password"
             />
             <input
-              className="p-2 rounded-xl border"
+              className="p-2 border rounded-xl"
               type="password"
               id="confirmPassword"
               name="confirmPassword"
@@ -228,7 +228,7 @@ function Register() {
             />
           
            {/* Register Button */}
-           <button className="bg-NavBlue rounded-xl text-white py-2 hover:scale-105 duration-300" type="submit" onClick={registerUser}>
+           <button className="py-2 text-white duration-300 bg-NavBlue rounded-xl hover:scale-105" type="submit" onClick={registerUser}>
               Register
             </button>
           </form>
