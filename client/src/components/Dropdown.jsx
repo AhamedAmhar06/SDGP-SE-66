@@ -12,6 +12,7 @@ function Dropdown({ onClose }) {
   const [data, setData] = useState({
     email: '',
   });
+  
 
   const logoutUser = async () => {
     try {
@@ -50,21 +51,21 @@ function Dropdown({ onClose }) {
   };
 
   return (
-    <div className='absolute flex flex-col items-center w-32 p-4 border border-t-4 border-b-4 border-NavBlue bg-background top-16 right-6 rounded-2xl'>
+    <div className='absolute flex flex-col items-center p-4 border border-t-4 border-b-4 w-35 border-NavBlue bg-background top-16 right-6 rounded-2xl' >
       <div className='absolute top-0 w-4 h-4 transform rotate-45 -translate-y-2 border-t border-l right-7 bg-background border-NavBlue'></div>
       <div className='flex flex-col gap-4'>
         <ul>
           <li>
-            <Link to={'/dashboard'} className='text-sm text-NavBlue'>
+            <Link to={'/dashboard'} className='p-2 text-sm rounded text-NavBlue hover:bg-blue-500'>
               Dashboard
             </Link>
           </li>
           <li>
-            <button onClick={handleTutorLogin} className='mt-4 text-sm text-NavBlue'>
+            <button onClick={handleTutorLogin} className='p-2 mt-4 text-sm rounded text-NavBlue hover:bg-blue-500'>
               Switch to Tutor
             </button>
           </li>
-          <li className='mt-4 text-sm text-NavBlue'>
+          <li className='p-2 mt-4 text-sm rounded text-NavBlue hover:bg-blue-500'>
               <Link to='/notifications'>Notifications</Link>
           </li>
           <li>

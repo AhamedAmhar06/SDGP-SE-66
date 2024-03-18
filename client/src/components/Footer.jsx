@@ -66,9 +66,10 @@ const Footer = () => {
   };
 
   return (
-    <div className='max-auto mx-auto py-10 px-4 grid lg:grid-cols-3 gap-8 text-white bg-NavBlue'>
+     
+    <div className='grid gap-8 px-4 py-10 mx-auto text-white max-auto lg:grid-cols-3 bg-NavBlue'>
       <div>
-        <img src={logo} alt ='logo' className='h-11 w-auto object-contain'/>
+        <img src={logo} alt ='logo' className='object-contain w-auto h-11'/>
         <p className='py-4'>Build connections with your peers 
 and fellow graduates across the nation with CampusKuppi and start learning/tutoring.</p>
         <div className='flex justify-between md:w-[75%] my-6'>
@@ -79,7 +80,7 @@ and fellow graduates across the nation with CampusKuppi and start learning/tutor
             
         </div>
       </div>
-      <div className='lg:col-span-2 flex justify-between mt-6'>
+      <div className='flex justify-between mt-6 lg:col-span-2'>
     <div>
         <h6 className='font-medium text-gray-400'>Quick Links</h6>
         <ul >

@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 import {Routes, Route} from 'react-router-dom'
 import Navbar from './components/Navbar';
 import Login from './pages/Login';
@@ -22,6 +22,8 @@ axios.defaults.withCredentials = true;
 
 function App () {
 
+ 
+
   return(
     <UndergradContextProvider>
       <div className='bg-background'>
@@ -43,7 +45,7 @@ function App () {
           <Route path='/notifications' element={<Notifications/>} />
       </Routes>
 
-        <Footer/>
+         <Footer />
       </div>
     </UndergradContextProvider>
     

@@ -23,5 +23,9 @@ module.exports = {
    },
  },
  plugins: [],
+ variants: {
+    position: ['responsive', 'fixed', 'static'],
+  },
+  
 }
 

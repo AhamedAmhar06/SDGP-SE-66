@@ -65,36 +65,36 @@ function MobileNavbar({ setIsMenuOpen }) {
                 </button>
 
                 <ul>
-                    <li className='menu-item mb-5'>
+                    <li className='mb-5 font-semibold text-NavBlue '>
                         <Link to='/'> Home </Link>
                     </li>
-                    <li className='menu-item mb-5'>
+                    <li className='mb-5 font-semibold text-NavBlue '>
                         <Link to='/about'> About Us </Link>
                     </li>
-                    <li className='menu-item mb-5'>
+                    <li className='mb-5 font-semibold text-NavBlue'>
                         <Link to='/tutors'> Tutors </Link>
                     </li>
-                    <li className='menu-item mb-5'>
+                    <li className='mb-5 font-semibold text-NavBlue'>
                         <Link to='/community'> Community Space </Link>
                     </li>
 
 
-                    <li className='menu-item mb-5'>
+                    <li className='mb-5 font-semibold text-NavBlue'>
                         <Link to='/questionBank'> Question Bank </Link>
                     </li>
 
                     {auth ? (
                         <>
-                            <li className="mb-5 menu-item">
+                            <li className="mb-5 font-semibold text-NavBlue">
                                 <Link to={'/dashboard'} >Dashboard</Link>
                             </li>
-                            <li className="mb-5 menu-item">
+                            <li className="mb-5 font-semibold text-NavBlue">
                             <button onClick={handleTutorLogin}>
                                 Switch to Tutor
                             </button>
                             </li>
 
-                            <li className='mb-5 menu-item'>
+                            <li className='mb-5 font-semibold text-NavBlue'>
                                 <Link to='/notifications'>Notifications</Link>
                             </li>
 
