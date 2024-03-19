@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 
-const QuestionForm = () => {
+const QuestionUploader = () => {
   const [question, setQuestion] = useState('');
   const [type, setType] = useState('');
   const [answer, setAnswer] = useState('');
@@ -23,8 +23,8 @@ const QuestionForm = () => {
         formData = {
           question,
           type,
-          answer,// Set the correct answer to the provided answer
-          correctAnswer: answer, // Set the correct answer to the provided answer
+          answer,
+          correctAnswer: answer,
           category: finalCategory
         };
       } else if (type === 'multiple_choice') {
@@ -51,20 +51,18 @@ const QuestionForm = () => {
       alert('Failed to submit question. Please try again.');
     }
   };
-  
-  
 
   return (
-    <div>
-      <h2>Post a Question</h2>
-      <form onSubmit={handleSubmit}>
+    <div className="max-w-lg mx-auto mt-8">
+      <h2 className="text-2xl font-bold mb-4">Post a Question</h2>
+      <form onSubmit={handleSubmit} className="space-y-4">
         <div>
-          <label htmlFor="question">Question:</label>
-          <textarea id="question" value={question} onChange={(e) => setQuestion(e.target.value)} required />
+          <label htmlFor="question" className="block font-semibold">Question:</label>
+          <textarea id="question" value={question} onChange={(e) => setQuestion(e.target.value)} className="w-full border rounded px-4 py-2" required />
         </div>
         <div>
-          <label htmlFor="type">Type:</label>
-          <select id="type" value={type} onChange={(e) => setType(e.target.value)} required>
+          <label htmlFor="type" className="block font-semibold">Type:</label>
+          <select id="type" value={type} onChange={(e) => setType(e.target.value)} className="w-full border rounded px-4 py-2" required>
             <option value="">Select...</option>
             <option value="open_ended">Open Ended</option>
             <option value="multiple_choice">Multiple Choice</option>
@@ -72,25 +70,25 @@ const QuestionForm = () => {
         </div>
         {type === 'open_ended' && (
           <div>
-            <label htmlFor="openEndedAnswer">Answer:</label>
-            <input type="text" id="openEndedAnswer" value={answer} onChange={(e) => setAnswer(e.target.value)} required />
+            <label htmlFor="openEndedAnswer" className="block font-semibold">Answer:</label>
+            <input type="text" id="openEndedAnswer" value={answer} onChange={(e) => setAnswer(e.target.value)} className="w-full border rounded px-4 py-2" required />
           </div>
         )}
         {type === 'multiple_choice' && (
           <div>
             {answers.map((answer, index) => (
               <div key={index}>
-                <label htmlFor={`answer${index + 1}`}>Answer {index + 1}:</label>
+                <label htmlFor={`answer${index + 1}`} className="block font-semibold">Answer {index + 1}:</label>
                 <input type="text" id={`answer${index + 1}`} value={answer} onChange={(e) => {
                   const updatedAnswers = [...answers];
                   updatedAnswers[index] = e.target.value;
                   setAnswers(updatedAnswers);
-                }} required />
+                }} className="w-full border rounded px-4 py-2" required />
               </div>
             ))}
             <div>
-              <label htmlFor="correctAnswer">Correct Answer:</label>
-              <select id="correctAnswer" value={correctAnswerIndex} onChange={(e) => setCorrectAnswerIndex(parseInt(e.target.value))} required>
+              <label htmlFor="correctAnswer" className="block font-semibold">Correct Answer:</label>
+              <select id="correctAnswer" value={correctAnswerIndex} onChange={(e) => setCorrectAnswerIndex(parseInt(e.target.value))} className="w-full border rounded px-4 py-2" required>
                 <option value={-1}>Select...</option>
                 {answers.map((answer, index) => (
                   <option key={index} value={index}>{`Answer ${index + 1}`}</option>
@@ -100,8 +98,8 @@ const QuestionForm = () => {
           </div>
         )}
         <div>
-          <label htmlFor="category">Category:</label>
-          <select id="category" value={category} onChange={(e) => setCategory(e.target.value)} required>
+          <label htmlFor="category" className="block font-semibold">Category:</label>
+          <select id="category" value={category} onChange={(e) => setCategory(e.target.value)} className="w-full border rounded px-4 py-2" required>
             <option value="">Select...</option>
             {categories.map((category, index) => (
               <option key={index} value={category}>{category}</option>
@@ -109,15 +107,15 @@ const QuestionForm = () => {
           </select>
           {category === 'New Category' && (
             <>
-              <label htmlFor="newCategory">New Category:</label>
-              <input type="text" id="newCategory" value={newCategory} onChange={(e) => setNewCategory(e.target.value)} required />
+              <label htmlFor="newCategory" className="block font-semibold">New Category:</label>
+              <input type="text" id="newCategory" value={newCategory} onChange={(e) => setNewCategory(e.target.value)} className="w-full border rounded px-4 py-2" required />
             </>
           )}
         </div>
-        <button type="submit">Submit</button>
+        <button type="submit" className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition duration-300">Submit</button>
       </form>
     </div>
   );
 };
 
-export default QuestionForm;
+export default QuestionUploader;
