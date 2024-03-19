@@ -4,8 +4,8 @@ import axios from 'axios';
 const QuestionForm = () => {
   const [question, setQuestion] = useState('');
   const [type, setType] = useState('');
-  const [answer, setAnswer] = useState(''); // For open-ended question
-  const [answers, setAnswers] = useState(['', '', '', '']); // For multiple choice
+  const [answer, setAnswer] = useState('');
+  const [answers, setAnswers] = useState(['', '', '', '']);
   const [correctAnswerIndex, setCorrectAnswerIndex] = useState(-1);
   const [category, setCategory] = useState('');
   const [newCategory, setNewCategory] = useState('');
@@ -13,18 +13,18 @@ const QuestionForm = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+  
     const finalCategory = category === 'New Category' ? newCategory : category;
-
+  
     try {
       let formData = {};
-
+  
       if (type === 'open_ended') {
         formData = {
           question,
           type,
-          answers: [answer], // Use the answer provided by the user
-          correctAnswer: answer, // Automatically set the answer as the correct answer for open-ended questions
+          answer,// Set the correct answer to the provided answer
+          correctAnswer: answer, // Set the correct answer to the provided answer
           category: finalCategory
         };
       } else if (type === 'multiple_choice') {
@@ -32,11 +32,11 @@ const QuestionForm = () => {
           question,
           type,
           answers,
-          correctAnswer: answers[correctAnswerIndex], // Store the correct answer for multiple choice
+          correctAnswer: answers[correctAnswerIndex],
           category: finalCategory
         };
       }
-
+  
       await axios.post('http://localhost:8000/questions', formData);
       alert('Question submitted successfully!');
       setQuestion('');
@@ -51,6 +51,8 @@ const QuestionForm = () => {
       alert('Failed to submit question. Please try again.');
     }
   };
+  
+  
 
   return (
     <div>

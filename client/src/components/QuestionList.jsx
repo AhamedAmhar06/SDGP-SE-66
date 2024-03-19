@@ -23,14 +23,14 @@ const QuestionList = () => {
   };
 
   const handleInputChange = (event) => {
-    setEditingValue({...editingValue, [event.target.name]: event.target.value});
+    setEditingValue({ ...editingValue, [event.target.name]: event.target.value });
   };
 
   const handleCategoryChange = (event) => {
     if (event.target.value === 'New Category') {
-      setEditingValue({...editingValue, category: ''});
+      setEditingValue({ ...editingValue, category: '' });
     } else {
-      setEditingValue({...editingValue, category: event.target.value});
+      setEditingValue({ ...editingValue, category: event.target.value });
     }
   };
 
@@ -75,7 +75,7 @@ const QuestionList = () => {
             <tr key={question._id}>
               <td>{editingId === question._id ? question.question : question.question}</td>
               <td>{question.type}</td>
-              <td>{question.type === 'open_ended' ? 'Open Ended' : question.answers.join(', ')}</td>
+              <td>{question.type === 'open_ended' ? question.correctAnswer : question.answers.join(', ')}</td> {/* Display correct answer for open-ended questions */}
               <td>{question.type === 'open_ended' ? question.correctAnswer : question.correctAnswer}</td> {/* Display correct answer for open-ended questions */}
               <td>
                 {editingId === question._id ? (

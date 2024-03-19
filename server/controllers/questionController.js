@@ -13,34 +13,35 @@ exports.getAllQuestions = async (req, res) => {
 
 // controllers/questionController.js
 
-// controllers/questionController.js
 
 
 
-// controllers/questionController.js
+
+
 
 // controllers/questionController.js
 
 exports.createQuestion = async (req, res) => {
-  const { question, type, answers, correctAnswer, category } = req.body;
+  const { question, type, answer, category } = req.body;
 
   try {
     let newQuestion;
 
     if (type === 'open_ended') {
+      // For open-ended questions, set the provided answer as both the answer and the correct answer
       newQuestion = new Question({
         question,
         type,
-        answers: [question], // For open-ended questions, use the question itself as the answer
-        correctAnswer: question, // Automatically set the answer as the correct answer for open-ended questions
+        answers: [answer], // Store the provided answer
+        correctAnswer: answer, // Set the correct answer to the provided answer
         category
       });
     } else if (type === 'multiple_choice') {
       newQuestion = new Question({
         question,
         type,
-        answers,
-        correctAnswer: answers[correctAnswer], // Store the correct answer for multiple choice
+        answers: req.body.answers,
+        correctAnswer: req.body.correctAnswer,
         category
       });
     } else {
@@ -53,6 +54,8 @@ exports.createQuestion = async (req, res) => {
     res.status(400).json({ message: err.message });
   }
 };
+
+
 
 
 
