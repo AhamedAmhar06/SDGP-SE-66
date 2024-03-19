@@ -1,10 +1,18 @@
 const Undergrad = require('../models/undergrad');
+const Notification = require('../models/notification');
 const { hashPassword, comparePassword } = require('../helpers/auth');
 const jwt = require('jsonwebtoken');
+const nodemailer = require('nodemailer');
+const Mailgen = require('mailgen');
+const { EMAIL, PASSWORD } = process.env;
 
-const test = (req, res) => {
-    res.json('test is working')
-} 
+
+const test = async(req, res) => {
+    // console.log('Hello');
+    const email = "Check";
+    console.log(email);
+    res.json()
+}
 
 const registerUser = async (req, res) => {
     try {
@@ -65,12 +73,20 @@ const registerUser = async (req, res) => {
             password : hashedPassword
         });
 
+        //Create a notification
+        const message = `Welcome to Undergrad UpLift ${fName}!`;
+        const notification = await Notification.create({
+            email,
+            message
+        });
+        
         return res.json(undergrad)
         
     } catch (error) {
         console.log(error);
     }
 };
+
 
 //login user
 const loginUser = async (req, res) => {
@@ -152,10 +168,45 @@ const logout = async (req, res) => {
     }
 }
 
+//Reset password
+const resetPassword = async (req, res) => {
+    try {
+        const { userEmail, password } = req.body;
+
+        console.log(userEmail, password);
+
+        //Check if email is valid
+        const user = await Undergrad.findOne({ email: userEmail });
+        // if (!user) {
+        //     return res.json({
+        //         error: 'Email not found'
+        //     })
+        // };
+
+        //Check if password has been entered with correct length
+        if (password.length < 6) {
+            return res.json({
+                error: 'Password must be at least 6 characters long'
+            })
+        };
+
+        const hashedPassword = await hashPassword(password);
+
+        //Update password
+        user.password = hashedPassword;
+        user.save(); 
+        return res.json(user);
+
+    } catch (error) {
+        console.log(error);
+    }
+}
+
 module.exports = {
     test,
     registerUser,
     loginUser,
     getProfile,
-    logout
+    logout,
+    resetPassword
 }

@@ -1,14 +1,26 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import logo from '../Assets/images/Logo-N.png';
 import { RiMenu4Line } from "react-icons/ri";
 import MobileNavbar from './MobileNavbar';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import { toast } from 'react-hot-toast';
+import { useNavigate } from 'react-router-dom';
+import { UndergradContext } from '../context/undergradContext';
+import { FaUser } from "react-icons/fa";
+import Dropdown from './Dropdown';
 
 function Navbar()  {
+  
+  const navigate = useNavigate();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [showButton, setShowButton] = useState(false);
+  const [auth, setAuth] = useState(false);
+  const {undergrad} = useContext(UndergradContext);
+  const [data, setData] = useState({
+    email: '',
+  });
+  const[openProfile,setOpenProfile]=useState(false);
 
   useEffect(() => {
     // Function to handle window resize event
@@ -30,16 +42,51 @@ function Navbar()  {
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
-  //Logout button logic
-  const logoutUser = async () => {
-    try{
-      await axios.get('/logout');
-      toast.success('Logout Successful');
-      window.location.reload();
-    } catch (error) {
-      toast.error('An error occurred. Please try again');
+  useEffect(() => {
+    const authStatus = localStorage.getItem('undergrad');
+    if(authStatus === 'true'){
+      setAuth(true);
     }
-  }
+  });
+
+  //Logout button logic
+  // const logoutUser = async () => {
+  //   try{
+  //     await axios.get('/logout');
+  //     toast.success('Logout Successful');
+  //     localStorage.removeItem('undergrad');
+  //     navigate('/login');
+  //     window.location.reload();
+
+  //   } catch (error) {
+  //     toast.error('An error occurred. Please try again');
+  //   }
+  // }
+
+  //Check if user is a tutor
+  // const handleTutorLogin = async () => {
+  //   try {
+  //      let { email } = data;
+  //     if (undergrad){
+  //       email = undergrad.email;
+  //       // console.log(email);
+  //       const {data} = await axios.post('/tutorLogin', {
+  //         email
+  //       });
+        // console.log(data);
+
+        //If user is not a tutor, redirect to tutor register page
+        // if(!data){
+        //   navigate('/tutorRegister');
+        // } else {
+        //   navigate('/tutorDashboard');
+          //Do the local storage thing here
+  //       }
+  //     }
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // };
 
   return (
     <>
@@ -47,6 +94,10 @@ function Navbar()  {
     <div className='sticky top-0 z-10 bg-background '>
       <nav className='max-w-screen-xl px-6 py-4 mx-auto'>
         <div className='flex items-center justify-between'>
+
+          
+           
+
           <Link to='/'>
             <img src={logo} alt ='logo' className='object-contain w-auto h-11'/>
           </Link>
@@ -58,24 +109,41 @@ function Navbar()  {
                     <Link to='/about' className='menu-item'> About Us </Link>
                 </li>
                 <li>
-                    <a className="menu-item">Tutors</a>
+                    <Link to='/tutors' className='menu-item'> Tutors </Link>
                 </li>
                 <li>
-                    <a className ="menu-item">Join the community</a>
+                    <Link to='/community' className='menu-item'> Community Space </Link>
                 </li>
+
+
                 <li>
-                    <a className ="menu-item">Question Bank</a>
+                    <Link to='/questionBank' className='menu-item'> Question Bank </Link>
                 </li>
-                <li>
-                  <Link to={'/dashboard'} className='menu-item'>Dashboard</Link>
+                
+                             
+             
+
+             {auth ? (
+
+              <>
+              <li>
+                    <a className ="text-2xl menu-item" onClick={()=> setOpenProfile((prev)=>!prev)}><FaUser /></a>
                 </li>
+              {
+                  openProfile &&  <Dropdown/>
+              }
+              </>
+              
+            ) : (
+              <>
+                <Link to={'/login'}>
+                  <button className="hidden h-10 px-6 text-sm text-white rounded bg-NavBlue hover:bg-blue-700 hover:text-primary md:block">Join Us</button>
+                 </Link>
+              </>
+            )} 
             </ul>
-            <Link to={'/login'}>
-              <button className="hidden h-10 px-6 text-sm text-white rounded bg-NavBlue hover:bg-blue-700 hover:text-primary md:block">Join Us</button>
-            </Link>
-            {/* <Link to={'/login'}> */}
-              <button onClick={logoutUser} className="hidden h-10 px-6 text-sm text-white rounded bg-NavBlue hover:bg-blue-700 hover:text-primary md:block">Logout</button>
-            {/* </Link> */}
+            
+           
 
           
             {showButton && !isMenuOpen && // Render the button only when showButton is true and isMenuOpen is false
@@ -83,7 +151,7 @@ function Navbar()  {
                 <RiMenu4Line />
               </button>
             }
-           
+          
 
         </div>
       </nav>
