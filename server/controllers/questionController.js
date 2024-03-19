@@ -63,16 +63,21 @@ exports.createQuestion = async (req, res) => {
 
 
 
+// controllers/questionController.js
+
+
+
 exports.updateQuestion = async (req, res) => {
   try {
     const { id } = req.params;
-    const { question, type, answers, correctAnswer, category } = req.body;
-    const updatedQuestion = await Question.findByIdAndUpdate(id, { question, type, answers, correctAnswer, category }, { new: true });
+    const updatedQuestion = await Question.findByIdAndUpdate(id, req.body, { new: true });
     res.json(updatedQuestion);
   } catch (err) {
     res.status(500).json({ message: err.message });
   }
 };
+
+
 
 exports.deleteQuestion = async (req, res) => {
   try {

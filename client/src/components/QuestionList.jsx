@@ -19,7 +19,7 @@ const QuestionList = () => {
 
   const handleEditClick = (id, question) => {
     setEditingId(id);
-    setEditingValue(question);
+    setEditingValue({ ...question });
   };
 
   const handleInputChange = (event) => {
@@ -27,11 +27,7 @@ const QuestionList = () => {
   };
 
   const handleCategoryChange = (event) => {
-    if (event.target.value === 'New Category') {
-      setEditingValue({ ...editingValue, category: '' });
-    } else {
-      setEditingValue({ ...editingValue, category: event.target.value });
-    }
+    setEditingValue({ ...editingValue, category: event.target.value });
   };
 
   const handleSaveClick = async (id) => {
@@ -73,19 +69,18 @@ const QuestionList = () => {
         <tbody>
           {questions.map(question => (
             <tr key={question._id}>
-              <td>{editingId === question._id ? question.question : question.question}</td>
-              <td>{question.type}</td>
-              <td>{question.type === 'open_ended' ? question.correctAnswer : question.answers.join(', ')}</td> {/* Display correct answer for open-ended questions */}
-              <td>{question.type === 'open_ended' ? question.correctAnswer : question.correctAnswer}</td> {/* Display correct answer for open-ended questions */}
+              <td>{editingId === question._id ? <input type="text" name="question" value={editingValue.question} onChange={handleInputChange} /> : question.question}</td>
+              <td>{editingId === question._id ? <input type="text" name="type" value={editingValue.type} onChange={handleInputChange} /> : question.type}</td>
+              <td>{editingId === question._id ? <input type="text" name="answers" value={editingValue.answers.join(', ')} onChange={handleInputChange} /> : question.answers.join(', ')}</td>
+              <td>{editingId === question._id ? <input type="text" name="correctAnswer" value={editingValue.correctAnswer} onChange={handleInputChange} /> : question.correctAnswer}</td>
               <td>
                 {editingId === question._id ? (
                   <>
-                    <select name="category" value={editingValue.category || ''} onChange={handleCategoryChange}>
+                    <select name="category" value={editingValue.category} onChange={handleCategoryChange}>
                       {categories.map((category, index) => (
                         <option key={index} value={category}>{category}</option>
                       ))}
                     </select>
-                    {editingValue.category === '' && <input type="text" name="category" value={editingValue.category || ''} onChange={handleInputChange} />}
                   </>
                 ) : question.category}
               </td>
