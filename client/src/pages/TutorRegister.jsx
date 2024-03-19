@@ -177,7 +177,6 @@ export default function TutorRegister() {
 
 
             </label>
-
             <input
               className="p-2 rounded-xl border"
               type="email"
