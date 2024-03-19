@@ -74,7 +74,7 @@ export default function Notifications() {
                     <li key={notification._id} className={`my-4 md:flex rounded-xl p-8 md:p-5 ${notification.read ? 'bg-slate-200' : 'bg-slate-400'}`}>
                         <div className='flex justify-between'>
                             {notification.message} &nbsp;
-                            <div className='flex justify-end'>
+                            <div className='flex justify-end border-4 rounded-2xl px-2 gap-2 border-sky-500 '>
                                 <MdOutlineMarkEmailRead 
                                     className="text-2xl text-NavBlue hover:scale-105" 
                                     onClick={() => markAsRead(notification._id)}
