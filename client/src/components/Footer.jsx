@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import logo from'../Assets/images/white logo 1.png'
 import {
   FaDribbbleSquare,
@@ -8,8 +8,63 @@ import {
   FaTwitterSquare,
 } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
+import { UndergradContext } from '../context/undergradContext';
+import axios from 'axios';
+import { toast } from 'react-hot-toast';
+import { useNavigate } from 'react-router-dom';
 
 const Footer = () => {
+
+  const navigate = useNavigate();
+  const {undergrad} = useContext(UndergradContext);
+  const [auth, setAuth] = useState(false);
+  const [data, setData] = useState({
+    email: '',
+  });
+
+  useEffect(() => {
+    const authStatus = localStorage.getItem('undergrad');
+    if(authStatus === 'true'){
+      setAuth(true);
+    }
+  });
+
+  const handleTutorLogin = async () => {
+    try {
+      let { email } = data;
+     if (undergrad){
+       email = undergrad.email;
+        // console.log(email);
+      const {data} = await axios.post('/tutorLogin', {
+         email
+       });
+      //  console.log(data);
+
+      //If user is not a tutor, redirect to tutor register page
+      if(!data){
+        navigate('/tutorRegister');
+       } else {
+         navigate('/tutorDashboard');
+     //   Do the local storage thing here
+      }
+    }
+  } catch (error) {
+    console.log(error);
+  }
+  };
+
+  const logoutUser = async () => {
+    try {
+      await axios.get('/logout');
+      toast.success('Logout Successful');
+      localStorage.removeItem('undergrad');
+      navigate('/login');
+      window.location.reload();
+    } catch (error) {
+      toast.error('An error occurred. Please try again');
+    }
+  };
+
   return (
     <div className='max-auto mx-auto py-10 px-4 grid lg:grid-cols-3 gap-8 text-white bg-NavBlue'>
       <div>
@@ -28,10 +83,18 @@ and fellow graduates across the nation with CampusKuppi and start learning/tutor
     <div>
         <h6 className='font-medium text-gray-400'>Quick Links</h6>
         <ul >
-            <li className='py-2 text-sm'><Link to={'/'}>Home</Link></li>
-            <li className='py-2 text-sm'>AboutUs</li>
-            <li className='py-2 text-sm'>Sessions</li>
-            <li className='py-2 text-sm'>Tutors</li>
+            <li className='py-2 text-sm'>
+              <Link to='/'>Home</Link>
+            </li>
+            <li className='py-2 text-sm'>
+              <Link to='/about'>AboutUs</Link>
+            </li>
+            <li className='py-2 text-sm'>
+              <Link>Sessions</Link> 
+            </li>
+            <li className='py-2 text-sm'>
+              <Link to='/tutors'>Tutors</Link>
+            </li>
         </ul>
     </div>
     <div>
@@ -39,10 +102,42 @@ and fellow graduates across the nation with CampusKuppi and start learning/tutor
         <ul>
             <li className='py-2 text-sm'></li>
             <li className='py-2 text-sm'></li>
-            <li className='py-2 text-sm'>FAQ</li>
-            <li className='py-2 text-sm'>Question Bank</li>
-            <li className='py-2 text-sm'>Join the community </li>
-            <li className='py-2 text-sm'>My account</li>
+            <li className='py-2 text-sm'>
+              <Link to='/questionBank'>Question Bank</Link> 
+            </li>
+            <li className='py-2 text-sm'>
+                <Link to='/community'> Community Space </Link> 
+            </li>
+            
+            {auth ? (
+              <>
+              
+                <li className='py-2 text-sm'>
+                  <Link to='/dashboard'>My account</Link> 
+                </li>
+                <li>
+                  <button onClick={handleTutorLogin} className='py-2 text-sm'>
+                    Switch to Tutor
+                  </button>
+                </li>
+
+                <li>
+                  <button
+                    onClick={logoutUser}
+                    className='py-2 text-sm'
+                  >
+                    Logout
+                  </button>
+              </li>
+                
+              </>
+            ) : (
+              <>
+                <li className='py-2 text-sm'>
+                  <Link to='/login'>Join Us</Link> 
+                </li>
+              </>
+            )}
         </ul>
     </div>
   
@@ -50,9 +145,13 @@ and fellow graduates across the nation with CampusKuppi and start learning/tutor
         <h6 className='font-medium text-gray-400'>Contact us </h6>
         <ul>
             <li className='py-2 text-sm'>+94 XXXX XXX</li>
-            <li className='py-2 text-sm'>hello@campuskuppi.lk</li>
-            <li className='py-2 text-sm'>23/4, addresslineone,
-addressline02</li>
+            <li className='py-2 text-sm'>
+              <Link to='mailto:undergraduplift@gmail.com'> undergraduplift@gmail.com </Link> 
+            </li>
+            <li className='py-2 text-sm'>
+              23/4, addresslineone,
+              addressline02
+            </li>
         </ul>
     </div>
       </div>

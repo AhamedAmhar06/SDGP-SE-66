@@ -7,6 +7,8 @@ import axios from 'axios';
 import { toast } from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
 import { UndergradContext } from '../context/undergradContext';
+import { FaUser } from "react-icons/fa";
+import Dropdown from './Dropdown';
 
 function Navbar()  {
   
@@ -18,6 +20,7 @@ function Navbar()  {
   const [data, setData] = useState({
     email: '',
   });
+  const[openProfile,setOpenProfile]=useState(false);
 
   useEffect(() => {
     // Function to handle window resize event
@@ -60,24 +63,23 @@ function Navbar()  {
     }
   }
 
-  //Check if user is a tutor
-  const handleTutorLogin = async () => {
+  // Check if user is a tutor
+  const handleQuestionBank = async () => {
     try {
        let { email } = data;
       if (undergrad){
         email = undergrad.email;
-        // console.log(email);
+        console.log(email);
         const {data} = await axios.post('/tutorLogin', {
           email
         });
-        // console.log(data);
+        console.log(data);
 
-        //If user is not a tutor, redirect to tutor register page
-        if(!data){
-          navigate('/tutorRegister');
+        // If user is not a tutor, redirect to tutor register page
+        if(data){
+          navigate('/optionSelector');
         } else {
-          navigate('/tutorDashboard');
-          //Do the local storage thing here
+          navigate('/questionBank');
         }
       }
     } catch (error) {
@@ -103,30 +105,29 @@ function Navbar()  {
                   <Link to='/' className='menu-item'> Home </Link>
                 </li>
                 <li>
-                   <Link to='/AboutUs' className='menu-item'> About Us </Link>
+                    <Link to='/about' className='menu-item'> About Us </Link>
                 </li>
                 <li>
-                    <a className="menu-item">Tutors</a>
+                    <Link to='/tutors' className='menu-item'> Tutors </Link>
                 </li>
                 <li>
-                    <a className ="menu-item">Join the community</a>
-                </li>
-                <li>
-                    <a className ="menu-item">Question Bank</a>
-                </li>
-            
+                    <Link to='/community' className='menu-item'> Community Space </Link>
+                </li>                  
+             
 
-            {auth ? (
+             {auth ? (
+
               <>
+
               <li>
-                  <Link to={'/dashboard'} className='menu-item'>Dashboard</Link>
-              </li>
+                    <button className='menu-item' onClick={handleQuestionBank}> Question Bank </button>
+                </li>
               <li>
-                  <button onClick={handleTutorLogin} className='menu-item'>Switch to Tutor</button>
-              </li>
-              <li>
-                  <button onClick={logoutUser} className="hidden h-10 px-6 text-sm text-white rounded bg-NavBlue hover:bg-blue-700 hover:text-primary md:block">Logout</button>
-              </li>
+                    <a className ="text-2xl menu-item" onClick={()=> setOpenProfile((prev)=>!prev)}><FaUser /></a>
+                </li>
+              {
+                  openProfile &&  <Dropdown/>
+              }
               </>
               
             ) : (
@@ -135,7 +136,7 @@ function Navbar()  {
                   <button className="hidden h-10 px-6 text-sm text-white rounded bg-NavBlue hover:bg-blue-700 hover:text-primary md:block">Join Us</button>
                  </Link>
               </>
-            )}
+            )} 
             </ul>
             
            

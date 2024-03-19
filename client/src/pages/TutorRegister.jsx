@@ -37,11 +37,6 @@ export default function TutorRegister() {
     setSelectedSubjects(selectedSubjects.filter(item => item !== subject))
   }
 
-  const testForm = (e) => {
-    e.preventDefault();
-    console.log(selectedSubjects);
-  }
-
   //Register user
   const registerUser = async (e) => {
     e.preventDefault();
@@ -131,7 +126,7 @@ export default function TutorRegister() {
       <div className="bg-gray-100 flex rounded-2xl shadow-lg max-w-3xl p-5 items-center">
         {/* Image */}
         <div className="md:w-1/2 hidden md:block">
-          <img className="rounded-2xl border border-NavBlue border-4" src={registerperson} alt="Register Person" />
+          <img className="rounded-2xl border-NavBlue border-4" src={registerperson} alt="Register Person" />
         </div>
 
         {/* Form */}
@@ -182,8 +177,6 @@ export default function TutorRegister() {
 
 
             </label>
-            
-            <button onClick={testForm}>Test</button>
             <input
               className="p-2 rounded-xl border"
               type="email"
