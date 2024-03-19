@@ -14,6 +14,7 @@ import TutorDashboard from './pages/TutorDashboard';
 import Tutors from './pages/Tutors';
 import TutorDetails from './pages/TutorDetails';
 import Notifications from './pages/Notifications';
+import EditProfile from './pages/EditProfile';
 import { Toaster } from 'react-hot-toast';
 import { UndergradContextProvider } from './context/undergradContext';
 
@@ -41,6 +42,7 @@ function App () {
           <Route path='/tutors' element={<Tutors/>} />
           <Route path='/tutors/:id' element={<TutorDetails />} />
           <Route path='/notifications' element={<Notifications/>} />
+          <Route path='/editProfile' element={<EditProfile/>} />
       </Routes>
 
         <Footer/>
