@@ -15,6 +15,7 @@ import Tutors from './pages/Tutors';
 import TutorDetails from './pages/TutorDetails';
 import Notifications from './pages/Notifications';
 import EditProfile from './pages/EditProfile';
+import OptionSelector from './pages/Question/OptionSelector';
 import { Toaster } from 'react-hot-toast';
 import { UndergradContextProvider } from './context/undergradContext';
 
@@ -41,6 +42,7 @@ function App () {
           <Route path='/tutorDashboard' element={<TutorDashboard/>} />
           <Route path='/tutors' element={<Tutors/>} />
           <Route path='/tutors/:id' element={<TutorDetails />} />
+          <Route path='/optionSelector' element={<OptionSelector/>} />
           <Route path='/notifications' element={<Notifications/>} />
           <Route path='/editProfile' element={<EditProfile/>} />
       </Routes>
