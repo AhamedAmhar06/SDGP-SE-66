@@ -73,7 +73,7 @@ function AboutUs() {
   };
 
 
-  // Define heading style
+ 
   const headingStyle = {
     position: 'absolute',
     left: screenWidth >= 768 ? '20.5%'  : (screenWidth >= 608 ? '30%' : '25%'),
@@ -85,7 +85,7 @@ function AboutUs() {
 
   };
 
-  // Define paragraph style
+  
   const paragraphStyle = {
     position: 'absolute',
     left:screenWidth >= 768 ? '20%' : '19%',
@@ -97,11 +97,11 @@ function AboutUs() {
 
   };
 
-  // Define rectangle style
+ 
 const rectangleStyle = {
   position: 'absolute',
   left: screenWidth >= 768 ? '25%' : '18%',
-  top: screenWidth >= 768 ? '55%' : 'calc(35% + 400px)', // Adjusted top position to prevent overlapping
+  top: screenWidth >= 768 ? '55%' : 'calc(35% + 400px)', 
   width: screenWidth >= 768 ? '40%' : '70%',
   height: screenWidth >= 768 ? '300px' : '200px',
   border: '2px solid black',
@@ -110,7 +110,6 @@ const rectangleStyle = {
 };
 
 
-  // Define content inside rectangle style
   const contentInsideRectangleStyle = {
     position: 'absolute',
     display: 'flex',
@@ -119,7 +118,7 @@ const rectangleStyle = {
     height: '100%',
   };
 
-  // Define image inside rectangle style
+
   const imageInsideRectangleStyle = {
     position: 'absolute',
     top: 0,
@@ -127,14 +126,14 @@ const rectangleStyle = {
     width: '30%',
   };
 
-  // Define text inside rectangle style
+
   const textInsideRectangleStyle = {
     width: screenWidth >= 768 ? '60%' : '80%',
     left: screenWidth >= 768 ? '45%' : '90%',
     top: screenWidth >= 768 ? '40%' : '40%',
     transform: screenWidth >= 768 ?'translate(60%, -8%)':'translate(40%, -40%) scale(0.6)',  };
 
-  // Define text heading style
+
   const textHeadingStyle = {
     fontSize: '2.5rem',
     fontWeight: 'bold',
@@ -143,7 +142,7 @@ const rectangleStyle = {
     color: '#00008B',
   };
 
-  // Define target image style
+ 
   const targetImageStyle = {
     ...imageInsideRectangleStyle,
     width: '25%',
@@ -154,7 +153,6 @@ const rectangleStyle = {
     zIndex: 2,
   };
 
-  // Define child image style
   const childImageStyle = {
     ...imageInsideRectangleStyle,
     width:  screenWidth >= 768 ? '56%' : '72%',
@@ -165,7 +163,6 @@ const rectangleStyle = {
     zIndex: 2,
   };
 
-  // Define circle container styles
   const circleContainerStyle = {
     position: 'absolute',
     transform: 'translate(-50%, -50%)',
@@ -177,8 +174,8 @@ const rectangleStyle = {
     position: 'absolute',
     left: '20%',
     top: screenWidth >= 768 ? '80%' : '70%',
-    transform: screenWidth >= 768 ? 'translate(-50%, -50%)' : 'translate(-40%, -60%) scale(0.5)', // Center horizontally and scale down for smaller screens
-    maxWidth: '200px', // Maximum width to maintain responsiveness
+    transform: screenWidth >= 768 ? 'translate(-50%, -50%)' : 'translate(-40%, -60%) scale(0.5)', 
+    maxWidth: '200px', 
   };
 
   const circle2Style = {
@@ -187,8 +184,8 @@ const rectangleStyle = {
     position: 'absolute',
     left: '40%',
     top: screenWidth >= 768 ? '85%' : '70%',
-    transform: screenWidth >= 768 ? 'translate(-50%, -50%)' : 'translate(-40%, -60%) scale(0.5)', // Center horizontally and scale down for smaller screens
-    maxWidth: '200px', // Maximum width to maintain responsiveness
+    transform: screenWidth >= 768 ? 'translate(-50%, -50%)' : 'translate(-40%, -60%) scale(0.5)',
+    maxWidth: '200px', 
   };
 
   const circle3Style = {
@@ -197,8 +194,8 @@ const rectangleStyle = {
     position: 'absolute',
     left: '60%',
     top: screenWidth >= 768 ? '80%' : '70%',
-    transform: screenWidth >= 768 ? 'translate(-50%, -50%)' : 'translate(-40%, -60%) scale(0.5)', // Center horizontally and scale down for smaller screens
-    maxWidth: '200px', // Maximum width to maintain responsiveness
+    transform: screenWidth >= 768 ? 'translate(-50%, -50%)' : 'translate(-40%, -60%) scale(0.5)', 
+    maxWidth: '200px', 
   };
 
   const circle4Style = {
@@ -207,12 +204,11 @@ const rectangleStyle = {
     position: 'absolute',
     left: '79.5%',
     top: screenWidth >= 768 ? '85%' : '70%',
-    transform: screenWidth >= 768 ? 'translate(-50%, -50%)' : 'translate(-40%, -60%) scale(0.5)', // Center horizontally and scale down for smaller screens
-    maxWidth: '200px', // Maximum width to maintain responsiveness
+    transform: screenWidth >= 768 ? 'translate(-50%, -50%)' : 'translate(-40%, -60%) scale(0.5)',
+    maxWidth: '200px', 
   };
   
 
-  // Define circle styles
   const circleStyle = {
     width: '100px',
     height: '100px',
@@ -223,7 +219,6 @@ const rectangleStyle = {
     bottom: '19%',
   };
 
-  // Define small icon styles
   const smallIconStyle = {
     width: '45%',
     height: '45%',
@@ -238,7 +233,6 @@ const rectangleStyle = {
     transform: 'scale(1)',
   };
 
-  // Define circle text styles
   const circleTextStyle = {
     position: 'absolute',
     top: '50%',
@@ -246,7 +240,6 @@ const rectangleStyle = {
     transform: 'translateY(280%)',
   };
 
-  // Define line styles
 const lineStyle = {
   position: 'absolute',
   height: '2px',
@@ -256,7 +249,6 @@ const lineStyle = {
 };
 
 
-  // Styles for "Why" heading
 const whyHeadingStyle = {
   fontSize: '3rem',
   color: '#00008B',
@@ -264,7 +256,6 @@ const whyHeadingStyle = {
   marginBottom: '10px',
 };
 
-// Styles for "Undergrad Uplift" paragraph
 const undergradUpliftParagraphStyle = {
   fontSize: '2.0rem',
   color: '#00008B',

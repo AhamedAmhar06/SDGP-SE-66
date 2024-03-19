@@ -6,18 +6,13 @@ import 'slick-carousel/slick/slick-theme.css';
 import Box from '@mui/material/Box';
 import Rating from '@mui/material/Rating';
 import Typography from '@mui/material/Typography';
-import PersonIcon from '@mui/icons-material/Person';
-import TimeFilledIcon from '@mui/icons-material/AccessTimeFilled';
 import { RiNumber1, RiNumber2, RiNumber3, RiNumber4 } from "react-icons/ri";
 
 import headerImg from "../Assets/images/header-img.png";
 import contactimg from "../Assets/images/grad-img.png";
-import becomeatutor from "../Assets/images/become a tutor.png";
-import community from "../Assets/images/community.png";
-import booksessions from "../Assets/images/booksessions.png";
-import tut from "../Assets/images/tutoringsession.png";
-import qbank from "../Assets/images/qbank.png";
-import greet from "../Assets/images/greet.png";
+
+
+
 import sitting from "../Assets/images/sitting.png";
 import smallicon1 from "../Assets/images/smallicon1.png";
 import smallicon2 from "../Assets/images/smallicon2.png";
@@ -28,10 +23,6 @@ import communitymf from "../Assets/images/communitiesmf.png";
 import whyperson from "../Assets/images/Whyperson.png"
 import book from "../Assets/images/Book.png"
 import questionbank from "../Assets/images/questionbank.png";
-import number1 from "../Assets/images/1.png";
-import number2 from "../Assets/images/2.png";
-import number3 from "../Assets/images/3.png";
-import number4 from "../Assets/images/4.png";
 
 
 import FirstSlider from '../components/FirstSlider'; 
@@ -40,11 +31,78 @@ import FirstSlider from '../components/FirstSlider';
 const Home = () => {
   const [value, setValue] = useState(0);
 
-  const imageStyle = {
-    width: '60%',
-    height: '50%',
-    marginBottom: '10px',
+  const [screenWidth, setScreenWidth] = useState(window.innerWidth);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setScreenWidth(window.innerWidth);
+    };
+
+    window.addEventListener('resize', handleResize);
+
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
+
+  
+
+  const contactImageStyle = {
+    width:  screenWidth >= 768 ? '50%' : '190%',
+    height: screenWidth >= 768 ? '80%' : '145%',
+    objectFit: 'cover',
+    position: 'absolute',
+    top: screenWidth >= 768 ? '40%' : '55%',
+    left: screenWidth >= 768 ? '17%' : '0%',
+    transform: screenWidth >= 768 ? 'translate(-50%, -50%)' : 'translate(-40%, -60%) scale(0.2)',
+    maxWidth: '900px',
   };
+  
+  const headerImageStyle = {
+    width: screenWidth >= 768 ? '50%' : '50%',
+    height: screenWidth >= 768 ? '100%' : '35%',
+    objectFit: 'cover',
+    position: 'relative',
+    left: screenWidth >= 768 ? '0%' : '0%',
+    top: screenWidth >= 768 ? '-8%' : '-4%',
+    maxWidth: '1900px',
+    
+  };
+
+  
+
+  const middlePartStyle = {
+    width: '50%',
+    height: '100vh', 
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    color: 'white',
+    
+  };
+
+  const textStyle = {
+    position: 'absolute',
+    top: '45%',
+    left: '48%',
+    transform: 'translate(-50%, -50%)',
+    textAlign: 'center',
+    color: 'white',
+    zIndex: 1,
+  };
+  
+  const aboutButtonStyle = {
+    backgroundColor: 'black',
+    color: 'white',
+    borderRadius: '999px',
+    padding: '10px 30px', 
+    marginTop: '15rem', // Changed from 400px to a relative value
+    cursor: 'pointer',
+    marginLeft:'86%',
+    whiteSpace: 'nowrap',
+  };
+  
+  
 
   const circleStyle = {
     width: '50px',
@@ -71,25 +129,8 @@ const Home = () => {
     transform: 'scale(1)',
   };
 
-  const imageZoomStyle = {
-    width: '96%',
-    height: '90%',
-    marginBottom: '10px',
-    borderRadius: '40px',
-    transition: 'transform 0.3s ease',
-  }
-
-  const rectangleStyle = {
-    width: '90%',
-    height: '30px',
-    backgroundColor: '#FFFFFF',
-    borderRadius: '20px',
-    position: 'absolute',
-    top: '10%',
-    transform: 'translateY(-50%)',
-    marginLeft: '15px',
-    border: '2px solid #fff',
-  };
+ 
+  
 
   const sliderContent = [
     {
@@ -109,12 +150,7 @@ const Home = () => {
     },
   ];
 
-  const boxStyle = {
-    width: '65%',
-    height: '300px',
-    margin: '0 auto',
-    
-  };
+  
 
   const [ratings, setRatings] = useState(Array(sliderContent.length).fill(0));
 
@@ -134,18 +170,7 @@ const Home = () => {
     slidesToScroll: 1,
   };
 
-  const whiteBoxStyle = {
-    position: 'absolute',
-    bottom: 0,
-    left: 0,
-    width: '100%',
-    height: '65%',
-    backgroundColor: '#fff',
-    padding: '14px',
-    boxSizing: 'border-box',
-    borderRadius: '20px',
-    border: '2px solid #3498db',
-  };
+  
 
   // State for FAQ sections
   const [isMinimized1, setIsMinimized1] = useState(false);
@@ -186,46 +211,70 @@ const Home = () => {
   
 
   return (
-    <div>
+    
+      <div style={{ overflowX: 'hidden' }}>
       {/* Banner Part */}
-      <div className='relative w-full h-screen flex items-center bg-white-ash'>
+      <div className='relative w-full min-h-screen flex items-center bg-white-ash'>
+1
+
         {/* Left part with contact image */}
-        <img
-          className='top-0 left-0 w-[40%] h-screen object-cover'
-          src={contactimg}
-          alt='Contact Image'
-          style={imageStyle}
-        />
+<img
+  className='top-0 left-0 w-[40%] h-screen object-cover'
+  src={contactimg}
+  alt='Contact Image'
+  style={contactImageStyle}
+/>
 
         {/* Middle part with text and button */}
-        <div className='w-[50%] h-screen flex flex-col justify-center text-white'>
-        <div className='max-w-[600px] m-auto p-4 text-center'>
-  <p className='text-blue-900'>Guiding undergrads to success in their academic journey</p>
-  <h1 className='font-bold text-5xl md:text-7xl drop-shadow-2xl'>
-    <span className='text-blue-900'>
-      First collaborative hub
-    </span>
-  </h1>
-  <h1 className='font-bold text-5xl md:text-7xl drop-shadow-2xl'>
-    <span className='text-blue-900'>
-      for university students in Sri Lanka
-    </span>
-  </h1>
-  
-  <button className='bg-black text-white rounded-full mt-4 mb-2 px-6 py-3 w-8px'>About Us</button>
+<div className='w-[50%] h-screen flex flex-col justify-center text-white' style={middlePartStyle}>
 
- 
+<div style={textStyle}>
+<h1 className='text-black mt-20px' style={{ marginTop: '-160px' }}>
+  {"Guiding undergrads to success in their academic journey"}
+</h1>
+
 </div>
-        </div>
+
+  <div style = {textStyle}>
+  <h1 className='font-bold text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-6xl drop-shadow-2xl'>
+  <span className='text-blue-900'>
+    First Collaborative Hub{''}
+    </span>
+  </h1>
+
+  <h1 className='font-bold text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-6xl drop-shadow-2xl'>
+  <span className='text-blue-900'>
+    For University Students In 
+    </span>
+    </h1>
+
+
+    <h1 className ='font-bold text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-7xl drop-shadow-2xl'>
+  <span className='text-blue-900'>
+    Sri Lanka 
+    </span>
+    </h1>
+  </div>
+  <div>
+<button className='aboutButton' style={aboutButtonStyle}>About Us</button>
+
+</div>
+
+</div>
+
+
+
+
 
         {/* Right part with header image */}
-        <img
-          className='top-0 right-[60%] w-[20%] h-screen object-cover'
-          src={headerImg}
-          alt='Header Image'
-          style={imageStyle}
-        />
-      </div>
+<img
+  className='top-0 right-[60%] w-[20%] h-screen object-cover'
+  src={headerImg}
+  alt='Header Image'
+  style={headerImageStyle}
+/>
+</div>
+
 
      
 
@@ -439,13 +488,14 @@ const Home = () => {
         </p>
       </div>
 
-      <div className='hidden lg:block absolute top-[-170px] right-16 w-1/2'>
-        <img
-          src={sitting}
-          alt='Why Image'
-          className='object-cover w-90 h-90'
-        />
-      </div>
+      <div className='hidden lg:block absolute top-[-20%] left-[87%] w-1/2 transform -translate-x-1/2'>
+  <img
+    src={sitting}
+    alt='Why Image'
+    className='object-cover w-90 h-90'
+  />
+</div>
+
     </div>
   </div>
 </div>

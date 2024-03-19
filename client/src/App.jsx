@@ -17,6 +17,7 @@ import Notifications from './pages/Notifications';
 import EditProfile from './pages/EditProfile';
 import { Toaster } from 'react-hot-toast';
 import { UndergradContextProvider } from './context/undergradContext';
+import Error404page from './components/Error404page';
 
 axios.defaults.baseURL = 'http://localhost:8000';
 axios.defaults.withCredentials = true;
@@ -30,7 +31,7 @@ function App () {
         <Navbar/>
         <Toaster position='bottom-right' toastOptions={{duration: 2000}}/>
       <Routes>
-          <Route path='*' element={<h1>Not Found</h1>} />
+          <Route path='*' element={<Error404page/>} />
           <Route path="/" element={<Home />} />
           <Route path='/login' element={<Login/>} />
           <Route path='/register' element={<Register/>} />
@@ -43,6 +44,8 @@ function App () {
           <Route path='/tutors/:id' element={<TutorDetails />} />
           <Route path='/notifications' element={<Notifications/>} />
           <Route path='/editProfile' element={<EditProfile/>} />
+          
+
       </Routes>
 
         <Footer/>
