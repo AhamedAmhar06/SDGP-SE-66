@@ -6,6 +6,7 @@ const QuestionList = () => {
   const [editingId, setEditingId] = useState(null);
   const [editingValue, setEditingValue] = useState({});
   const [categories, setCategories] = useState(['Category 1', 'Category 2', 'New Category']);
+  const [types, setTypes] = useState(['open_ended', 'multiple_choice']);
 
   useEffect(() => {
     axios.get('http://localhost:8000/questions')
@@ -24,10 +25,6 @@ const QuestionList = () => {
 
   const handleInputChange = (event) => {
     setEditingValue({ ...editingValue, [event.target.name]: event.target.value });
-  };
-
-  const handleCategoryChange = (event) => {
-    setEditingValue({ ...editingValue, category: event.target.value });
   };
 
   const handleSaveClick = async (id) => {
@@ -70,13 +67,18 @@ const QuestionList = () => {
           {questions.map(question => (
             <tr key={question._id}>
               <td>{editingId === question._id ? <input type="text" name="question" value={editingValue.question} onChange={handleInputChange} /> : question.question}</td>
-              <td>{editingId === question._id ? <input type="text" name="type" value={editingValue.type} onChange={handleInputChange} /> : question.type}</td>
+              <td>{editingId === question._id ? 
+                <select name="type" value={editingValue.type} onChange={handleInputChange}>
+                  {types.map((type, index) => (
+                    <option key={index} value={type}>{type}</option>
+                  ))}
+                </select> : question.type}</td>
               <td>{editingId === question._id ? <input type="text" name="answers" value={editingValue.answers.join(', ')} onChange={handleInputChange} /> : question.answers.join(', ')}</td>
               <td>{editingId === question._id ? <input type="text" name="correctAnswer" value={editingValue.correctAnswer} onChange={handleInputChange} /> : question.correctAnswer}</td>
               <td>
                 {editingId === question._id ? (
                   <>
-                    <select name="category" value={editingValue.category} onChange={handleCategoryChange}>
+                    <select name="category" value={editingValue.category} onChange={handleInputChange}>
                       {categories.map((category, index) => (
                         <option key={index} value={category}>{category}</option>
                       ))}
