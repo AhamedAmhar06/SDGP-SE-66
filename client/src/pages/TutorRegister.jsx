@@ -126,7 +126,7 @@ export default function TutorRegister() {
       <div className="bg-gray-100 flex rounded-2xl shadow-lg max-w-3xl p-5 items-center">
         {/* Image */}
         <div className="md:w-1/2 hidden md:block">
-          <img className="rounded-2xl border border-NavBlue border-4" src={registerperson} alt="Register Person" />
+          <img className="rounded-2xl border-NavBlue border-4" src={registerperson} alt="Register Person" />
         </div>
 
         {/* Form */}
