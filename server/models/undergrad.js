@@ -22,6 +22,10 @@ const undergradSchema = new Schema({
     password : {
         type: String,
     },
+    Members: {
+        type: Array,
+        default: [],
+    }    
 
 });
 
