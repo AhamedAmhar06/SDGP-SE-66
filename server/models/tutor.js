@@ -25,6 +25,9 @@ const tutorSchema = new Schema({
     subjects : {
         type: [String],
     },
+    bio : {
+        type: String,
+    },
     rating : {
         type: mongoose.Decimal128,
     },

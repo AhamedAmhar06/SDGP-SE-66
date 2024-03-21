@@ -2,6 +2,7 @@
 import { useContext, useState, useEffect } from "react";
 import { UndergradContext } from "../context/undergradContext";
 import { Link } from "react-router-dom";
+import axios from "axios";
 import profileImage from "../Assets/images/Mask group.png";
 import payments from "../Assets/images/analysis 1.png";
 import { FaCalendarAlt } from "react-icons/fa";
@@ -13,12 +14,17 @@ import QuestionCards from "../components/Dashboard/QuestionCards";
 export default function TutorDashboard() {
   const { undergrad } = useContext(UndergradContext);
   const [ undergradLoaded, setUndergradLoaded ] = useState(false);
+  const [ email, setEmail ] = useState('');
+  const [ tutor, setTutor ] = useState([]);;
 
   useEffect(() => {
     const fetchUndergrad = async () => {
         try {
             if(undergrad){
-                setUndergradLoaded(true);
+              const email = undergrad.email;
+              const response = await axios.post('/tutorDetailsByEmail', { email });
+              setTutor(response.data);
+              setUndergradLoaded(true);
             }
             
         } catch (error) {
@@ -37,11 +43,15 @@ export default function TutorDashboard() {
                 {/* Profile Section */}
                 <div className="flex flex-col items-center justify-start p-[45px] border-NavBlue border border-solid bg-gray-100 rounded-[36px]">
                   <img src={profileImage} alt="Profile" className="h-[225px] w-[225px] ml-2.5 rounded-[50%] hover:scale-110 duration-300" />
-                  {!!undergrad && <h2 className="text-xl font-bold text-center text-NavBlue">Hi {undergrad.fName}!</h2>}
-                  <p className="mt-4 font-bold text-center text-s text-NavBlue">Students</p>
-                  <p className="mt-2 font-bold text-center text-s text-NavBlue">{!!undergrad && <>{undergrad.university}</>}</p>
+                  {!!undergrad && <h2 className="text-xl font-bold text-center text-NavBlue">Hi {tutor.fName}!</h2>}
+                  <p className="mt-4 font-bold text-center text-s text-NavBlue">Tutor</p>
+                  <p className="mt-2 font-bold text-center text-s text-NavBlue">{tutor.university}</p>
+                  <p className="mt-2 font-bold text-center text-s text-NavBlue">{tutor.bio}</p>
                   <div className="flex flex-col items-center justify-start w-full mt-[72px]">
                     <div className="w-full sm:w-[100%] md:w-[100%] lg:w-[100%]">
+                      <Link to="/createCourse">
+                      <button className="w-full px-5 py-3 mt-0 mb-2 duration-300 bg-white border rounded-xl hover:scale-110">Create Course</button>
+                      </Link>
                       <Link to='/editProfile'>
                         <button className="w-full px-5 py-3 mt-0 mb-2 duration-300 bg-white border rounded-xl hover:scale-110">Edit Profile</button>
                       </Link>
