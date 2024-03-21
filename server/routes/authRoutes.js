@@ -5,6 +5,8 @@ const { test, loginUser, registerUser, getProfile, logout, resetPassword } = req
 const { OTPVerification, sendCode, tutorRegisterOTP } = require('../controllers/authMail');
 const { tutorRegister, handleTutorLogin, tutorList, tutorDetails } = require('../controllers/tutorControllers');
 const { notificationList, createNotification, markAsRead, markAsUnread, deleteNotification } = require('../controllers/notificationController');
+const {getAllQuestions ,createQuestion,updateQuestion,deleteQuestion} = require('../controllers/questionController');
+
 
 //middleware
 router.use(
@@ -42,6 +44,9 @@ router.put('/markAsRead/:id', markAsRead)
 router.put('/markAsUnread/:id', markAsUnread)
 router.post('/createNotification', createNotification)
 router.delete('/deleteNotification/:id', deleteNotification)
+
+//questionBank
+router.post('/getAllQuestions', getAllQuestions)
 
 router.post('/test', test)
 
