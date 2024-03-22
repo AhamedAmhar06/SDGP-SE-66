@@ -52,7 +52,8 @@ function App () {
 
 
           <Route path='/dashboard' element={<Dashboard/>} />
-          <Route path='/questionbank' element={<QuestionBank/>} />
+          
+          <Route path='/questionUploader' element={<QuestionBank/>} />
           <Route path='/questionlist' element={<QuestionList/>} />
           <Route path='/questionuploader' element={<QuestionUploader/>} />
 

@@ -1,5 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect,useContext } from 'react';
 import axios from 'axios';
+import { UndergradContext } from "../../context/undergradContext";
 
 const QuestionList = () => {
   const [questions, setQuestions] = useState([]);
@@ -7,16 +8,58 @@ const QuestionList = () => {
   const [editingValue, setEditingValue] = useState({});
   const [categories, setCategories] = useState(['Category 1', 'Category 2', 'New Category']);
   const [types, setTypes] = useState(['multiple_choice', 'open_ended']);
+  const [questionsUploaded, setQuestionsUploaded] = useState(0);
 
-  useEffect(() => {
-    axios.get('http://localhost:8000/questions')
-      .then(response => {
+  const[email, setEmail] = useState('');
+
+  const { undergrad } = useContext(UndergradContext);
+  const [ undergradLoaded, setUndergradLoaded ] = useState(false);
+  const [ questionLoaded, setQuestionLoaded ] = useState(false);
+
+
+  useEffect( () => {
+    const fetchUndergrad = async () => {
+      try {
+        if (undergrad && !undergradLoaded) {
+          setEmail(undergrad.email);
+          setUndergradLoaded(false);
+        }
+        const response = await axios.post('/getAllQuestions', { email });
         setQuestions(response.data);
-      })
-      .catch(error => {
-        console.error('Error fetching questions:', error);
-      });
-  }, []);
+        setQuestions(response.data.slice(0, 10)); // Limit to 10 questions
+        setQuestionsUploaded(response.data.length);
+        console.log(response.data);
+        if(response.data){
+          setQuestionLoaded(true);
+        }
+        
+      } catch (error) {
+        console.error('Error fetching undergrad:', error);
+      }
+    };
+  
+    // const fetchQuestions = async () => {
+    //   try {
+    //     const response = await axios.post('/getAllQuestions', { email });
+    //     setQuestions(response.data);
+    //     setQuestionLoaded(true);
+    //   } catch (error) {
+    //     console.error('Error fetching questions:', error);
+    //   }
+    // };
+  
+     fetchUndergrad();
+  
+    if (!questionLoaded) {
+      fetchUndergrad();
+    }
+  }, [undergrad, email, undergradLoaded, questionLoaded]);
+  // Adding dependencies to useEffect
+  
+  // useEffect(() => {
+  //   console.log(questions); // Logging questions after it's been updated
+  // }, [questions]); // Dependency array ensures it runs after questions has been updated
+  
 
   const handleEditClick = (id, question) => {
     setEditingId(id);
@@ -52,6 +95,7 @@ const QuestionList = () => {
   return (
     <div className='container mx-auto'>
       <h2 className='text-3xl font-bold text-center my-8'>Questions</h2>
+      <p>{`Questions Uploaded: ${questionsUploaded}/10`}</p>
       {questions.map(question => (
         <div key={question._id} className='max-w-screen-md mx-auto my-4 border border-gray-300 rounded-lg p-4 hover:shadow-md'>
           <p className='text-lg font-semibold'>Question:</p>
