@@ -4,6 +4,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { UndergradContext } from "../context/undergradContext";
 import { Link } from 'react-router-dom';
 
+
 export default function TutorDetails({tutor_id}) {
 
     const [tutor, setTutor] = useState({});

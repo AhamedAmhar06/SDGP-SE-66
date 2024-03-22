@@ -1,5 +1,6 @@
 const Undergrad = require('../models/undergrad');
 const Tutor = require('../models/tutor');
+const Course = require('../models/course');
 const { hashPassword, comparePassword } = require('../helpers/auth');
 const jwt = require('jsonwebtoken');
 const nodemailer = require('nodemailer');
@@ -9,7 +10,7 @@ const { EMAIL, PASSWORD } = process.env;
 //Create tutor account
 const tutorRegister = async (req, res) => {
     try {
-        const { email, password, subjects } = req.body;
+        const { email, password, subjects, bio, price } = req.body;
 
         // console.log(email, password, subjects);
 
@@ -48,7 +49,6 @@ const tutorRegister = async (req, res) => {
             const hashedPassword = undergrad.password;
             const rating = 0;
             const reviews = "None";
-            const price = 0;
             const tutor = await Tutor.create({
                 fName,
                 lName,
@@ -57,6 +57,7 @@ const tutorRegister = async (req, res) => {
                 studyLevel,
                 password : hashedPassword,
                 subjects,
+                bio,
                 rating,
                 reviews,
                 price
@@ -106,9 +107,82 @@ const tutorDetails = async (req, res) => {
     }
 }
 
+//Retrieve tutor details by email
+const tutorDetailsByEmail = async (req, res) => {
+    try {
+        const { email } = req.body;
+        const tutor = await Tutor.findOne({ email });
+        return res.json(tutor);
+    }
+    catch (error) {
+        console.log(error);
+    }
+};
+
+//Create course
+const createCourse = async (req, res) => {
+    try {
+        const { courseName, description, time, email, subject, price } = req.body;
+
+        //Check if course name is entered
+        if (!courseName) {
+            return res.json({
+                error: 'Course name is required'
+            })
+        }
+
+        //Check if course description is entered
+        if (!description) {
+            return res.json({
+                error: 'Course description is required'
+            })
+        }
+
+        //Check if course time is entered
+        if (!time) {
+            return res.json({
+                error: 'Course time is required'
+            })
+        }
+
+        //Check if course subject is entered
+        if (!subject) {
+            return res.json({
+                error: 'Select a subject'
+            })
+        }
+
+        //Check if course price is entered
+        if (!price) {
+            return res.json({
+                error: 'Course price is required'
+            })
+        }
+
+        const rating = 0;
+        
+        const course = await Course.create({
+            courseName,
+            description,
+            time,
+            email,
+            subject,
+            price,
+            rating
+        });
+
+        return res.json(course);
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+
 module.exports = {
     tutorRegister,
     handleTutorLogin,
     tutorDetails,
-    tutorList
+    tutorList,
+    tutorDetailsByEmail,
+    createCourse
 }
