@@ -3,7 +3,7 @@ const router = express.Router();
 const cors = require('cors');
 const { test, loginUser, registerUser, getProfile, logout, resetPassword } = require('../controllers/authController');
 const { OTPVerification, sendCode, tutorRegisterOTP } = require('../controllers/authMail');
-const { tutorRegister, handleTutorLogin, tutorList, tutorDetails } = require('../controllers/tutorControllers');
+const { tutorRegister, handleTutorLogin, tutorList, tutorDetails, tutorDetailsByEmail, createCourse } = require('../controllers/tutorControllers');
 const { notificationList, createNotification, markAsRead, markAsUnread, deleteNotification } = require('../controllers/notificationController');
 const {getAllQuestions ,createQuestion,updateQuestion,deleteQuestion} = require('../controllers/questionController');
 
@@ -36,7 +36,8 @@ router.post('/tutorRegister', tutorRegister)
 router.post('/tutorLogin', handleTutorLogin)
 router.get('/tutors', tutorList)
 router.post('/tutorDetails', tutorDetails)
-
+router.post('/tutorDetailsByEmail', tutorDetailsByEmail)
+router.post('/createCourse', createCourse)
 
 //Notification
 router.post('/notificationList', notificationList)
