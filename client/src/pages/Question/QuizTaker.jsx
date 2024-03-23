@@ -1,58 +1,101 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
-const QuizTaker = ({ questions }) => {
+const QuizTaker = () => {
+  const [questions, setQuestions] = useState([]);
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [selectedAnswer, setSelectedAnswer] = useState('');
   const [score, setScore] = useState(0);
+  const [quizCompleted, setQuizCompleted] = useState(false);
+
+  useEffect(() => {
+    const fetchQuestions = async () => {
+      try {
+        const response = await axios.get('/quizget');
+        setQuestions(response.data);
+      } catch (error) {
+        console.error('Error fetching questions:', error);
+      }
+    };
+    fetchQuestions();
+  }, []);
 
   const handleAnswerSelection = (answer) => {
     setSelectedAnswer(answer);
   };
 
-  const handleNextQuestion = () => {
-    // Check if the selected answer is correct and update the score
+  const handleNextQuestion = async () => {
     if (selectedAnswer === questions[currentQuestionIndex].correctAnswer) {
       setScore(score + 1);
     }
-    // Move to the next question
-    setCurrentQuestionIndex(currentQuestionIndex + 1);
-    // Reset selected answer
     setSelectedAnswer('');
+    if (currentQuestionIndex + 1 < questions.length) {
+      setCurrentQuestionIndex(currentQuestionIndex + 1);
+    } else {
+      setQuizCompleted(true);
+    }
+  };
+
+  const resetQuiz = () => {
+    setScore(0);
+    setCurrentQuestionIndex(0);
+    setSelectedAnswer('');
+    setQuizCompleted(false);
+    fetchQuestions(); // Refetch questions to start a new quiz
   };
 
   return (
-    <div className='container mx-auto'>
-      <h2 className='text-3xl font-bold text-center my-8'>Quiz</h2>
-      {currentQuestionIndex < questions.length ? (
-        <div className='max-w-screen-md mx-auto my-4 border border-gray-300 rounded-lg p-4 hover:shadow-md'>
-          <p className='text-lg font-semibold'>Question:</p>
-          <p className='text-gray-800'>{questions[currentQuestionIndex].question}</p>
-          <div className='flex flex-wrap'>
-            <div className='w-full'>
-              {questions[currentQuestionIndex].answers.map((answer, index) => (
-                <div key={index} className='my-2'>
-                  <input
-                    type='radio'
-                    id={`answer${index}`}
-                    name='answer'
-                    value={answer}
-                    checked={selectedAnswer === answer}
-                    onChange={() => handleAnswerSelection(answer)}
-                  />
-                  <label htmlFor={`answer${index}`} className='ml-2'>{answer}</label>
-                </div>
-              ))}
-            </div>
-          </div>
-          <div className='mt-4 flex justify-end'>
-            <button onClick={handleNextQuestion} className='px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 focus:outline-none focus:bg-blue-600'>Next</button>
-          </div>
+    <div className="container mx-auto flex justify-center items-center h-screen">
+      {quizCompleted ? (
+        <div className="text-center">
+          <h2 className="text-3xl font-bold mb-4">Quiz Completed!</h2>
+          <p className="text-lg mb-4">Your score: {score}</p>
+          <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" onClick={resetQuiz}>
+            Try Again
+          </button>
         </div>
       ) : (
-        <div className='text-center'>
-          <h2>Quiz Completed!</h2>
-          <p>Your Score: {score}/{questions.length}</p>
+        <div className="bg-white p-8 rounded shadow-lg">
+          <h2 className="text-2xl font-bold mb-4">Question {currentQuestionIndex + 1}</h2>
+          <p className="mb-4">{questions[currentQuestionIndex]?.question}</p>
+          {questions[currentQuestionIndex]?.type === 'open_ended' ? (
+            <div>
+              <input
+                type="text"
+                className="border border-gray-300 rounded px-4 py-2 mb-4"
+                value={selectedAnswer}
+                onChange={(e) => setSelectedAnswer(e.target.value)}
+              />
+              <button
+                className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                onClick={handleNextQuestion}
+              >
+                Next
+              </button>
+            </div>
+          ) : (
+            <ul>
+              {questions[currentQuestionIndex]?.answers.map((answer, index) => (
+                <li
+                  key={index}
+                  className={`cursor-pointer py-2 px-4 border border-gray-300 rounded mb-2 ${
+                    answer === selectedAnswer ? 'bg-gray-100' : ''
+                  }`}
+                  onClick={() => handleAnswerSelection(answer)}
+                >
+                  {answer}
+                </li>
+              ))}
+              {selectedAnswer && (
+                <button
+                  className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                  onClick={handleNextQuestion}
+                >
+                  Next
+                </button>
+              )}
+            </ul>
+          )}
         </div>
       )}
     </div>

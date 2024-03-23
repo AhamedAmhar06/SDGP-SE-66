@@ -46,7 +46,7 @@ const QuestionUploader = () => {
         };
       }
   
-      await axios.post('http://localhost:8000/questions', formData);
+      await axios.post('/create', formData);
       alert('Question submitted successfully!');
       setQuestion('');
       setType('');
