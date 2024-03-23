@@ -9,7 +9,9 @@ import smallicon1 from "../Assets/images/smallicon1.png";
 import smallicon2 from "../Assets/images/smallicon2.png";
 import smallicon3 from "../Assets/images/smallicon3.png";
 import wallet from "../Assets/images/wallet.png";
-
+import ahamed from "../Assets/images/ahamed.jpg";
+import sudarshana from "../Assets/images/sudarshana.jpg";
+import yashmitha from "../Assets/images/yashmitha.jpg"
 function AboutUs() {
   const [screenWidth, setScreenWidth] = useState(window.innerWidth);
 
@@ -28,7 +30,7 @@ function AboutUs() {
   const containerStyle = {
     position: 'relative',
     width: '100%',
-    height: '350vh',
+    height: '650vh',
   };
 
   const imageStyleabtus1 = {
@@ -175,7 +177,7 @@ const rectangleStyle = {
     position: 'absolute',
     left: '20%',
     top: screenWidth >= 768 ? '80%' : '70%',
-    transform: screenWidth >= 768 ? 'translate(-50%, -50%)' : 'translate(-40%, -60%) scale(0.5)', 
+    transform: screenWidth >= 768 ? 'translate(-50%, -650%)' : 'translate(-40%, -60%) scale(0.5)', 
     maxWidth: '200px', 
   };
 
@@ -185,7 +187,7 @@ const rectangleStyle = {
     position: 'absolute',
     left: '40%',
     top: screenWidth >= 768 ? '85%' : '70%',
-    transform: screenWidth >= 768 ? 'translate(-50%, -50%)' : 'translate(-40%, -60%) scale(0.5)',
+    transform: screenWidth >= 768 ? 'translate(-50%, -900%)' : 'translate(-40%, -60%) scale(0.5)',
     maxWidth: '200px', 
   };
 
@@ -195,7 +197,7 @@ const rectangleStyle = {
     position: 'absolute',
     left: '60%',
     top: screenWidth >= 768 ? '80%' : '70%',
-    transform: screenWidth >= 768 ? 'translate(-50%, -50%)' : 'translate(-40%, -60%) scale(0.5)', 
+    transform: screenWidth >= 768 ? 'translate(-50%, -300%)' : 'translate(-40%, -60%) scale(0.5)', 
     maxWidth: '200px', 
   };
 
@@ -205,7 +207,7 @@ const rectangleStyle = {
     position: 'absolute',
     left: '79.5%',
     top: screenWidth >= 768 ? '85%' : '70%',
-    transform: screenWidth >= 768 ? 'translate(-50%, -50%)' : 'translate(-40%, -60%) scale(0.5)',
+    transform: screenWidth >= 768 ? 'translate(-50%, -300%)' : 'translate(-40%, -60%) scale(0.5)',
     maxWidth: '200px', 
   };
   
@@ -246,7 +248,7 @@ const lineStyle = {
   height: '2px',
   backgroundColor: 'black',
   display: screenWidth >= 1079 ? 'block' : 'none',
-  marginTop: screenWidth >= 768 ? '-61vh' : (screenWidth >= 608 ? '90vh' : '-20vh'),
+  marginTop: screenWidth >= 768 ? '-145vh' : (screenWidth >= 608 ? '90vh' : '-20vh'),
 };
 
 
@@ -255,6 +257,7 @@ const whyHeadingStyle = {
   color: '#00008B',
   fontWeight: 'bold',
   marginBottom: '10px',
+  marginTop: '-350px',
 };
 
 const undergradUpliftParagraphStyle = {
@@ -412,6 +415,12 @@ const containerDivStyle = {
         {/* Line 3 */}
         <div style={{ ...lineStyle, width: '14.5%', transform: 'rotate(-157deg)', left: '59.3%' }}></div>
       </div>
+
+
+
+      <div style={{ textAlign: 'center', marginTop: '1700px', color: '#00008B', fontSize: '2rem', fontWeight: 'bold' }}>
+  About Us
+</div>
     </div>
   );
 }
