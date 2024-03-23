@@ -121,9 +121,11 @@ function createCourse() {
             />
 
             <label>
-              Choose the related subject&nbsp; : &nbsp;
 
               {selectedSubjects.length === 0 && (
+                <>
+                
+                Choose the related subject&nbsp; : &nbsp;
                 <select
                   name="subjects"
                   id="subjects"
@@ -141,11 +143,12 @@ function createCourse() {
                   <option value="Kotlin">Kotlin</option>
                   <option value=""></option>
                 </select>
+                </>
               )}
 
               {/* Display selected subjects */}
               <div>
-                Selected Subjects &nbsp; :&nbsp;
+                Selected Subject: &nbsp; :&nbsp;
                   {selectedSubjects.map((subject, index) => (
                     <span key={index} className="selected-subject">
                       {subject}

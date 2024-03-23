@@ -1,15 +1,15 @@
 
 import { useContext, useState, useEffect } from "react";
-import { UndergradContext } from "../context/undergradContext";
+import { UndergradContext } from "../../context/undergradContext";
 import { Link } from "react-router-dom";
 import axios from "axios";
-import profileImage from "../Assets/images/Mask group.png";
-import payments from "../Assets/images/analysis 1.png";
+import profileImage from "../../Assets/images/Mask group.png";
+import payments from "../../Assets/images/analysis 1.png";
 import { FaCalendarAlt } from "react-icons/fa";
-import SheduledSessionCards from'../components/Dashboard/SheduledSessionCards';
-import PastSessionRecordCard from'../components/Dashboard/PastSessionRecordCard';
-import SessionRequestedCard from "../components/Dashboard/SessionRequestedCard";
-import QuestionCards from "../components/Dashboard/QuestionCards";
+import SheduledSessionCards from'../../components/Dashboard/SheduledSessionCards';
+import PastSessionRecordCard from'../../components/Dashboard/PastSessionRecordCard';
+import SessionRequestedCard from "../../components/Dashboard/SessionRequestedCard";
+import QuestionCards from "../../components/Dashboard/QuestionCards";
 
 export default function TutorDashboard() {
   const { undergrad } = useContext(UndergradContext);
@@ -130,10 +130,11 @@ export default function TutorDashboard() {
                     <div className="flex flex-row justify-start items-center w-[97%] mb-[11px] gap-[21px]">
                       <div className="flex flex-col items-center justify-start w-[92%]">
                         <h1 className="w-[97%] !leading-[35px]">
-                          <span className="text-NavBlue text-[26px] font-normal">Session </span> <br />
-                          <span className="text-4xl font-bold text-NavBlue">Requested</span>
+                          <span className="text-NavBlue text-[26px] font-normal">View </span> <br />
+                          <span className="text-4xl font-bold text-NavBlue">Session Requests</span>
                           <span className="font-normal text-NavBlue"></span>
                         </h1>
+                        
                                 <SessionRequestedCard/>
                                 <div className="flex flex-row justify-center w-[99%] mt-1 p-[5px] bg-gray-300 rounded-[10px]">
                                   <div className="flex flex-col items-start justify-start w-[52%] gap-px">

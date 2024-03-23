@@ -21,10 +21,11 @@ import OptionSelector from './pages/Question/OptionSelector';
 
 //Tutor
 import TutorRegister from './pages/Tutoring/TutorRegister';
-import TutorDashboard from './pages/TutorDashboard';
-import Tutors from './pages/Tutors';
-import TutorDetails from './pages/TutorDetails';
+import TutorDashboard from './pages/Tutoring/TutorDashboard';
+import Tutors from './pages/Tutoring/Tutors';
+import TutorDetails from './pages/Tutoring/TutorDetails';
 import CreateCourse from './pages/Tutoring/CreateCourse';
+import TimeTable from './pages/Tutoring/CreateSession';
 
 import Notifications from './pages/Notifications';
 
@@ -50,7 +51,6 @@ function App () {
           <Route path='/register' element={<Register/>} />
           <Route path='/about' element={<AboutUs/>} />
 
-
           <Route path='/dashboard' element={<Dashboard/>} />
           <Route path='/questionbank' element={<QuestionBank/>} />
           <Route path='/questionlist' element={<QuestionList/>} />
@@ -62,6 +62,7 @@ function App () {
           <Route path='/tutors' element={<Tutors/>} />
           <Route path='/tutors/:id' element={<TutorDetails />} />
           <Route path='/createCourse' element={<CreateCourse/>} />
+          <Route path='/createRequest/:id' element={<TimeTable/>} />
 
           <Route path='/optionSelector' element={<OptionSelector/>} />
           <Route path='/notifications' element={<Notifications/>} />
