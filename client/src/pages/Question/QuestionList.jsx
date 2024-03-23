@@ -53,7 +53,7 @@ const QuestionList = () => {
     if (!questionLoaded) {
       fetchUndergrad();
     }
-  }, [undergrad, email, undergradLoaded, questionLoaded]);
+  }, );
   // Adding dependencies to useEffect
   
   // useEffect(() => {
