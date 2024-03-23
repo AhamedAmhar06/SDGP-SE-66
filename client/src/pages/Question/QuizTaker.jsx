@@ -24,7 +24,7 @@ const QuizTaker = () => {
     setSelectedAnswer(answer);
   };
 
-  const handleNextQuestion = () => {
+  const handleNextQuestion = async () => {
     if (selectedAnswer === questions[currentQuestionIndex].correctAnswer) {
       setScore(score + 1);
     }
@@ -50,21 +50,51 @@ const QuizTaker = () => {
         <div className="text-center">
           <h2 className="text-3xl font-bold mb-4">Quiz Completed!</h2>
           <p className="text-lg mb-4">Your score: {score}</p>
-          <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" onClick={resetQuiz}>Try Again</button>
+          <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" onClick={resetQuiz}>
+            Try Again
+          </button>
         </div>
       ) : (
         <div className="bg-white p-8 rounded shadow-lg">
           <h2 className="text-2xl font-bold mb-4">Question {currentQuestionIndex + 1}</h2>
           <p className="mb-4">{questions[currentQuestionIndex]?.question}</p>
-          <ul>
-            {questions[currentQuestionIndex]?.answers.map((answer, index) => (
-              <li key={index} className="cursor-pointer py-2 px-4 border border-gray-300 rounded mb-2 hover:bg-gray-100" onClick={() => handleAnswerSelection(answer)}>
-                {answer}
-              </li>
-            ))}
-          </ul>
-          {selectedAnswer && (
-            <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-4" onClick={handleNextQuestion}>Next</button>
+          {questions[currentQuestionIndex]?.type === 'open_ended' ? (
+            <div>
+              <input
+                type="text"
+                className="border border-gray-300 rounded px-4 py-2 mb-4"
+                value={selectedAnswer}
+                onChange={(e) => setSelectedAnswer(e.target.value)}
+              />
+              <button
+                className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                onClick={handleNextQuestion}
+              >
+                Next
+              </button>
+            </div>
+          ) : (
+            <ul>
+              {questions[currentQuestionIndex]?.answers.map((answer, index) => (
+                <li
+                  key={index}
+                  className={`cursor-pointer py-2 px-4 border border-gray-300 rounded mb-2 ${
+                    answer === selectedAnswer ? 'bg-gray-100' : ''
+                  }`}
+                  onClick={() => handleAnswerSelection(answer)}
+                >
+                  {answer}
+                </li>
+              ))}
+              {selectedAnswer && (
+                <button
+                  className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                  onClick={handleNextQuestion}
+                >
+                  Next
+                </button>
+              )}
+            </ul>
           )}
         </div>
       )}
