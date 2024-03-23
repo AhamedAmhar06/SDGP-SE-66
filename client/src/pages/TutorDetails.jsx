@@ -58,12 +58,12 @@ export default function TutorDetails({tutor_id}) {
 
                         <br />
                         
-                        <button className="bg-NavBlue rounded-xl text-white p-2 hover:scale-105 duration-300 m-5">
+                        <button className="p-2 m-5 text-white duration-300 bg-NavBlue rounded-xl hover:scale-105">
                             Request for a Session
                         </button>
 
                         <button 
-                            className="bg-NavBlue rounded-xl text-white p-2 hover:scale-105 duration-300 m-5"
+                            className="p-2 m-5 text-white duration-300 bg-NavBlue rounded-xl hover:scale-105"
                         // onClick={}
                         >
                             Notify me
