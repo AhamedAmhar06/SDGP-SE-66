@@ -72,10 +72,10 @@ const QuestionList = () => {
 
   const handleSaveClick = async (id) => {
     try {
-      await axios.put(`http://localhost:8000/questions/${id}`, editingValue);
+      await axios.put(`/update/${id}`, editingValue);
       setEditingId(null);
       setEditingValue({});
-      const response = await axios.get('http://localhost:8000/questions');
+      const response = await axios.get('/fetchquestion');
       setQuestions(response.data);
     } catch (error) {
       console.error('Error updating question:', error);
@@ -84,8 +84,8 @@ const QuestionList = () => {
 
   const handleDeleteClick = async (id) => {
     try {
-      await axios.delete(`http://localhost:8000/questions/${id}`);
-      const response = await axios.get('http://localhost:8000/questions');
+      await axios.delete(`/delete/${id}`);
+      const response = await axios.get('/fetchquestion');
       setQuestions(response.data);
     } catch (error) {
       console.error('Error deleting question:', error);
