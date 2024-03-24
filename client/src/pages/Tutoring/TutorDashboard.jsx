@@ -16,6 +16,7 @@ export default function TutorDashboard() {
   const [ undergradLoaded, setUndergradLoaded ] = useState(false);
   const [ email, setEmail ] = useState('');
   const [ tutor, setTutor ] = useState([]);;
+  const [ requests, setRequests ] = useState([]);
 
   useEffect(() => {
     const fetchUndergrad = async () => {
@@ -24,6 +25,8 @@ export default function TutorDashboard() {
               const email = undergrad.email;
               const response = await axios.post('/tutorDetailsByEmail', { email });
               setTutor(response.data);
+              // const requests = await axios.post('/fetchRequests', { email });
+              // setRequests(requests.data);
               setUndergradLoaded(true);
             }
             
@@ -33,6 +36,23 @@ export default function TutorDashboard() {
     };
         fetchUndergrad();
   });
+
+  // useEffect(() => {
+  //   const fetchRequests = async () => {
+  //       try {
+  //         if(undergrad){
+  //           const email = undergrad.email;
+  //           const requests = await axios.post('/fetchRequests', { email });
+  //           setRequests(requests.data);
+  //           // console.log(response.data);
+  //         }
+  //       } catch (error) {
+  //           console.error(error);
+  //       }
+  //   };
+  //   fetchRequests();
+  // });
+
   return (
     <div>
       {undergradLoaded ? (
@@ -129,12 +149,12 @@ export default function TutorDashboard() {
                 <div className="flex flex-col items-center justify-start w-full p-[31px] border-NavBlue border border-solid rounded-[34px]">
                     <div className="flex flex-row justify-start items-center w-[97%] mb-[11px] gap-[21px]">
                       <div className="flex flex-col items-center justify-start w-[92%]">
-                        <h1 className="w-[97%] !leading-[35px]">
+                        <Link className="w-[97%] !leading-[35px]" to={`/viewRequestsTut/${tutor._id}`}>
                           <span className="text-NavBlue text-[26px] font-normal">View </span> <br />
                           <span className="text-4xl font-bold text-NavBlue">Session Requests</span>
                           <span className="font-normal text-NavBlue"></span>
-                        </h1>
-                        
+                        </Link>
+
                                 <SessionRequestedCard/>
                                 <div className="flex flex-row justify-center w-[99%] mt-1 p-[5px] bg-gray-300 rounded-[10px]">
                                   <div className="flex flex-col items-start justify-start w-[52%] gap-px">

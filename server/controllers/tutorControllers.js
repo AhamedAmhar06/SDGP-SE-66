@@ -187,7 +187,7 @@ const createCourse = async (req, res) => {
 
 const requestSession = async (req, res)=> {
     try {
-        const { email, tutorID, subject, reason, date, startTime, endTime } = req.body;
+        const { email, fName, lName, tutorID, subject, reason, date, startTime, endTime } = req.body;
          
         //Check if subject is entered
         if (!subject) {
@@ -230,6 +230,8 @@ const requestSession = async (req, res)=> {
         //If all data are entered, create session
         const session = await Session.create({
             tutorID,
+            fName,
+            lName,
             email,
             subject,
             reason,
@@ -250,6 +252,66 @@ const requestSession = async (req, res)=> {
     }
 }
 
+//Retrieve requests
+const fetchRequests = async (req, res) => {
+    try {
+        const { id } = req.body;
+        // console.log(id);
+        const tutorID = id;
+        const request = await Session.find({ tutorID });
+        return res.json(request);
+    }
+    catch (error) {
+        console.log(error);
+    }
+};
+
+//Session Acceptance
+const acceptSession = async (req, res) => {
+    try {
+        const { id } = req.body;
+        const session = await Session.findByIdAndUpdate(
+            req.params.id,
+            { accepted: true, decline: false},
+            { new: true }
+        );
+        res.json(session);
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+//Session Decline
+const declineSession = async (req, res) => {
+    try {
+        const { id } = req.body;
+        const session = await Session.findByIdAndUpdate(
+            req.params.id,
+            { decline: true, accepted: false},
+            { new: true }
+        );
+        res.json(session);
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+//Get requests
+const getRequests = async (req, res) =>{
+    try {
+        const { id } = req.body;
+        //Get undergrad email
+        const undergrad = await Undergrad.findById(id);
+        const email = undergrad.email;
+        //Get all requests related to the undergrad email
+        const requests = await Session.find({ email });
+        return res.json(requests);
+
+    } catch (error) {
+        console.log(error);
+    }
+
+}
 
 module.exports = {
     tutorRegister,
@@ -258,5 +320,9 @@ module.exports = {
     tutorList,
     tutorDetailsByEmail,
     createCourse,
-    requestSession
+    requestSession,
+    fetchRequests,
+    acceptSession,
+    declineSession,
+    getRequests
 }

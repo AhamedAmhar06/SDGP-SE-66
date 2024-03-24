@@ -5,6 +5,14 @@ const sessionSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    fName : {
+        type: String,
+        required: true
+    },
+    lName: {
+        type: String,
+        required: true
+    },
     email: {
         type: String,
         required: true
@@ -32,7 +40,16 @@ const sessionSchema = new mongoose.Schema({
         type: Boolean,
         default: false
     },
-});
+    decline : {
+        type: Boolean,
+        default: false
+    },
+    completed: {
+        type: Boolean,
+        default: false
+    },}
+    , {timestamps: true} //add timestamps to the schema
+);
 
 const session = mongoose.model('session', sessionSchema);
 

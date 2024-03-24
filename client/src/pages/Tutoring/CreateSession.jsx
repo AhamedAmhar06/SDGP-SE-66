@@ -19,6 +19,8 @@ export default function CreateSession({tutor_id}) {
   //UseState for form data
   const [formData, setFormData] = useState({
     email: "",
+    fName: "",
+    lName: "",
     tutorID: id,
     reason: "",
     date: "",
@@ -37,11 +39,13 @@ export default function CreateSession({tutor_id}) {
   //Register user
   const requestSession = async (e) => {
     e.preventDefault();
-    const { email, tutorID, subject, reason, date, startTime, endTime } = formData;
+    const { email, fName, lName, tutorID, subject, reason, date, startTime, endTime } = formData;
     console.log("Form submitted:", formData, selectedSubjects);
     try {
       const {data} = await axios.post('/requestSession', {
         email,
+        fName,
+        lName,
         tutorID,
         subject: selectedSubjects[0],
         reason,
@@ -65,9 +69,7 @@ export default function CreateSession({tutor_id}) {
     const fetchUndergrad = async () => {
       try {
           if(undergrad){
-            setFormData({...formData,
-              email: undergrad.email,
-            })
+            setFormData({...formData, email: undergrad.email, fName: undergrad.fName, lName: undergrad.lName});
             setUndergradLoaded(true);
           }
       } catch (error) {
