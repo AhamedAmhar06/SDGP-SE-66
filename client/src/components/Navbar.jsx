@@ -111,7 +111,7 @@ function Navbar()  {
                     <Link to='/tutors' className='menu-item'> Tutors </Link>
                 </li>
                 <li>
-                    <Link to='/community' className='menu-item'> Community Space </Link>
+                    <Link to='/forum' className='menu-item'> Community Space </Link>
                 </li>                  
              
 
