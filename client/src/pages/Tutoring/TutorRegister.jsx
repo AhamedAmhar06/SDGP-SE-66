@@ -1,21 +1,22 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import registerperson from "../../Assets/images/registerperson.png";
 import {toast} from 'react-hot-toast'
 import axios from "axios";
 import { useNavigate } from "react-router-dom"
+import { UndergradContext } from '../../context/undergradContext';
 // import { TiDeleteOutline } from "react-icons/ti";
 
 export default function TutorRegister() {
+
   const navigate = useNavigate();
+  const { undergrad } = useContext(UndergradContext);
+  const [ undergradLoaded, setUndergradLoaded ] = useState(false);
 
   //UseState for form data
   const [formData, setFormData] = useState({
-    fName: "",
-    lName: "",
     email: "",
     bio: "",
     password: "",
-    confirmPassword: "",
     price: ""
   });
 
@@ -60,7 +61,7 @@ export default function TutorRegister() {
         toast.error(data.error)
       } else {
         toast.success('Registered successfully')
-        navigate('/dashboard')
+        navigate('/tutorDashboard')
       }
     } catch (error) {
       console.log(error);
@@ -116,6 +117,26 @@ export default function TutorRegister() {
 
       setOtpData({...otpData, serverOTP: serverOTP, otpGenerated: true});
     }
+    
+    const fetchUndergrad = async () => {
+      try {
+          if(undergrad){
+            setFormData({...formData,
+              email: undergrad.email,
+            })
+            setOtpData({...otpData,
+              email: undergrad.email
+            })
+              setUndergradLoaded(true);
+          }
+          
+      } catch (error) {
+          console.error(error);
+      }
+  };
+  if(undergradLoaded === false) {
+      fetchUndergrad();
+  }
   })
 
   return (
@@ -222,7 +243,7 @@ export default function TutorRegister() {
               type="email"
               id="email"
               name="email"
-              value={otpData.email}
+              value={formData.email}
               onChange={(e) => {
                 setFormData({...formData, email: e.target.value})
                 setOtpData({...otpData, email: e.target.value})

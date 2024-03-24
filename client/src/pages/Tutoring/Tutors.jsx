@@ -82,6 +82,8 @@ export default function Tutors() {
                           </span>
                           <br />
                           Subjects : {tutor.subjects.join(', ')}
+                          <br />
+                          Email : {tutor.email}
                         </p>
                         Rating : {generateStars(tutor.rating)}
                         

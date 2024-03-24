@@ -1,9 +1,9 @@
 const express = require('express');
 const router = express.Router();
 const cors = require('cors');
-const { test, loginUser, registerUser, getProfile, logout, resetPassword } = require('../controllers/authController');
+const { test, loginUser, registerUser, getProfile, logout, resetPassword,  editProfile } = require('../controllers/authController');
 const { OTPVerification, sendCode, tutorRegisterOTP } = require('../controllers/authMail');
-const { tutorRegister, handleTutorLogin, tutorList, tutorDetails, tutorDetailsByEmail, createCourse } = require('../controllers/tutorControllers');
+const { tutorRegister, handleTutorLogin, tutorList, tutorDetails, tutorDetailsByEmail, createCourse, requestSession, fetchRequests, acceptSession, declineSession, getRequests } = require('../controllers/tutorControllers');
 const { notificationList, createNotification, markAsRead, markAsUnread, deleteNotification } = require('../controllers/notificationController');
 //const questionController = require('../controllers/questionController');
 const {getAllQuestions ,createQuestion,updateQuestion,deleteQuestion,getquiz} = require('../controllers/questionController');
@@ -29,6 +29,7 @@ router.post('/tutorDetails', tutorDetails)
 router.post('/resetPassword', resetPassword)
 router.post('/otpMail', OTPVerification)
 router.post('/sendCode', sendCode)
+router.put('/editProfile', editProfile)
 
 //Tutor
 router.post('/tutorRegisterOTP', tutorRegisterOTP)
@@ -38,6 +39,11 @@ router.get('/tutors', tutorList)
 router.post('/tutorDetails', tutorDetails)
 router.post('/tutorDetailsByEmail', tutorDetailsByEmail)
 router.post('/createCourse', createCourse)
+router.post('/requestSession', requestSession)
+router.post('/fetchRequests', fetchRequests)
+router.put('/acceptSession/:id', acceptSession)
+router.put('/declineSession/:id', declineSession)
+router.post('/getRequests', getRequests)
 
 //Notification
 router.post('/notificationList', notificationList)

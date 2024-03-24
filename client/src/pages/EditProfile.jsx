@@ -46,27 +46,31 @@ export default function EditProfile() {
   //Register user
   const registerUser = async (e) => {
     e.preventDefault();
-    const { fName, lName, university, studyLevel } = formData;
+    const { fName, lName, email, university, studyLevel } = formData;
+    console.log(formData);
     try {
-    //   const {data} = await axios.post('/register', {
-    //     fName,
-    //     lName,
-    //     university,
-    //     studyLevel,
-    //   })
+      const {data} = await axios.put('/editProfile', {
+        fName,
+        lName,
+        email,
+        university,
+        studyLevel,
+      })
 
-    //   if(data.error) {
-    //     toast.error(data.error)
-    //   } else {
-    //     setFormData({})
-    //     toast.success('Login Successfull. Welcome!')
-    //     navigate('/login')
-    //   }
+      if(data.error) {
+        toast.error(data.error)
+      } else {
+        setFormData({})
+        await axios.get('/logout');
+        localStorage.removeItem('undergrad');
+        navigate('/login');
+        toast.success('Changes saved')
+        window.location.reload();
+      }
         console.log(formData);
     } catch (error) {
       console.log(error);
     }
-    // console.log("Form submitted:", formData);
   };
 
   return (
