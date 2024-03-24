@@ -28,6 +28,7 @@ import CreateCourse from './pages/Tutoring/CreateCourse';
 import TimeTable from './pages/Tutoring/CreateSession';
 import ViewRequestsTut from './pages/Tutoring/ViewRequestsTut';
 import RequestedSessions from './pages/Tutoring/RequestedSessions';
+import Session from './pages/Tutoring/Session';
 
 import Notifications from './pages/Notifications';
 
@@ -67,6 +68,7 @@ function App () {
           <Route path='/createRequest/:id' element={<TimeTable/>} />
           <Route path='/viewRequestsTut/:id' element={<ViewRequestsTut/>} />
           <Route path='/requestedSessions/:id' element={<RequestedSessions/>} />
+          <Route path='/session/:id' element={<Session/>} />
 
           <Route path='/optionSelector' element={<OptionSelector/>} />
           <Route path='/notifications' element={<Notifications/>} />
