@@ -1,9 +1,9 @@
 import { useState, useEffect } from "react";
-import registerperson from "../Assets/images/registerperson.png";
+import registerperson from "../../Assets/images/registerperson.png";
 import {toast} from 'react-hot-toast'
 import axios from "axios";
 import { useNavigate } from "react-router-dom"
-import { TiDeleteOutline } from "react-icons/ti";
+// import { TiDeleteOutline } from "react-icons/ti";
 
 export default function TutorRegister() {
   const navigate = useNavigate();
@@ -13,10 +13,10 @@ export default function TutorRegister() {
     fName: "",
     lName: "",
     email: "",
-    university: "",
-    studyLevel: "",
+    bio: "",
     password: "",
     confirmPassword: "",
+    price: ""
   });
 
   //UseState for OTP
@@ -40,7 +40,7 @@ export default function TutorRegister() {
   //Register user
   const registerUser = async (e) => {
     e.preventDefault();
-    const { password } = formData;
+    const { password, bio, price } = formData;
     const { email, emailVerified } = otpData;
     try {
       console.log(email, password);
@@ -48,7 +48,9 @@ export default function TutorRegister() {
       const {data} = await axios.post('/tutorRegister', {
         email,
         password,
-        subjects: selectedSubjects
+        subjects: selectedSubjects,
+        bio,
+
       })
 
       if(!emailVerified) {
@@ -75,8 +77,6 @@ export default function TutorRegister() {
     if ( !email ) {
       return toast.error('Email is required')
     }
-
-    console.log("OTP generated:", serverOTP);
     try {
       const {data} = await axios.post('/tutorRegisterOTP', {
         email,
@@ -94,7 +94,6 @@ export default function TutorRegister() {
     }
   }
     
-
   const verifyOTP = async (e) => {
     e.preventDefault();
     console.log('OTP:', otpData);
@@ -116,7 +115,6 @@ export default function TutorRegister() {
       const serverOTP = `${Math.floor(100000 + Math.random() * 900000)}`;
 
       setOtpData({...otpData, serverOTP: serverOTP, otpGenerated: true});
-      console.log("OTP generated:", otpData.serverOTP);
     }
   })
 
@@ -142,12 +140,36 @@ export default function TutorRegister() {
             <br />
 
             <label>
+              Enter bio: &nbsp;
+              <br /> 
+
+              <textarea
+                  className="p-2 rounded-xl border"
+                  type="text"
+                  id="bio"
+                  name="bio"
+                  value={formData.bio}
+                  onChange={(e) => {
+                    const text = e.target.value;
+                    const words = text.trim().split(/\s+/); // Split based on whitespace characters
+                    if (words.length <= 50) {
+                      setFormData({...formData, bio: text});
+                    }
+                  }}
+                  placeholder="Bio"
+                  style={{resize: "none"}}
+                  rows="3" // Set the number of visible lines
+                  cols="30" // Set the number of visible width
+              />
+
+            </label>
+            <label>
               Choose preferred subjects&nbsp; : &nbsp;
 
               <select name="subjects" 
                 id="subjects"
-                value={selectedSubjects}
-                class="appearance-none rounded-xl pt-2 pb-2 pl-2 pr-2 border border-NavBlue"
+                // value={selectedSubjects}
+                className="appearance-none rounded-xl pt-2 pb-2 pl-2 pr-2 border border-NavBlue"
                 onChange={(e) => setSelectedSubjects([...selectedSubjects, e.target.value])}
               >
                 <option value="">Select Option</option>
@@ -175,9 +197,26 @@ export default function TutorRegister() {
                   ))}
               </div>
 
-
             </label>
 
+            <label>
+              Price:
+              <input
+                className="p-2 rounded-xl border"
+                type="number"
+                id="price"
+                name="price"
+                value={formData.price}
+                onChange={(e) => {
+                  const enteredPrice = parseInt(e.target.value);
+                  if (enteredPrice >= 0 || enteredPrice === "") {
+                    setFormData({...formData, price: enteredPrice});
+                  }
+                }}
+                // setFormData({...formData, price: e.target.value})}
+                placeholder="Enter the Average Price"
+              />
+            </label>
             <input
               className="p-2 rounded-xl border"
               type="email"

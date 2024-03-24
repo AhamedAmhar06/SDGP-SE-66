@@ -28,6 +28,7 @@ export default function Dashboard() {
   });
   return (
     <div>
+
       {undergradLoaded ? (
         <div className="flex flex-col items-center justify-start w-full pt-[70px] bg-gray-50">
           <div className="flex flex-row justify-center w-full max-w-[1269px]">
@@ -184,6 +185,7 @@ export default function Dashboard() {
           </div>
         </div>
       ) : (null)}
+
     </div>
   );
 }
