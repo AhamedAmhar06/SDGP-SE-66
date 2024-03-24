@@ -97,6 +97,10 @@ const Footer = () => {
             <li className='py-2 text-sm'>
               <Link to='/tutors'>Tutors</Link>
             </li>
+            <li className='py-2 text-sm'>
+              <Link to='/team'> Our Team</Link>
+            </li>
+            
         </ul>
     </div>
     <div className="mr-10">

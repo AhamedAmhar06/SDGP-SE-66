@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect, useContext, useRef } from 'react';
 import logo from '../Assets/images/Logo-N.png';
 import { RiMenu4Line } from "react-icons/ri";
 import MobileNavbar from './MobileNavbar';
@@ -21,6 +21,8 @@ function Navbar()  {
     email: '',
   });
   const[openProfile,setOpenProfile]=useState(false);
+ 
+ 
 
   useEffect(() => {
     // Function to handle window resize event
@@ -50,47 +52,48 @@ function Navbar()  {
   });
 
   //Logout button logic
-  const logoutUser = async () => {
-    try{
-      await axios.get('/logout');
-      toast.success('Logout Successful');
-      localStorage.removeItem('undergrad');
-      navigate('/login');
-      window.location.reload();
+  // const logoutUser = async () => {
+  //   try{
+  //     await axios.get('/logout');
+  //     toast.success('Logout Successful');
+  //     localStorage.removeItem('undergrad');
+  //     navigate('/login');
+  //     window.location.reload();
 
-    } catch (error) {
-      toast.error('An error occurred. Please try again');
-    }
-  }
+  //   } catch (error) {
+  //     toast.error('An error occurred. Please try again');
+  //   }
+  // }
 
-  // Check if user is a tutor
-  const handleQuestionBank = async () => {
-    try {
-       let { email } = data;
-      if (undergrad){
-        email = undergrad.email;
-        console.log(email);
-        const {data} = await axios.post('/tutorLogin', {
-          email
-        });
-        console.log(data);
+  //Check if user is a tutor
+  // const handleTutorLogin = async () => {
+  //   try {
+  //      let { email } = data;
+  //     if (undergrad){
+  //       email = undergrad.email;
+  //       // console.log(email);
+  //       const {data} = await axios.post('/tutorLogin', {
+  //         email
+  //       });
+        // console.log(data);
 
-        // If user is not a tutor, redirect to tutor register page
-        if(data){
-          navigate('/optionSelector');
-        } else {
-          navigate('/questionBank');
-        }
-      }
-    } catch (error) {
-      console.log(error);
-    }
-  };
+        //If user is not a tutor, redirect to tutor register page
+        // if(!data){
+        //   navigate('/tutorRegister');
+        // } else {
+        //   navigate('/tutorDashboard');
+          //Do the local storage thing here
+  //       }
+  //     }
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // };
 
   return (
     <>
      {isMenuOpen && <MobileNavbar setIsMenuOpen={setIsMenuOpen} />}
-    <div className='sticky top-0 z-10 bg-background '>
+    <div className='sticky top-0 z-50 bg-background '>
       <nav className='max-w-screen-xl px-6 py-4 mx-auto'>
         <div className='flex items-center justify-between'>
 
@@ -102,28 +105,31 @@ function Navbar()  {
           </Link>
             <ul className='hidden md:flex md:gap-14 '>
                 <li>
-                  <Link to='/' className='menu-item'> Home </Link>
+                  <Link to='/' className='font-semibold text-NavBlue'> Home </Link>
                 </li>
                 <li>
-                    <Link to='/about' className='menu-item'> About Us </Link>
+                    <Link to='/about' className='font-semibold text-NavBlue'> About Us </Link>
                 </li>
                 <li>
-                    <Link to='/tutors' className='menu-item'> Tutors </Link>
+                    <Link to='/tutors' className='font-semibold text-NavBlue'> Tutors </Link>
                 </li>
                 <li>
-                    <Link to='/community' className='menu-item'> Community Space </Link>
-                </li>                  
+                    <Link to='/community' className='font-semibold text-NavBlue'> Community Space </Link>
+                </li>
+
+
+                <li>
+                    <Link to='/questionBank' className='font-semibold text-NavBlue'> Question Bank </Link>
+                </li>
+                
+                             
              
 
              {auth ? (
 
               <>
-
               <li>
-                    <button className='menu-item' onClick={handleQuestionBank}> Question Bank </button>
-                </li>
-              <li>
-                    <a className ="text-2xl menu-item" onClick={()=> setOpenProfile((prev)=>!prev)}><FaUser /></a>
+                    <a className ="text-2xl font-semibold cursor-pointer text-NavBlue "  onClick={()=> setOpenProfile((prev)=>!prev)}><FaUser /></a>
                 </li>
               {
                   openProfile &&  <Dropdown/>

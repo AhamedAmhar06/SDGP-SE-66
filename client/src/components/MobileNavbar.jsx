@@ -58,7 +58,7 @@ function MobileNavbar({ setIsMenuOpen }) {
     });
 
     return (
-        <div className='fixed top-0 right-0 z-20 w-1/2 h-screen'>
+        <div className='fixed top-0 right-0 z-50 w-1/2 h-screen'>
             <div className="flex flex-col w-full h-screen p-8 bg-background ">
                 <button onClick={() => setIsMenuOpen(false)} className="absolute text-4xl text-NavBlue top-4 right-4">
                    <IoClose />
