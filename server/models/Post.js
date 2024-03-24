@@ -1,38 +1,39 @@
-import mongoose from "mongoose";
+const mongoose = require('mongoose');
 
-const postSchema = mongoose.Schema(
-  {
-    undergradid: {
-      type: String,
-      required: true,
+const postSchema = mongoose.Schema({
+    userId: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Undergrad',
+        required: true,
     },
-    fName: {   //fname
-      type: String,
-      required: true,
-    },
-    lName: {
-      type: String,
-      required: true,
-    },
-    university: {
-      type : String,  //university
-    },
-    likes: {
-      type: Map,
-      of: Boolean,
-    },
-    comments: {
-      type: Array,
-      default: [],
-    },
-    pin:{
-      type:Array,
-      default:[],
-    }
-  },
-  { timestamps: true }
-);
+    description: String,
+    picturePath: String,
+    likes: [
+        {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'Undergrad',
+        },
+    ],
+    comments: [
+        {
+            text: String,
+            postedBy: {
+                type: mongoose.Schema.Types.ObjectId,
+                ref: 'Undergrad',
+            },
+            replies: [
+                {
+                    text: String,
+                    postedBy: {
+                        type: mongoose.Schema.Types.ObjectId,
+                        ref: 'Undergrad',
+                    },
+                },
+            ],
+        },
+    ],
+}, { timestamps: true });
 
-const Post = mongoose.model("Post", postSchema);
+const Post = mongoose.model('Post', postSchema);
 
-export default Post;
+module.exports = Post;
