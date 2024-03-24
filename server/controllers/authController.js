@@ -70,8 +70,7 @@ const registerUser = async (req, res) => {
             email,
             university,
             studyLevel,
-            password : hashedPassword,
-            Members
+            password : hashedPassword
         });
 
         //Create a notification
