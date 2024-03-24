@@ -1,84 +1,44 @@
-import React from 'react';
-import Slider from 'react-slick';
-import TimeFilledIcon from '@mui/icons-material/AccessTimeFilled';
-import Rating from '@mui/material/Rating';
-import backgroundslider from '../Assets/images/sliderbkgrnd.png';
-import PersonIcon from '@mui/icons-material/Person';
+import React from "react";
+import Slider from "react-slick";
+import TimeFilledIcon from "@mui/icons-material/AccessTimeFilled";
+import Rating from "@mui/material/Rating";
+import backgroundslider from "../Assets/images/sliderbkgrnd.png";
+import PersonIcon from "@mui/icons-material/Person";
 
 const Slide = ({ content, rating, handleRatingChange }) => {
-  const rectangleStyle = {
-    width: '90%',
-    height: '30px',
-    backgroundColor: '#FFFFFF',
-    borderRadius: '20px',
-    position: 'absolute',
-    top: '10%',
-    transform: 'translateY(-50%)',
-    marginLeft: '15px',
-    border: '2px solid #fff',
-  };
-
-  const whiteBoxStyle = {
-    position: 'absolute',
-    bottom: -80,
-    left: 0,
-    width: '100%',
-    height: '85%',
-    backgroundColor: '#fff',
-    padding: '14px',
-    boxSizing: 'border-box',
-    borderRadius: '20px',
-    border: '2px solid #3498db',
-  };
-
   return (
-    <div className="text-center relative">
-      <div style={{ marginRight: '30px', marginBottom: '110px', position: 'relative' }}>
-        {/* Image */}
-        <img
-          src={backgroundslider}
-          alt={`Background`}
-          style={{ width: '100%', height: '100%', objectFit: 'cover', borderTopLeftRadius: '8px', borderTopRightRadius: '8px' }}
-        />
-        {/* White rectangle on top of the image */}
-        <div style={rectangleStyle}></div>
-        {/* White box */}
-        <div style={whiteBoxStyle}>
-          {/* Icon and Rating component on top of the white rectangle */}
-          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '10px', position: 'absolute', top: '-35%', left: '50%', transform: 'translate(-50%, -50%)' }}>
-            <div style={{ display: 'flex', alignItems: 'center', marginRight: '20px' }}>
-              <PersonIcon style={{ marginBottom: '20px' }} />
-              <TimeFilledIcon style={{ marginLeft: '20px', marginBottom: '20px' }} />
-            </div>
-            <Rating
-              value={rating}
-              onChange={(event, newValue) => handleRatingChange(newValue)}
-              style={{ marginTop: '-20px' }}
-            />
-          </div>
-          {/* Content inside the white box */}
-          <div style={{ color: '#000', fontWeight: 'bold', fontFamily: 'Bol', fontSize: '24px', marginBottom: '15px', marginRight: '100px', marginTop: '-20px' }}>
-            {/* Topic */}
-            {content.topic}
-          </div>
-          <p style={{ color: '#000', fontFamily: 'Thin', fontSize: '16px', margin: '-10px 0 10px 0', textAlign: 'left' }}>
-            {/* Paragraph */}
-            {content.description}
-          </p>
-          <div style={{ textDecoration: 'underline', color: 'blue', cursor: 'pointer', marginTop: '8px', marginRight: '140px' }}>
-            {/* Clickable text */}
-            by {content.tutor}
-          </div>
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: '15px', marginRight: '10px' }}>
-            <button style={{ backgroundColor: '#00008B', color: '#fff', padding: '10px', borderRadius: '20px', cursor: 'pointer', marginTop: '60px' }}>
-              {/* Request a Session button */}
-              Request a Session
-            </button>
-            <div style={{ color: '#3498db', fontFamily: 'Thin', fontSize: '18px', marginTop: '60px' }}>
-              {/* Price */}
-              {content.price}
-            </div>
-          </div>
+    <div className="relative h-96 w-75 mx-2">
+      <img
+        src={backgroundslider}
+        alt={`Background`}
+        className="w-full h-2/3 object-cover rounded-t-2xl"
+      />
+      <div className="absolute top-0  flex  w-full">
+        <div className="flex justify-between items-center p-2 m-2 rounded-2xl bg-white text-sm w-full">
+          <PersonIcon fontSize="small" />
+          <span>{content.peopleCount}</span>
+          <TimeFilledIcon fontSize="small" />
+          <span>{content.courseDuration}</span>
+          <Rating
+            size="small"
+            value={rating}
+            style={{ color: 'black' }}
+            onChange={(event, newValue) => handleRatingChange(newValue)}
+          />
+        </div>
+        
+      </div>
+      <div className="absolute top-1/3 w-full h-2/3 bg-white p-4 box-border rounded-3xl border-2 border-gray-500">
+        <div className="text-black font-bold text-lg mb-2">{content.topic}</div>
+        <p className="text-black text-sm mb-2">{content.text}</p>
+        <div className="underline text-black cursor-pointer mb-2">
+          by {content.tutor}
+        </div>
+        <div className="flex justify-between items-center mt-2">
+          <button className="bg-NavBlue text-white py-2 px-3 rounded-2xl cursor-pointer">
+            Request a Session
+          </button>
+          <div className="text-black text-md">{content.price}</div>
         </div>
       </div>
     </div>
@@ -92,15 +52,29 @@ const FirstSlider = ({ sliderContent, ratings, handleRatingChange }) => {
     speed: 500,
     slidesToShow: 3,
     slidesToScroll: 1,
-  };
-
-  const boxStyle = {
-    maxWidth: '1000px',
-    margin: '0 auto',
+    responsive: [
+      {
+        breakpoint: 1024,
+        settings: {
+          slidesToShow: 2,
+          slidesToScroll: 1,
+          infinite: true,
+          dots: true,
+        },
+      },
+      {
+        breakpoint: 600,
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1,
+          initialSlide: 1,
+        },
+      },
+    ],
   };
 
   return (
-    <Slider {...sliderSettings} className='my-10' style={boxStyle}>
+    <Slider {...sliderSettings} className="my-10 mx-auto max-w-[1000px]">
       {sliderContent.map((item, index) => (
         <Slide
           key={index}

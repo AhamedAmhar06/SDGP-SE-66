@@ -21,6 +21,10 @@ const questionSchema = new mongoose.Schema({
   category: {
     type: String,
     required: true
+  },
+  email: {
+    type: String,
+    required: true
   }
 });
 

@@ -16,7 +16,7 @@ import Dashboard from './pages/Dashboard';
 //questionbank
 import QuestionBank from './pages/Question/QuestionBank';
 import QuestionList from './pages/Question/QuestionList';
-import QuestionUploader from './pages/Question/QuestionUploader';
+import QuizTaker from './pages/Question/QuizTaker';
 import OptionSelector from './pages/Question/OptionSelector';
 
 //Tutor
@@ -54,9 +54,11 @@ function App () {
           <Route path='/about' element={<AboutUs/>} />
 
           <Route path='/dashboard' element={<Dashboard/>} />
-          <Route path='/questionbank' element={<QuestionBank/>} />
+          
+          
           <Route path='/questionlist' element={<QuestionList/>} />
-          <Route path='/questionuploader' element={<QuestionUploader/>} />
+          <Route path='/questionuploader' element={<QuestionBank/>} />
+          <Route path='/quiz' element={<QuizTaker/>}/>
 
           <Route path='/forgetpassword' element={<ForgetPassword/>} />
           <Route path='/tutorRegister' element={<TutorRegister/>} />
