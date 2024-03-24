@@ -1,10 +1,11 @@
 // controllers/questionController.js
-
 const Question = require('../models/Question');
 
 exports.getAllQuestions = async (req, res) => {
+  
   try {
-    const questions = await Question.find();
+    const {email}=req.body;
+    const questions = await Question.find({email});
     res.json(questions);
   } catch (err) {
     res.status(500).json({ message: err.message });
@@ -15,6 +16,16 @@ exports.getAllQuestions = async (req, res) => {
 
 
 
+exports.getquiz = async (req, res) => {
+  try {
+    const questions = await Question.find();
+    res.json(questions);
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+};
+
+
 
 
 
@@ -22,7 +33,7 @@ exports.getAllQuestions = async (req, res) => {
 // controllers/questionController.js
 
 exports.createQuestion = async (req, res) => {
-  const { question, type, answer, category } = req.body;
+  const { question, type, answer, category ,email} = req.body;
 
   try {
     let newQuestion;
@@ -34,7 +45,8 @@ exports.createQuestion = async (req, res) => {
         type,
         answers: [answer], // Store the provided answer
         correctAnswer: answer, // Set the correct answer to the provided answer
-        category
+        category,
+        email
       });
     } else if (type === 'multiple_choice') {
       newQuestion = new Question({
@@ -42,7 +54,8 @@ exports.createQuestion = async (req, res) => {
         type,
         answers: req.body.answers,
         correctAnswer: req.body.correctAnswer,
-        category
+        category,
+        email
       });
     } else {
       return res.status(400).json({ message: 'Invalid question type.' });
@@ -88,3 +101,4 @@ exports.deleteQuestion = async (req, res) => {
     res.status(500).json({ message: err.message });
   }
 };
+

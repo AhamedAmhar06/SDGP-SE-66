@@ -1,5 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState,useEffect,useContext } from 'react';
 import axios from 'axios';
+import { UndergradContext } from "../../context/undergradContext";
+import Error404page from "../../components/Error404page"; 
 
 const QuestionUploader = () => {
   const [question, setQuestion] = useState('');
@@ -9,7 +11,12 @@ const QuestionUploader = () => {
   const [correctAnswerIndex, setCorrectAnswerIndex] = useState(-1);
   const [category, setCategory] = useState('');
   const [newCategory, setNewCategory] = useState('');
+  const[email, setEmail] = useState('');
+  const { undergrad } = useContext(UndergradContext);
+  const [ undergradLoaded, setUndergradLoaded ] = useState(false);
   const [categories, setCategories] = useState(['java', 'python', 'javascript', 'New Category']);
+  const [auth, setAuth] = useState(false);
+  const [questionsUploaded, setQuestionsUploaded] = useState(0); // This is a new state variable for counting the number of questions uploaded
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -25,7 +32,8 @@ const QuestionUploader = () => {
           type,
           answer,
           correctAnswer: answer,
-          category: finalCategory
+          category: finalCategory,
+          email
         };
       } else if (type === 'multiple_choice') {
         formData = {
@@ -33,11 +41,12 @@ const QuestionUploader = () => {
           type,
           answers,
           correctAnswer: answers[correctAnswerIndex],
-          category: finalCategory
+          category: finalCategory,
+          email
         };
       }
   
-      await axios.post('http://localhost:8000/questions', formData);
+      await axios.post('/create', formData);
       alert('Question submitted successfully!');
       setQuestion('');
       setType('');
@@ -46,15 +55,47 @@ const QuestionUploader = () => {
       setCorrectAnswerIndex(-1);
       setCategory('');
       setNewCategory('');
+      setQuestionsUploaded(questionsUploaded + 1);
     } catch (error) {
       console.error('Error submitting question:', error);
       alert('Failed to submit question. Please try again.');
     }
+    
   };
+  useEffect(() => {
+    const fetchUndergrad = async () => {
+        try {
+            if(undergrad){
+                setEmail(undergrad.email)
+                const { data } = await axios.post('tutorLogin', {email});
+
+                if(data){
+                    setAuth(true);
+                }
+                setUndergradLoaded(true);
+            }
+            
+        } catch (error) {
+            console.error(error);
+        }
+    };
+    if(undergradLoaded === false) {
+        fetchUndergrad();
+    }
+  });
 
   return (
+    <div>
+      {auth ? (
+        <>
+
+        
     <div className="max-w-lg mx-auto mt-8">
       <h2 className="text-2xl font-bold mb-4">Post a Question</h2>
+              <div className="text-center">
+          <p>{`Questions Uploaded: ${questionsUploaded}/10`}</p>
+        </div>
+
       <form onSubmit={handleSubmit} className="space-y-4">
         <div>
           <label htmlFor="question" className="block font-semibold">Question:</label>
@@ -114,6 +155,9 @@ const QuestionUploader = () => {
         </div>
         <button type="submit" className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition duration-300">Submit</button>
       </form>
+    </div>
+    </>
+      ) : (null)}
     </div>
   );
 };
