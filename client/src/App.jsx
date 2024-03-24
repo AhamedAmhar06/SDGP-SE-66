@@ -30,6 +30,9 @@ import ViewRequestsTut from './pages/Tutoring/ViewRequestsTut';
 import RequestedSessions from './pages/Tutoring/RequestedSessions';
 import Session from './pages/Tutoring/Session';
 
+//Tutor Session
+import RoomPage from './screens/Room';
+
 import Notifications from './pages/Notifications';
 
 import { Toaster } from 'react-hot-toast';
@@ -71,6 +74,8 @@ function App () {
           <Route path='/viewRequestsTut/:id' element={<ViewRequestsTut/>} />
           <Route path='/requestedSessions/:id' element={<RequestedSessions/>} />
           <Route path='/session/:id' element={<Session/>} />
+
+          <Route path='/room/:roomId' element={<RoomPage/>} />
 
           <Route path='/optionSelector' element={<OptionSelector/>} />
           <Route path='/notifications' element={<Notifications/>} />

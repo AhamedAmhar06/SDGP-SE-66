@@ -52,13 +52,13 @@ export default function RequestedSessions({ tutor_id}) {
               <p>Time: {request.startTime} - {request.endTime}</p>
               <p>Status : {request.accepted ? 'Accepted' : null } {request.decline ? 'Declined' : null} {!(request.decline || request.accepted) ? 'Processing' : null }</p>
               {request.accepted ? (
-                <Link to={`/session/${request._id}`}>
+                <a href={`/session/${request._id}`} target="_blank" rel="noopener noreferrer">
                   <button
                     className="bg-NavBlue rounded-xl text-white p-2 hover:scale-105 duration-300 m-2"
                   >
-                  Join Now
-                </button>
-                </Link>
+                    Join Now
+                  </button>
+                </a>
                 
               ) : (null)}
               {/* <button onClick={() => acceptSession(request._id)} className="bg-green-500 text-white p-2 m-2 rounded-md">Accept</button>

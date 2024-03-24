@@ -92,13 +92,13 @@ export default function ViewRequestsTut() {
                             (null)}
                             
                             {request.accepted ? (
-                                <Link to={`/session/${request._id}`}>
-                                    <button 
-                                        className="bg-NavBlue rounded-xl text-white p-2 hover:scale-105 duration-300 m-2"
-                                    >
-                                        Join Now
-                                    </button>
-                                </Link>
+                                <a href={`/session/${request._id}`} target="_blank" rel="noopener noreferrer">
+                                <button
+                                  className="bg-NavBlue rounded-xl text-white p-2 hover:scale-105 duration-300 m-2"
+                                >
+                                  Join Now
+                                </button>
+                              </a>
                             ) : (null)}
 
                         </div>
