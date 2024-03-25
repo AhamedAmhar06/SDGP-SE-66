@@ -74,17 +74,18 @@ function MobileNavbar({ setIsMenuOpen }) {
                     <li className='mb-5 font-semibold text-NavBlue'>
                         <Link to='/tutors'> Tutors </Link>
                     </li>
-                    <li className='mb-5 font-semibold text-NavBlue'>
-                        <Link to='/community'> Community Space </Link>
-                    </li>
-
-
-                    <li className='mb-5 font-semibold text-NavBlue'>
-                        <Link to='/questionBank'> Question Bank </Link>
-                    </li>
+                    
 
                     {auth ? (
                         <>
+                            <li className='mb-5 font-semibold text-NavBlue'>
+                                <Link to='/community'> Community Space </Link>
+                            </li>
+
+                            <li className='mb-5 font-semibold text-NavBlue'>
+                                <Link to='/questionBank'> Question Bank </Link>
+                            </li>
+
                             <li className="mb-5 font-semibold text-NavBlue">
                                 <Link to={'/dashboard'} >Dashboard</Link>
                             </li>

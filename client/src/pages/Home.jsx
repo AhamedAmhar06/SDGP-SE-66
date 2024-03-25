@@ -64,18 +64,18 @@ const Home = () => {
 
   const sliderContent = [
     {
-      topic: 'Risini Bolgoda',
-      text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud',
+      topic: 'Sudarshana Weerakkodi',
+      text: 'Java with OOP',
       color: '#3498db',
     },
     {
-      topic: 'Risini Bolgoda',
-      text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud',
+      topic: 'Ahamed Amhar',
+      text: 'UI/UX Designing with Figma',
       color: '#3498db',
     },
     {
-      topic: 'Risini Bolgoda',
-      text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud',
+      topic: 'Yashmitha Dilshan',
+      text: 'Time management for students',
       color: '#3498db',
     },
   ];
