@@ -1,18 +1,10 @@
 
 import React, { useState, useEffect } from 'react';
-import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
-import Box from '@mui/material/Box';
-import Rating from '@mui/material/Rating';
-import Typography from '@mui/material/Typography';
 import { RiNumber1, RiNumber2, RiNumber3, RiNumber4 } from "react-icons/ri";
-
 import headerImg from "../Assets/images/header-img.png";
 import contactimg from "../Assets/images/grad-img.png";
-
-
-
 import sitting from "../Assets/images/sitting.png";
 import smallicon1 from "../Assets/images/smallicon1.png";
 import smallicon2 from "../Assets/images/smallicon2.png";
@@ -23,9 +15,8 @@ import communitymf from "../Assets/images/communitiesmf.png";
 import whyperson from "../Assets/images/Whyperson.png"
 import book from "../Assets/images/Book.png"
 import questionbank from "../Assets/images/questionbank.png";
-
-
 import FirstSlider from '../components/FirstSlider'; 
+import {Link} from "react-router-dom";
 
 
 const Home = () => {
@@ -45,64 +36,6 @@ const Home = () => {
     };
   }, []);
 
-  
-
-  const contactImageStyle = {
-    width:  screenWidth >= 768 ? '50%' : '190%',
-    height: screenWidth >= 768 ? '80%' : '145%',
-    objectFit: 'cover',
-    position: 'absolute',
-    top: screenWidth >= 768 ? '40%' : '55%',
-    left: screenWidth >= 768 ? '17%' : '0%',
-    transform: screenWidth >= 768 ? 'translate(-50%, -50%)' : 'translate(-40%, -60%) scale(0.2)',
-    maxWidth: '900px',
-  };
-  
-  const headerImageStyle = {
-    width: screenWidth >= 768 ? '50%' : '50%',
-    height: screenWidth >= 768 ? '100%' : '35%',
-    objectFit: 'cover',
-    position: 'relative',
-    left: screenWidth >= 768 ? '0%' : '0%',
-    top: screenWidth >= 768 ? '-8%' : '-4%',
-    maxWidth: '1900px',
-    
-  };
-
-  
-
-  const middlePartStyle = {
-    width: '50%',
-    height: '100vh', 
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'center',
-    color: 'white',
-    
-  };
-
-  const textStyle = {
-    position: 'absolute',
-    top: '45%',
-    left: '48%',
-    transform: 'translate(-50%, -50%)',
-    textAlign: 'center',
-    color: 'white',
-    zIndex: 1,
-  };
-  
-  const aboutButtonStyle = {
-    backgroundColor: 'black',
-    color: 'white',
-    borderRadius: '999px',
-    padding: '10px 30px', 
-    marginTop: '15rem', // Changed from 400px to a relative value
-    cursor: 'pointer',
-    marginLeft:'86%',
-    whiteSpace: 'nowrap',
-  };
-  
-  
 
   const circleStyle = {
     width: '50px',
@@ -129,28 +62,23 @@ const Home = () => {
     transform: 'scale(1)',
   };
 
- 
-  
-
   const sliderContent = [
     {
-      topic: '3.Risini Bolgoda',
+      topic: 'Risini Bolgoda',
       text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud',
       color: '#3498db',
     },
     {
-      topic: '2.Risini Bolgoda',
+      topic: 'Risini Bolgoda',
       text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud',
       color: '#3498db',
     },
     {
-      topic: '1.Risini Bolgoda',
+      topic: 'Risini Bolgoda',
       text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud',
       color: '#3498db',
     },
   ];
-
-  
 
   const [ratings, setRatings] = useState(Array(sliderContent.length).fill(0));
 
@@ -162,15 +90,7 @@ const Home = () => {
     });
   };
 
-  const sliderSettings = {
-    dots: true,
-    infinite: true,
-    speed: 500,
-    slidesToShow: 3,
-    slidesToScroll: 1,
-  };
-
-  
+ 
 
   // State for FAQ sections
   const [isMinimized1, setIsMinimized1] = useState(false);
@@ -206,155 +126,109 @@ const Home = () => {
     setIsMinimized4(true);
   }, []);
 
+  const BlueSquare = ({ children, top, left, imageSrc, altText }) => {
+    const renderImage = () => {
+      const imageStyle = {
+        width: '40%',
+        height: '40%',
+        objectFit: 'cover',
+        borderRadius: '8px',
+        position: 'absolute',
+        top: '40%',  
+        left: '50%', 
+        transform: 'translate(-50%, -50%)',
+      };
   
+      return (
+        <img
+          src={imageSrc}
+          alt={altText}
+          style={imageStyle}
+        />
+      );
+    }
+    return (
+      <div className='w-[200px] h-[200px] rounded-2xl relative overflow-hidden' style={{ backgroundColor: '#00005B', top, marginLeft:'30px' }}>
+        {renderImage()}
+        {children}
+      </div>
+    );
+  }
 
-  
 
   return (
+    <div className="overflow-x-hidden relative min-h-screen bg-gray-100">
+      {/* Contact image */}
+      <div className="relative left-20 w-full pb-4 sm:left-5 md:left-0  md:left-21 md:mb-20 xl:left-5  xl:w-[800px] xl:h-auto xl:left-[-100px] xl:bottom-16  xl:mt-0 lg:w-[650px] lg:left-50  lg:w-[400px] lg:left-80 lg:bottom-0 lg:mb-0 lg:mt-0 md:w-[550px] md:left-50 md:w-auto  md:left-[200px] md:bottom-0 md:mb-0 md:mt-0">
+        <img
+          className="w-full h-full object-cover"
+          src={contactimg}
+          alt="Contact Image"
+        />
+      </div>
+
+       {/* Header image */}
+       <div className="hidden xl:block absolute top-0 right-0 xl:left-auto xl:right-[20px] xl:bottom-auto xl:top-[-20px]">
+      <img
+        className="w-full h-auto object-cover"
+        src={headerImg}
+        alt="Header Image"
+      />
+    </div>
+
+  
     
-      <div style={{ overflowX: 'hidden' }}>
-      {/* Banner Part */}
-      <div className='relative w-full min-h-screen flex items-center bg-white-ash'>
-1
-
-        {/* Left part with contact image */}
-<img
-  className='top-0 left-0 w-[40%] h-screen object-cover'
-  src={contactimg}
-  alt='Contact Image'
-  style={contactImageStyle}
-/>
-
-        {/* Middle part with text and button */}
-<div className='w-[50%] h-screen flex flex-col justify-center text-white' style={middlePartStyle}>
-
-<div style={textStyle}>
-<h1 className='text-black mt-20px' style={{ marginTop: '-160px' }}>
-  {"Guiding undergrads to success in their academic journey"}
-</h1>
-
-</div>
-
-  <div style = {textStyle}>
-  <h1 className='font-bold text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-6xl drop-shadow-2xl'>
-  <span className='text-blue-900'>
-    First Collaborative Hub{''}
-    </span>
-  </h1>
-
-  <h1 className='font-bold text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-6xl drop-shadow-2xl'>
-  <span className='text-blue-900'>
-    For University Students In 
-    </span>
-    </h1>
-
-
-    <h1 className ='font-bold text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-7xl drop-shadow-2xl'>
-  <span className='text-blue-900'>
-    Sri Lanka 
-    </span>
-    </h1>
-  </div>
-  <div>
-<button className='aboutButton' style={aboutButtonStyle}>About Us</button>
-
-</div>
-
-</div>
-
-
-
-
-
-        {/* Right part with header image */}
-<img
-  className='top-0 right-[60%] w-[20%] h-screen object-cover'
-  src={headerImg}
-  alt='Header Image'
-  style={headerImageStyle}
-/>
-</div>
-
-
+      {/* Text paragraph */}
+      <div className="text-center xl:absolute xl:top-1/3 xl:left-1/2 xl:transform xl:-translate-x-1/2 mb:['10px'] xl:-translate-y-1/2 xl:top-[350px]">
+  <p className="text-blue-900 text-2xl sm:text-5xl lg:text-5xl xl:text-6xl font-semibold mb-4">
+    First collaborative hub <br />
+    For university students in <br /> Sri Lanka
+  </p>
+  <Link to="/about">
+        <button className="bg-black text-white py-3 px-6 rounded-full">About Us</button>
+        </Link>
+      </div>
      
 
-   {/* Main Features part */}
+  <div className='mt-'></div>
+
+  {/* Main Features part */}
 <div className='max-w-[900px] m-auto px-4 py-4 text-center'>
   <p className='text-sm mb-10 font-bold'>
     Build connections with your peers and fellow graduates <br />
     across the nation with CampusKuppi and start learning/tutoring.
   </p>
 
-  <div className='flex flex-wrap justify-between'>
+  <div className='flex flex-col sm:flex-row justify-center items-center'>
+    {/* Blue Square 1 */}
+    <BlueSquare top='30px' left='70px' imageSrc={tutormf} altText='Tutoring Session Image' >
+      <div className="absolute bottom-4 text-white text-center left-16">
+        <p style={{ fontSize: '12px' }}>Become a</p>
+        <p style={{ fontSize: '18px', fontWeight: 'bold' }}>TUTOR</p>
+      </div>
+    </BlueSquare>
 
+    {/* Blue Square 2 */}
+    <BlueSquare top={window.innerWidth < 640 ? '40px' : '30px'} left='-10px' imageSrc={sessionmf} altText='Online Learning Image' style={{ marginBottom: '20px', marginLeft: '30px' }}>
+      <div className="absolute bottom-4 text-white text-center left-14">
+        <p style={{ fontSize: '12px' }}>Book your</p>
+        <p style={{ fontSize: '18px', fontWeight: 'bold' }}>SESSIONS</p>
+      </div>
+    </BlueSquare>
 
-{/* Blue Square 1 */}
-<div className='w-[200px] h-[200px] bg-blue-950 rounded-2xl relative overflow-hidden transition-transform transform hover:scale-110'>
-  <img
-    src={tutormf}
-    alt='Tutoring Session Image'
-    style={{
-      width: '40%',
-      height: '40%',
-      objectFit: 'cover',
-      borderRadius: '8px',
-      position: 'absolute',
-      top: '30%', 
-      left: '50%', 
-      transform: 'translate(-50%, -50%)',
-    }}
-  />
-  <div className="absolute bottom-4 text-white text-center left-16">
-    <p style={{ fontSize: '12px' }}>Become a</p>
-    <p style={{ fontSize: '18px', fontWeight: 'bold' }}>TUTOR</p>
+    {/* Blue Square 3 */}
+    <BlueSquare top={window.innerWidth < 640 ? '50px' : '30px'} left='-100px' imageSrc={communitymf} altText='Communities Image' style={{ marginBottom: '20px', marginLeft: '30px' }}>
+      <div className="absolute bottom-4 text-white text-center left-14">
+        <p style={{ fontSize: '12px' }}>Join The </p>
+        <p style={{ fontSize: '18px', fontWeight: 'bold' }}>Community</p>
+      </div>
+    </BlueSquare>
   </div>
 </div>
 
-{/* Blue Square 2 */}
-<div className='w-[200px] h-[200px] bg-blue-950 rounded-2xl relative overflow-hidden transition-transform transform hover:scale-110'>
-  <img
-    src={sessionmf}
-    alt='Online Learning Image'
-    style={{
-      width: '40%',
-      height: '40%',
-      objectFit: 'cover',
-      borderRadius: '8px',
-      position: 'absolute',
-      top: '35%', 
-      left: '50%', 
-      transform: 'translate(-50%, -50%)', 
-    }}
-  />
-  <div className="absolute bottom-4 text-white text-center left-14">
-    <p style={{ fontSize: '12px' }}>Book your</p>
-    <p style={{ fontSize: '18px', fontWeight: 'bold' }}>SESSIONS</p>
-  </div>
-</div>
+<div className='mt-20'></div>
 
-{/* Blue Square 3 */}
-<div className='w-[200px] h-[200px] bg-blue-950 rounded-2xl relative overflow-hidden transition-transform transform hover:scale-110'>
-  <img
-    src={communitymf}
-    alt='Communities Image'
-    style={{
-      width: '40%',
-      height: '40%',
-      objectFit: 'cover',
-      borderRadius: '8px',
-      position: 'absolute',
-      top: '35%', 
-      left: '50%', 
-      transform: 'translate(-50%, -50%)', 
-    }}
-  />
-  <div className="absolute bottom-4 text-white text-center left-10">
-    <p style={{ fontSize: '12px' }}>Join the</p>
-    <p style={{ fontSize: '18px', fontWeight: 'bold' }}>COMMUNITY</p>
-  </div>
-</div>
-</div>
-</div>
+
 {/* Why part */}
 <div className='max-w-[1400px] m-auto py-16 px-4 relative'>
   <h1 className='text-4xl font-bold mb-4 text-left ml-14'>Why</h1>
@@ -405,8 +279,11 @@ const Home = () => {
 
 
       {/*Line 1 connecting Circle 1 and Circle 2 */}
-      <div className="absolute top-0 left-1/2 transform -translate-x-1/2 h-20 w-1 bg-black" style={{ top: '35%', transform: 'translate(-50%, -50%)', left: '197px' }}></div>
 
+      {window.innerWidth > 1280 && (
+
+      <div className="absolute top-0 left-1/2 transform -translate-x-1/2 h-20 w-1 bg-black" style={{ top: '35%', transform: 'translate(-50%, -50%)', left: '197px' }}></div>
+)}
       {/* Second Circle */}
       <div
         className="flex items-center mb-4 relative"
@@ -446,9 +323,10 @@ const Home = () => {
 
       <div style={{ paddingBottom: '50px' }} />
 
-
-{/* Line 2*/}
-<div className="absolute top-0 left-1/2 transform -translate-x-1/2 h-20 w-1 bg-black" style={{ top: '70%', transform: 'translate(-50%, -50%)', left: '197px' }}></div>
+{/* Line 2 */}
+{window.innerWidth > 1280 && (
+  <div className="absolute top-0 left-1/2 transform -translate-x-1/2 h-20 w-1 bg-black" style={{ top: '70%', transform: 'translate(-50%, -50%)', left: '197px' }}></div>
+)}
 
 
       {/* Third Circle */}
@@ -488,47 +366,23 @@ const Home = () => {
         </p>
       </div>
 
-      <div className='hidden lg:block absolute top-[-20%] left-[87%] w-1/2 transform -translate-x-1/2'>
-  <img
-    src={sitting}
-    alt='Why Image'
-    className='object-cover w-90 h-90'
-  />
-</div>
-
+      <div className='hidden lg:block absolute top-[-180px] right-16 w-1/2 h-[600px] w-[700px]'>
+        <img
+          src={sitting}
+          alt='Why Image'
+          className='object-full w-100 h-full'
+        />
+      </div>
     </div>
-  </div>
+
+
+    
+
+
+
 </div>
 
-<div style={{ paddingBottom: '300px' }} />
-
-{/* Join us today part */}
-<div className='w-[900px] h-[250px] bg-blue-950 rounded-md relative overflow-visible transition-transform transform hover:scale-110 mb-40' style={{ left: '50%', transform: 'translateX(-50%)', paddingTop: '60px' }}>
-  <img
-    src={whyperson}
-    alt='Whyperson Image'
-    className='absolute bottom-[-150px] left-[-150px] w-[500px] h-[500px]'
-  />
-  <img
-    src={book}
-    alt='Book Image'
-    className='absolute top-[-150px] right-[-100px] w-[400px] h-[400px]'
-  />
-   <div className='text-center text-white'>
-    <p className='text-2xl font-bold'>
-      Join <span className="font-normal">undergrad uplift</span> today
-    </p>
-    <p className='text-2xl mb-5'>
-      and experience personalized tutoring that
-    </p>
-    <p className='text-2xl'>
-      empowers your success
-    </p>
-    <button className='bg-white text-blue-950 px-6 py-2 rounded-full mt-5'>
-      Join us today
-    </button>
-  </div>
-</div>
+<div style={{ paddingBottom: '80px' }} />
 
 
 {/* Tutor Sessions */}
@@ -560,7 +414,7 @@ const Home = () => {
 <div className='max-w-[1400px] m-auto my-20 px-4 grid lg:grid-cols-2 gap-4'>
   <div className='relative flex justify-end items-center'>
     <img
-      className='object-cover w-[600px] h-[600px] rounded-md'
+      className='object-cover w-[600px] h-[600px] rounded-md  '
       src={questionbank}
       alt='Question Bank Image'
       style={{ marginRight: '-460px' }}
@@ -585,7 +439,7 @@ const Home = () => {
 </div>
 
 {/* How does undergrad uplift Work? */}
-<div className='bg-gray-100 flex flex-col items-center shadow-lg p-8 rounded-md mx-auto' style={{ border: '2px solid black', borderRadius: '12px', width: '900px', height: 'auto', marginBottom: '40px' }}>
+<div className={`bg-gray-100 flex flex-col items-center shadow-lg p-8 rounded-md mx-auto sm:w-full sm:px-4 ${window.innerWidth < 640 ? 'mb-4' : 'mb-8'}`} style={{ border: '1px solid black' }}>
   <div className='mb-4 flex justify-between items-center w-full'>
     <h2 className='text-2xl font-bold text-left'>How does undergrad uplift Work?</h2>
     <button onClick={() => toggleMinimize(1)} className='text-blue-900 focus:outline-none'>
@@ -601,8 +455,8 @@ const Home = () => {
   </div>
 </div>
 
-      {/* How to Book A Session part */}
-<div className='bg-gray-100 flex flex-col items-center shadow-lg p-8 rounded-md mx-auto' style={{ border: '2px solid black', borderRadius: '12px', width: '900px', height: 'auto', marginBottom: '40px' }}>
+{/* How to Book A Session part */}
+<div className={`bg-gray-100 flex flex-col items-center shadow-lg p-8 rounded-md mx-auto sm:w-full sm:px-4 ${window.innerWidth < 640 ? 'mb-4' : 'mb-8'}`} style={{ border: '1px solid black' }}>
   <div className='w-full'>
     <div className="flex justify-between items-center mb-4">
       <h2 className='text-2xl font-bold'>How to Book A Session</h2>
@@ -664,10 +518,8 @@ const Home = () => {
     )}
   </div>
 </div>
-
-
-    {/* How to Become a Tutor part */}
-<div className='bg-gray-100 flex flex-col items-center shadow-lg p-8 rounded-md mx-auto' style={{ border: '2px solid black', borderRadius: '12px', width: '900px', height: 'auto', marginBottom: '40px' }}>
+{/* How to Become a Tutor part */}
+<div className={`bg-gray-100 flex flex-col items-center shadow-lg p-8 rounded-md mx-auto sm:w-full sm:px-4 ${window.innerWidth < 640 ? 'mb-4' : 'mb-8'}`} style={{ border: '1px solid black' }}>
   <div className='w-full'>
     <div className="flex justify-between items-center mb-4">
       <h2 className='text-2xl font-bold'>How to Become a Tutor?</h2>
@@ -685,7 +537,7 @@ const Home = () => {
 </div>
 
 {/* How Does the Post Bank Work? part */}
-<div className='bg-gray-100 flex flex-col items-center shadow-lg p-8 rounded-md mx-auto' style={{ border: '2px solid black', borderRadius: '12px', width: '900px', height: 'auto', marginBottom: '40px' }}>
+<div className={`bg-gray-100 flex flex-col items-center shadow-lg p-8 rounded-md mx-auto sm:w-full sm:px-4 ${window.innerWidth < 640 ? 'mb-4' : 'mb-8'}`} style={{ border: '1px solid black' }}>
   <div className='w-full'>
     <div className="flex justify-between items-center mb-4">
       <h2 className='text-2xl font-bold'>How Does the Post Bank Work?</h2>
@@ -702,41 +554,14 @@ const Home = () => {
   </div>
 </div>
 
-{/* Text Slider */}
-
-<div className="text-center mb-8">
-          <h1 className="text-3xl font-thin text-blue-900">Testimonials</h1>
-       </div>
 
 
-<Slider {...sliderSettings} className='my-10'>
-        {sliderContent.map((item, index) => (
-          <div key={index} className="text-center relative" style={{ marginRight: '10px' }}>
-            <div style={{ backgroundColor: '#19216C', width: '400px', height: '200px', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', margin: '0 auto', borderRadius: '16px' }}>
-              {/* Topic and Stars */}
-              <div className="flex justify-between items-start w-full px-4 mb-4">
-                <p className="text-xl font-bold text-white">{item.topic}</p>
-                <Box
-                  sx={{
-                    '& > legend': { mb: 0 },  
-                  }}
-                >
-                  <Typography component="legend"></Typography>
-                  <Rating
-                    name={`rating-${index}`}  
-                    value={ratings[index]}
-                    onChange={(event, newValue) => handleRatingChange(index, newValue)}
-                  />
-                </Box>
-              </div>
-              
-              {/* Content Text */}
-              <p className="text-white">{item.text}</p>
-            </div>
-          </div>
-        ))}
-      </Slider>
 </div>
+</div>
+
+
+
+
   );
 };
 
