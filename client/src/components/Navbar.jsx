@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect, useContext, useRef } from 'react';
 import logo from '../Assets/images/Logo-N.png';
 import { RiMenu4Line } from "react-icons/ri";
 import MobileNavbar from './MobileNavbar';
@@ -21,6 +21,8 @@ function Navbar()  {
     email: '',
   });
   const[openProfile,setOpenProfile]=useState(false);
+ 
+ 
 
   useEffect(() => {
     // Function to handle window resize event
@@ -102,15 +104,16 @@ function Navbar()  {
           </Link>
             <ul className='hidden md:flex md:gap-14 '>
                 <li>
-                  <Link to='/' className='menu-item'> Home </Link>
+                  <Link to='/' className='font-semibold text-NavBlue'> Home </Link>
                 </li>
                 <li>
-                    <Link to='/about' className='menu-item'> About Us </Link>
+                    <Link to='/about' className='font-semibold text-NavBlue'> About Us </Link>
                 </li>
                 <li>
-                    <Link to='/tutors' className='menu-item'> Tutors </Link>
+                    <Link to='/tutors' className='font-semibold text-NavBlue'> Tutors </Link>
                 </li>
                 <li>
+
                     <Link to='/forum' className='menu-item'> Community Space </Link>
                 </li>                  
              
@@ -123,7 +126,7 @@ function Navbar()  {
                     <button className='menu-item' onClick={handleQuestionBank}> Question Bank </button>
                 </li>
               <li>
-                    <a className ="text-2xl menu-item" onClick={()=> setOpenProfile((prev)=>!prev)}><FaUser /></a>
+                    <a className ="text-2xl font-semibold cursor-pointer text-NavBlue "  onClick={()=> setOpenProfile((prev)=>!prev)}><FaUser /></a>
                 </li>
               {
                   openProfile &&  <Dropdown/>
