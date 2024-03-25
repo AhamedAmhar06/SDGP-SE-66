@@ -4,6 +4,7 @@ import TimeFilledIcon from "@mui/icons-material/AccessTimeFilled";
 import Rating from "@mui/material/Rating";
 import backgroundslider from "../Assets/images/sliderbkgrnd.png";
 import PersonIcon from "@mui/icons-material/Person";
+import { Link } from "react-router-dom";
 
 const Slide = ({ content, rating, handleRatingChange }) => {
   return (
@@ -35,9 +36,11 @@ const Slide = ({ content, rating, handleRatingChange }) => {
           by {content.tutor}
         </div>
         <div className="flex justify-between items-center mt-2">
+          <Link to={'/tutors'}>
           <button className="bg-NavBlue text-white py-2 px-3 rounded-2xl cursor-pointer">
             Request a Session
           </button>
+          </Link>
           <div className="text-black text-md">{content.price}</div>
         </div>
       </div>

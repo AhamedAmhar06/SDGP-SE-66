@@ -111,11 +111,7 @@ function Navbar()  {
                 </li>
                 <li>
                     <Link to='/tutors' className='font-semibold text-NavBlue'> Tutors </Link>
-                </li>
-                <li>
-
-                    <Link to='/forum' className='menu-item'> Community Space </Link>
-                </li>                  
+                </li>                
              
 
              {auth ? (
@@ -123,7 +119,12 @@ function Navbar()  {
               <>
 
               <li>
-                    <button className='menu-item' onClick={handleQuestionBank}> Question Bank </button>
+
+                <Link to='/forum' className='font-semibold text-NavBlue'> Community Space </Link>
+              </li>  
+
+              <li>
+                    <button className='font-semibold text-NavBlue' onClick={handleQuestionBank}> Question Bank </button>
                 </li>
               <li>
                     <a className ="text-2xl font-semibold cursor-pointer text-NavBlue "  onClick={()=> setOpenProfile((prev)=>!prev)}><FaUser /></a>
