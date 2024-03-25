@@ -64,8 +64,8 @@ function AboutUs() {
     height: 'auto',
     position: 'absolute',
     left: '20%',
-    top: screenWidth >= 768 ? '80%' : '70%',
-    transform: screenWidth >= 768 ? 'translate(-50%, -50%)' : 'translate(-40%, -60%) scale(0.5)', 
+    top: screenWidth >= 768 ? '80%'  :  (screenWidth >= 608 ? '30%' : '74%') ,
+    transform: screenWidth >= 768 ? 'translate(-50%, -50%)' : 'translate(-40%, -30%) scale(0.5)', 
     maxWidth: '200px', 
   };
 
@@ -74,8 +74,8 @@ function AboutUs() {
     height: 'auto',
     position: 'absolute',
     left: '40%',
-    top: screenWidth >= 768 ? '85%' : '70%',
-    transform: screenWidth >= 768 ? 'translate(-50%, -50%)' : 'translate(-40%, -60%) scale(0.5)',
+    top: screenWidth >= 768 ? '85%'  :  (screenWidth >= 608 ? '30%' : '74%') ,
+    transform: screenWidth >= 768 ? 'translate(-50%, -50%)' : 'translate(-40%, -30%) scale(0.5)',
     maxWidth: '200px', 
   };
 
@@ -84,8 +84,8 @@ function AboutUs() {
     height: 'auto',
     position: 'absolute',
     left: '60%',
-    top: screenWidth >= 768 ? '80%' : '70%',
-    transform: screenWidth >= 768 ? 'translate(-50%, -50%)' : 'translate(-40%, -60%) scale(0.5)', 
+    top: screenWidth >= 768 ? '80%'  :  (screenWidth >= 608 ? '30%' : '74%') ,
+    transform: screenWidth >= 768 ? 'translate(-50%, -50%)' : 'translate(-40%, -30%) scale(0.5)', 
     maxWidth: '200px', 
   };
 
@@ -94,8 +94,8 @@ function AboutUs() {
     height: 'auto',
     position: 'absolute',
     left: '79.5%',
-    top: screenWidth >= 768 ? '85%' : '70%',
-    transform: screenWidth >= 768 ? 'translate(-50%, -50%)' : 'translate(-40%, -60%) scale(0.5)',
+    top: screenWidth >= 768 ? '85%'  :  (screenWidth >= 608 ? '30%' : '74%') ,
+    transform: screenWidth >= 768 ? 'translate(-50%, -50%)' : 'translate(-40%, -30%) scale(0.5)',
     maxWidth: '200px', 
   };
   
@@ -240,11 +240,11 @@ const lineStyle = {
         src={aboutus3}
         alt='About Us Image'
         style={{
-          width: screenWidth >= 768 ? '85%' : (screenWidth >= 608 ? '90%' : '120%'),
-          height: screenWidth >= 768 ? '25%' : (screenWidth >= 608 ? '30%' : '20%'),
+          width: screenWidth >= 768 ? '85%' : (screenWidth >= 608 ? '120%' : '115%'),
+          height: screenWidth >= 768 ? '25%' : (screenWidth >= 608 ? '30%' : '20%') ,
           position: 'absolute',
           left: '63%',
-          top: screenWidth >= 768 ? '40%' : '35%',
+          top: screenWidth >= 768 ? '40%' :  (screenWidth >= 608 ? '30%' : '37%') ,
           transform: screenWidth >= 768 ? 'translate(-50%, -50%)' : 'translate(-40%, -55%) scale(0.8)',
           maxWidth: screenWidth >= 768 ? '1000px' : 'none',
         }}
