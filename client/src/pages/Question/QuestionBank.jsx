@@ -42,6 +42,9 @@ const QuestionBank = () => {
 
         
       {/* Card for QuestionUploader */}
+      <button onClick={() => window.history.back()} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+  Previous page
+</button>
       <div className="border rounded p-4">
         <h2 className="text-xl font-semibold mb-4">Question Uploader</h2>
         <QuestionUploader />

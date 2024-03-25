@@ -94,7 +94,11 @@ const QuestionList = () => {
 
   return (
     <div className='container mx-auto'>
+      <button onClick={() => window.history.back()} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+        Previous page
+      </button>
       <h2 className='text-3xl font-bold text-center my-8'>Questions</h2>
+      
       <p>{`Questions Uploaded: ${questionsUploaded}/10`}</p>
       {questions.map(question => (
         <div key={question._id} className='max-w-screen-md mx-auto my-4 border border-gray-300 rounded-lg p-4 hover:shadow-md'>
@@ -134,8 +138,12 @@ const QuestionList = () => {
               </>
             )}
           </div>
+          
         </div>
-      ))}
+        
+      ))
+      }
+      
     </div>
   );
 };

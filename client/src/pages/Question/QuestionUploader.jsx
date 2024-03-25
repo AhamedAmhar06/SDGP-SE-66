@@ -91,6 +91,7 @@ const QuestionUploader = () => {
 
         
     <div className="max-w-lg mx-auto mt-8">
+      
       <h2 className="text-2xl font-bold mb-4">Post a Question</h2>
               <div className="text-center">
           <p>{`Questions Uploaded: ${questionsUploaded}/10`}</p>

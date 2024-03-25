@@ -38,7 +38,7 @@ const shuffle = (array) => {
 
   const handleNextQuestion = async () => {
     if (selectedAnswer === questions[currentQuestionIndex].correctAnswer) {
-      setScore(score + 1);
+      setScore(score + 10);
     }
     setSelectedAnswer('');
     if (currentQuestionIndex + 1 < questions.length) {
@@ -69,8 +69,8 @@ const shuffle = (array) => {
           <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" onClick={resetQuiz}>
             Try Again
           </button>
-          <Link to="/optionSelector" className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded mt-4">
-            Go to Option Selector
+          <Link to="/optionSelector" className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded ">
+            Go to Question Bank
           </Link>
         </div>
       ) : (
