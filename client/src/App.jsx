@@ -35,6 +35,10 @@ import { Toaster } from 'react-hot-toast';
 import { UndergradContextProvider } from './context/undergradContext';
 import Error404page from './components/Error404page';
 
+
+//forum
+import Forum from './pages/forum/Forum';
+
 axios.defaults.baseURL = 'http://localhost:8000';
 axios.defaults.withCredentials = true;
 
@@ -58,7 +62,10 @@ function App () {
           
           <Route path='/questionlist' element={<QuestionList/>} />
           <Route path='/questionuploader' element={<QuestionBank/>} />
-          <Route path='/quiz' element={<QuizTaker/>}/>
+          <Route path='/questionBank' element={<QuizTaker/>}/>
+
+
+          <Route path='/forum' element={<Forum/>} />
 
           <Route path='/forgetpassword' element={<ForgetPassword/>} />
           <Route path='/tutorRegister' element={<TutorRegister/>} />
