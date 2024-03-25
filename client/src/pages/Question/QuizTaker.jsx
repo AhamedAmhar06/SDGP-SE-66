@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { useParams, Link } from 'react-router-dom';
 
 const QuizTaker = () => {
+  const { category } = useParams(); // get category from URL
   const [questions, setQuestions] = useState([]);
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [selectedAnswer, setSelectedAnswer] = useState('');
@@ -10,8 +12,7 @@ const QuizTaker = () => {
 
   useEffect(() => {
     const fetchQuestions = async () => {
-      try {
-        const response = await axios.get('/quizget');
+        const response = await axios.get(`/quizget/${category}`); // fetch questions for this category
         const shuffledQuestions = shuffle(response.data); // Shuffle the array of questions
         setQuestions(shuffledQuestions);
       } catch (error) {
@@ -19,7 +20,7 @@ const QuizTaker = () => {
       }
     };
     fetchQuestions();
-  }, []);
+  }, [category]); // re-fetch when category changes
 
   // Function to shuffle array
 const shuffle = (array) => {
@@ -67,6 +68,9 @@ const shuffle = (array) => {
           <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" onClick={resetQuiz}>
             Try Again
           </button>
+          <Link to="/optionSelector" className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded mt-4">
+            Go to Option Selector
+          </Link>
         </div>
       ) : (
         <div className="bg-white p-8 rounded shadow-lg">

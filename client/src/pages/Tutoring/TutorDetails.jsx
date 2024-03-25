@@ -1,9 +1,8 @@
 import React ,{ useEffect, useState, useContext } from 'react';
 import axios from 'axios';
 import { useParams, useNavigate } from 'react-router-dom';
-import { UndergradContext } from "../context/undergradContext";
+import { UndergradContext } from "../../context/undergradContext";
 import { Link } from 'react-router-dom';
-
 
 export default function TutorDetails({tutor_id}) {
 
@@ -43,9 +42,6 @@ export default function TutorDetails({tutor_id}) {
         fetchUndergrad();
     });
 
-    const notifyMe = async () => {
-        
-    }
 
   return (
     <div>
@@ -59,13 +55,18 @@ export default function TutorDetails({tutor_id}) {
 
                         <br />
                         
-                        <button className="bg-NavBlue rounded-xl text-white p-2 hover:scale-105 duration-300 m-5">
+                        {/* <button className="bg-NavBlue rounded-xl text-white p-2 hover:scale-105 duration-300 m-5">
                             Request for a Session
-                        </button>
+                        </button> */}
 
+                        <Link to={`/createRequest/${tutor._id}`}>
+                            <button className="bg-NavBlue rounded-xl text-white p-2 hover:scale-105 duration-300 m-5">
+                                Request a Session
+                            </button>
+                        </Link>
+                        
                         <button 
                             className="bg-NavBlue rounded-xl text-white p-2 hover:scale-105 duration-300 m-5"
-                        // onClick={}
                         >
                             Notify me
                         </button>

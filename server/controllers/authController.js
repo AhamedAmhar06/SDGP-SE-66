@@ -202,11 +202,34 @@ const resetPassword = async (req, res) => {
     }
 }
 
+const editProfile = async (req, res) => {
+    try {
+        const { fName, lName, email, university, studyLevel } = req.body;
+
+        //Load the user
+        const user = await Undergrad.findOne({ email});
+
+        const updatedUser = await Undergrad.findByIdAndUpdate(
+            user._id,
+            {
+                fName,
+                lName,
+                university,
+                studyLevel
+            },
+            { new: true }
+        );
+        res.json(updatedUser);
+    } catch (error) {
+        console.log(error);
+    }
+}
 module.exports = {
     test,
     registerUser,
     loginUser,
     getProfile,
     logout,
-    resetPassword
+    resetPassword,
+    editProfile
 }
