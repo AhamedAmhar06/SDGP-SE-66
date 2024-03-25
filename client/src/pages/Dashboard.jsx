@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import profileImage from "../Assets/images/Mask group.png";
 import payments from "../Assets/images/analysis 1.png";
 import { FaCalendarAlt } from "react-icons/fa";
+import { FaUserGraduate } from "react-icons/fa";
 import SheduledSessionCards from'../components/Dashboard/SheduledSessionCards';
 import PastSessionRecordCard from'../components/Dashboard/PastSessionRecordCard';
 import SessionRequestedCard from "../components/Dashboard/SessionRequestedCard";
@@ -36,7 +37,8 @@ export default function Dashboard() {
               <div className="flex flex-col items-center justify-start w-full md:w-[30%] gap-[41px]">
                 {/* Profile Section */}
                 <div className="flex flex-col items-center justify-start p-[45px] border-NavBlue border border-solid bg-gray-100 rounded-[36px]">
-                  <img src={profileImage} alt="Profile" className="h-[225px] w-[225px] ml-2.5 rounded-[50%] hover:scale-110 duration-300" />
+                  <FaUserGraduate  className="h-[100px] w-[100px] ml-2.5 rounded-[20%] hover:scale-110 duration-300 mb-4" />
+                {/*   <img src={profileImage} alt="Profile" className="h-[225px] w-[225px] ml-2.5 rounded-[50%] hover:scale-110 duration-300" /> */}
                   {!!undergrad && <h2 className="text-xl font-bold text-center text-NavBlue">Hi {undergrad.fName}!</h2>}
                   <p className="mt-4 font-bold text-center text-s text-NavBlue">Student</p>
                   <p className="mt-4 font-bold text-center text-s text-NavBlue">Study Level : {undergrad.studyLevel}</p>

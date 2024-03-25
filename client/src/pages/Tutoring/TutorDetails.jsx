@@ -73,4 +73,5 @@ export default function TutorDetails({tutor_id}) {
     </div>
 </div>
     )
+
 }

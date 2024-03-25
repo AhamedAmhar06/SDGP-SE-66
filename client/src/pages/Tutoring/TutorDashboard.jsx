@@ -4,6 +4,7 @@ import { UndergradContext } from "../../context/undergradContext";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import profileImage from "../../Assets/images/Mask group.png";
+import { GiTeacher } from "react-icons/gi";
 import payments from "../../Assets/images/analysis 1.png";
 import { FaCalendarAlt } from "react-icons/fa";
 import SheduledSessionCards from'../../components/Dashboard/SheduledSessionCards';
@@ -62,7 +63,7 @@ export default function TutorDashboard() {
               <div className="flex flex-col items-center justify-start w-full md:w-[30%] gap-[41px]">
                 {/* Profile Section */}
                 <div className="flex flex-col items-center justify-start p-[45px] border-NavBlue border border-solid bg-gray-100 rounded-[36px]">
-                  <img src={profileImage} alt="Profile" className="h-[225px] w-[225px] ml-2.5 rounded-[50%] hover:scale-110 duration-300" />
+                  <GiTeacher   className="h-[100px] w-[100px] ml-2.5 rounded-[20%] hover:scale-110 duration-300 mb-4"  />
                   {!!undergrad && <h2 className="text-xl font-bold text-center text-NavBlue">Hi {tutor.fName}!</h2>}
                   <p className="mt-4 font-bold text-center text-s text-NavBlue">Tutor</p>
                   <p className="mt-2 font-bold text-center text-s text-NavBlue">{tutor.university}</p>
