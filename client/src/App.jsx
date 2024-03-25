@@ -18,6 +18,7 @@ import QuestionBank from './pages/Question/QuestionBank';
 import QuestionList from './pages/Question/QuestionList';
 import QuizTaker from './pages/Question/QuizTaker';
 import OptionSelector from './pages/Question/OptionSelector';
+import QuizOptions from './pages/Question/QuizOptions';
 
 //Tutor
 import TutorRegister from './pages/Tutoring/TutorRegister';
@@ -28,6 +29,10 @@ import CreateCourse from './pages/Tutoring/CreateCourse';
 import TimeTable from './pages/Tutoring/CreateSession';
 import ViewRequestsTut from './pages/Tutoring/ViewRequestsTut';
 import RequestedSessions from './pages/Tutoring/RequestedSessions';
+import Session from './pages/Tutoring/Session';
+
+//Tutor Session
+import RoomPage from './screens/Room';
 
 import Notifications from './pages/Notifications';
 
@@ -62,8 +67,8 @@ function App () {
           
           <Route path='/questionlist' element={<QuestionList/>} />
           <Route path='/questionuploader' element={<QuestionBank/>} />
-          <Route path='/questionBank' element={<QuizTaker/>}/>
-
+          <Route path='/questionBank' element={<QuizOptions/>} />
+          <Route path='/quiz/:category' element={<QuizTaker/>}/>
 
           <Route path='/forum' element={<Forum/>} />
 
@@ -76,6 +81,9 @@ function App () {
           <Route path='/createRequest/:id' element={<TimeTable/>} />
           <Route path='/viewRequestsTut/:id' element={<ViewRequestsTut/>} />
           <Route path='/requestedSessions/:id' element={<RequestedSessions/>} />
+          <Route path='/session/:id' element={<Session/>} />
+
+          <Route path='/room/:roomId' element={<RoomPage/>} />
 
           <Route path='/optionSelector' element={<OptionSelector/>} />
           <Route path='/notifications' element={<Notifications/>} />

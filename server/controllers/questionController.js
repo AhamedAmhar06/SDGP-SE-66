@@ -16,15 +16,17 @@ exports.getAllQuestions = async (req, res) => {
 
 
 
+// controllers/questionController.js
+
 exports.getquiz = async (req, res) => {
   try {
-    const questions = await Question.find();
+    const { category } = req.params; // get category from URL parameters
+    const questions = await Question.find({ category }); // find questions for this category
     res.json(questions);
   } catch (err) {
     res.status(500).json({ message: err.message });
   }
 };
-
 
 
 
@@ -102,3 +104,15 @@ exports.deleteQuestion = async (req, res) => {
   }
 };
 
+
+// category controller
+
+
+exports.getAllQuestionsAndCategories = async (req, res) => {
+  try {
+    const questions = await Question.find({}, 'question category'); // Fetch only the question and category fields
+    res.json(questions);
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+};

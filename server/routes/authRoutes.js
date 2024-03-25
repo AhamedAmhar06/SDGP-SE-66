@@ -3,11 +3,13 @@ const router = express.Router();
 const cors = require('cors');
 const { test, loginUser, registerUser, getProfile, logout, resetPassword,  editProfile } = require('../controllers/authController');
 const { OTPVerification, sendCode, tutorRegisterOTP } = require('../controllers/authMail');
-const { tutorRegister, handleTutorLogin, tutorList, tutorDetails, tutorDetailsByEmail, createCourse, requestSession, fetchRequests, acceptSession, declineSession, getRequests } = require('../controllers/tutorControllers');
+const { tutorRegister, handleTutorLogin, tutorList, tutorDetails, tutorDetailsByEmail, createCourse, requestSession, fetchRequests, acceptSession, declineSession, getRequests, markAsCompleted } = require('../controllers/tutorControllers');
 const { notificationList, createNotification, markAsRead, markAsUnread, deleteNotification } = require('../controllers/notificationController');
 //const questionController = require('../controllers/questionController');
-const {getAllQuestions ,createQuestion,updateQuestion,deleteQuestion,getquiz} = require('../controllers/questionController');
+const { getAllQuestions , createQuestion, updateQuestion, deleteQuestion, getquiz, getAllQuestionsAndCategories } = require('../controllers/questionController');
 const{createPost,getPosts,addReply,upvotePost,downvotePost,getUndergradDetails}=require('../controllers/postcontroller');
+
+
 //middleware
 router.use(
     cors({
@@ -44,6 +46,7 @@ router.post('/fetchRequests', fetchRequests)
 router.put('/acceptSession/:id', acceptSession)
 router.put('/declineSession/:id', declineSession)
 router.post('/getRequests', getRequests)
+router.put('/markAsCompleted/:id', markAsCompleted)
 
 //Notification
 router.post('/notificationList', notificationList)
@@ -63,7 +66,8 @@ router.delete('/delete/:id', deleteQuestion);
 
 
 //quiz
-router.get('/quizget', getquiz);
+router.get('/getAllQuestionsAndCategories', getAllQuestionsAndCategories);
+router.get('/quizget/:category',getquiz);
 
 
 //forum

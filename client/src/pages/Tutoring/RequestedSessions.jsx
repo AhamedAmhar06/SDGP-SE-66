@@ -6,7 +6,7 @@ import TutorName from '../../components/ViewRequests/TutorName'
 
 
 export default function RequestedSessions({ tutor_id}) {
-
+  
   const { id } = useParams();
   const [ requests, setRequests ] = useState([]);
   const [ requestsLoaded, setRequestsLoaded ] = useState(false);
@@ -51,12 +51,15 @@ export default function RequestedSessions({ tutor_id}) {
               <p>Date: {request.date}</p>
               <p>Time: {request.startTime} - {request.endTime}</p>
               <p>Status : {request.accepted ? 'Accepted' : null } {request.decline ? 'Declined' : null} {!(request.decline || request.accepted) ? 'Processing' : null }</p>
-              {request.accepted ? (
-                <button
-                className="bg-NavBlue rounded-xl text-white p-2 hover:scale-105 duration-300 m-2"
-                >
-                  Join Now
-                </button>
+              {(request.accepted && !request.completed)? (
+                <a href={`/session/${request._id}`} target="_blank" rel="noopener noreferrer">
+                  <button
+                    className="bg-NavBlue rounded-xl text-white p-2 hover:scale-105 duration-300 m-2"
+                  >
+                    Join Now
+                  </button>
+                </a>
+                
               ) : (null)}
               {/* <button onClick={() => acceptSession(request._id)} className="bg-green-500 text-white p-2 m-2 rounded-md">Accept</button>
               <button onClick={() => declineSession(request._id)} className="bg-red-500 text-white p-2 m-2 rounded-md">Decline</button> */}
