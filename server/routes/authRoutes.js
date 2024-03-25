@@ -7,7 +7,7 @@ const { tutorRegister, handleTutorLogin, tutorList, tutorDetails, tutorDetailsBy
 const { notificationList, createNotification, markAsRead, markAsUnread, deleteNotification } = require('../controllers/notificationController');
 //const questionController = require('../controllers/questionController');
 const {getAllQuestions ,createQuestion,updateQuestion,deleteQuestion,getquiz} = require('../controllers/questionController');
-
+const{createPost,getPosts,addReply,upvotePost,downvotePost,getUndergradDetails}=require('../controllers/postcontroller');
 //middleware
 router.use(
     cors({
@@ -58,6 +58,15 @@ router.delete('/delete/:id', deleteQuestion);
 
 //quiz
 router.get('/quizget', getquiz);
+
+
+//forum
+router.post('/posts', createPost);
+router.get('/posts', getPosts);
+router.post('/posts/:postId/replies', addReply);
+router.put('/posts/:postId/upvote', upvotePost);
+router.put('/posts/:postId/downvote', downvotePost);
+router.post('/undergradDetails', getUndergradDetails);
 
 router.post('/test', test)
 

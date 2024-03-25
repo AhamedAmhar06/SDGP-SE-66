@@ -4,7 +4,7 @@ const cors = require('cors');
 const { mongoose } = require('mongoose');
 const app = express();
 const cookieParser = require('cookie-parser');
-const questionRoutes = require('./routes/questionRoutes');
+//const questionRoutes = require('./routes/questionRoutes');
 
 // Connecting database
 mongoose.connect(process.env.MONGO_URL)
