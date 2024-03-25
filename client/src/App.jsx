@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 import {Routes, Route} from 'react-router-dom'
 import Navbar from './components/Navbar';
 import Login from './pages/Login';
@@ -11,10 +11,11 @@ import Dashboard from './pages/Dashboard';
 import ForgetPassword from './pages/ForgetPassword';
 import TutorRegister from './pages/TutorRegister';
 import TutorDashboard from './pages/TutorDashboard';
-import Tutors from './pages/Tutors';
+import Tutors from './pages/Tutoring/Tutors';
 import TutorDetails from './pages/TutorDetails';
 import Notifications from './pages/Notifications';
 import EditProfile from './pages/EditProfile';
+import Team from './pages/Team';
 import { Toaster } from 'react-hot-toast';
 import { UndergradContextProvider } from './context/undergradContext';
 
@@ -22,6 +23,8 @@ axios.defaults.baseURL = 'http://localhost:8000';
 axios.defaults.withCredentials = true;
 
 function App () {
+
+ 
 
   return(
     <UndergradContextProvider>
@@ -43,9 +46,10 @@ function App () {
           <Route path='/tutors/:id' element={<TutorDetails />} />
           <Route path='/notifications' element={<Notifications/>} />
           <Route path='/editProfile' element={<EditProfile/>} />
+          <Route path='/team' element={<Team/>} />
       </Routes>
 
-        <Footer/>
+         <Footer />
       </div>
     </UndergradContextProvider>
     

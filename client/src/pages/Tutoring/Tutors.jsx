@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 import { Link } from 'react-router-dom'
+import { FaChalkboardTeacher } from "react-icons/fa";
 
 
 export default function Tutors() {
@@ -51,44 +52,53 @@ export default function Tutors() {
   return (
     <div>
 
-        <div >
-            <h1 className="text-3xl font-bold text-center">Tutors</h1>
+        <div className=" items-center gap-[73px] md:gap-[62px] sm:gap-[41px]">
+            <h1 className="text-3xl font-bold text-center ">Tutors</h1>
+             
             <input 
               type="text" 
               placeholder="Search by name" 
-              className="border border-gray-800 w-1/2 p-2 m-4 rounded-md" 
+              className="w-3/4 p-2 m-4 border border-gray-800 rounded-md " 
               value={search} 
               onChange={(e) => setSearch(e.target.value)} 
             />
             <select
               value={searchBy}
               onChange={(e) => setSearchBy(e.target.value)}
-              className="border border-gray-800 p-2 m-4 rounded-md"
+              className="p-2 m-4 font-bold border border-gray-800 rounded-md"
             >
-              <option value="name">Name</option>
+              <option value="name ">Name</option>
               <option value="subject">Subject</option>
             </select>
+            <div className="flex flex-col items-center gap-[73px] md:gap-[62px] sm:gap-[41px]">
             <ul>
                 {filteredTutors.map(tutor => (
-                    <li key={tutor._id} className="my-4 md:flex bg-slate-100 rounded-xl p-8 md:p-1 dark:bg-gray-300">
-                      <Link to={`/tutors/${tutor._id}`} className="pt-6 md:p-5 text-center md:text-left space-y-4">
-                       
+                    <li key={tutor._id} className="p-8 my-4 md:flex bg-slate-100 rounded-xl md:p-1 dark:bg-gray-300">
+                      <div className="pt-6 space-y-4 text-center md:p-5 md:text-left">
+                         
                         <p className="text-lg font-medium">
+                          <div className='flex text-xl gap-7 row'>
+                          <FaChalkboardTeacher  className="h-[50px] w-[50px] ml-2.5 rounded-[10%] hover:scale-110 duration-300" />
                           {tutor.fName} {tutor.lName}
+                          </div>
                           <br />
-                          <span className="text-slate-700 dark:text-slate-500 text-sm">
+                          <span className="text-m text-slate-700 dark:text-slate-500">
                             {tutor.university}
                           </span>
                           <br />
                           Subjects : {tutor.subjects.join(', ')}
                         </p>
                         Rating : {generateStars(tutor.rating)}
-                        
-                      </Link>
+                        <Link to={`/tutors/${tutor._id}`}>
+                  <button className="hidden h-10 px-6 mt-3 text-sm text-white rounded bg-NavBlue hover:bg-blue-700 hover:text-primary md:block">View Profile</button>
+                 </Link>
+                      </div>
                     </li>
                 ))}
             </ul>
         </div>
-    </div>
+        </div>
+        </div>
+   
   )
 }
