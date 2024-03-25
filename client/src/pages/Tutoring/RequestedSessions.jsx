@@ -51,7 +51,7 @@ export default function RequestedSessions({ tutor_id}) {
               <p>Date: {request.date}</p>
               <p>Time: {request.startTime} - {request.endTime}</p>
               <p>Status : {request.accepted ? 'Accepted' : null } {request.decline ? 'Declined' : null} {!(request.decline || request.accepted) ? 'Processing' : null }</p>
-              {request.accepted ? (
+              {(request.accepted && !request.completed)? (
                 <a href={`/session/${request._id}`} target="_blank" rel="noopener noreferrer">
                   <button
                     className="bg-NavBlue rounded-xl text-white p-2 hover:scale-105 duration-300 m-2"

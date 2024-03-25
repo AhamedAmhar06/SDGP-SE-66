@@ -1,13 +1,21 @@
 import React, { useEffect, useCallback, useState } from "react";
 import ReactPlayer from "react-player";
 import peer from "../service/peer";
+import { useLocation } from "react-router-dom";
 import { useSocket } from "../context/SocketProvider";
+import { set } from "mongoose";
+import axios from "axios";
+import toast from "react-hot-toast"; 
 
 const RoomPage = () => {
+
   const socket = useSocket();
   const [remoteSocketId, setRemoteSocketId] = useState(null);
   const [myStream, setMyStream] = useState();
   const [remoteStream, setRemoteStream] = useState();
+  
+  const location = useLocation();
+  const id = location.pathname.split("/").pop();
 
   const handleUserJoined = useCallback(({ email, id }) => {
     console.log(`Email ${email} joined room`);
@@ -78,6 +86,16 @@ const RoomPage = () => {
     await peer.setLocalDescription(ans);
   }, []);
 
+  //Test
+  const handleSessionCompleted = async () => {
+    try {
+      await axios.put(`/markAsCompleted/${id}`);
+      toast.success("Session Completed");
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   useEffect(() => {
     peer.peer.addEventListener("track", async (ev) => {
       const remoteStream = ev.streams;
@@ -110,35 +128,39 @@ const RoomPage = () => {
   ]);
 
   return (
-    <div>
-      <h1>Room Page</h1>
-      <h4>{remoteSocketId ? "Connected" : "No one in room"}</h4>
-      {myStream && <button onClick={sendStreams}>Send Stream</button>}
-      {remoteSocketId && <button onClick={handleCallUser}>CALL</button>}
-      {myStream && (
-        <>
-          <h1>My Stream</h1>
-          <ReactPlayer
-            playing
-            muted
-            height="100px"
-            width="200px"
-            url={myStream}
-          />
-        </>
-      )}
-      {remoteStream && (
-        <>
-          <h1>Remote Stream</h1>
-          <ReactPlayer
-            playing
-            muted
-            height="100px"
-            width="200px"
-            url={remoteStream}
-          />
-        </>
-      )}
+    <div className="flex flex-col items-center justify-center h-screen">
+      <h1 className="text-3xl font-bold mb-4">Room Page</h1>
+      <h4 className="mb-4">{remoteSocketId ? "Connected" : "No one in room"}</h4>
+      {myStream && <button onClick={sendStreams} className="bg-blue-500 text-white px-4 py-2 rounded mb-4">Send Stream</button>}
+      {remoteSocketId && <button onClick={handleCallUser} className="bg-green-500 text-white px-4 py-2 rounded mb-4">CALL</button>}
+      <div className="grid grid-cols-2 gap-4">
+        {myStream && (
+          <div className="flex flex-col items-center">
+            <h1 className="text-xl font-bold mb-2">My Stream</h1>
+            <ReactPlayer
+              playing
+              muted
+              url={myStream}
+              width="400px"
+              height="300px"
+            />
+          </div>
+        )}
+        {remoteStream && (
+          <div className="flex flex-col items-center">
+            <h1 className="text-xl font-bold mb-2">Remote Stream</h1>
+            <ReactPlayer
+              playing
+              muted
+              url={remoteStream}
+              width="400px"
+              height="300px"
+            />
+          </div>
+        )}
+      </div>
+      <button onClick={handleSessionCompleted} className="bg-blue-500 text-white px-4 py-2 rounded mb-4">Session Completed</button>
+      <button onClick={() => window.close()} className="bg-red-500 text-white px-4 py-2 rounded mb-4">Leave</button>
     </div>
   );
 };

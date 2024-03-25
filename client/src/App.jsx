@@ -18,6 +18,7 @@ import QuestionBank from './pages/Question/QuestionBank';
 import QuestionList from './pages/Question/QuestionList';
 import QuizTaker from './pages/Question/QuizTaker';
 import OptionSelector from './pages/Question/OptionSelector';
+import QuizOptions from './pages/Question/QuizOptions';
 
 //Tutor
 import TutorRegister from './pages/Tutoring/TutorRegister';
@@ -62,7 +63,8 @@ function App () {
           
           <Route path='/questionlist' element={<QuestionList/>} />
           <Route path='/questionuploader' element={<QuestionBank/>} />
-          <Route path='/quiz' element={<QuizTaker/>}/>
+          <Route path='/quizoptions' element={<QuizOptions/>} />
+          <Route path='/quiz/:category' element={<QuizTaker/>}/>
 
           <Route path='/forgetpassword' element={<ForgetPassword/>} />
           <Route path='/tutorRegister' element={<TutorRegister/>} />

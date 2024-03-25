@@ -313,6 +313,20 @@ const getRequests = async (req, res) =>{
 
 }
 
+//Mark as completed
+const markAsCompleted = async (req, res) => {
+    try {
+        const session = await Session.findByIdAndUpdate(
+            req.params.id,
+            { completed: true },
+            { new: true }
+        );
+        res.json(session);
+    } catch (error) {
+        console.log(error);
+    }
+}
+
 module.exports = {
     tutorRegister,
     handleTutorLogin,
@@ -324,5 +338,6 @@ module.exports = {
     fetchRequests,
     acceptSession,
     declineSession,
-    getRequests
+    getRequests,
+    markAsCompleted
 }
