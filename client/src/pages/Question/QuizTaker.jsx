@@ -12,6 +12,7 @@ const QuizTaker = () => {
 
   useEffect(() => {
     const fetchQuestions = async () => {
+      try {
         const response = await axios.get(`/quizget/${category}`); // fetch questions for this category
         const shuffledQuestions = shuffle(response.data); // Shuffle the array of questions
         setQuestions(shuffledQuestions);
