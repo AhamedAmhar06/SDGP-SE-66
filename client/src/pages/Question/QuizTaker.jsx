@@ -12,15 +12,24 @@ const QuizTaker = () => {
 
   useEffect(() => {
     const fetchQuestions = async () => {
-      try {
         const response = await axios.get(`/quizget/${category}`); // fetch questions for this category
-        setQuestions(response.data);
+        const shuffledQuestions = shuffle(response.data); // Shuffle the array of questions
+        setQuestions(shuffledQuestions);
       } catch (error) {
         console.error('Error fetching questions:', error);
       }
     };
     fetchQuestions();
   }, [category]); // re-fetch when category changes
+
+  // Function to shuffle array
+const shuffle = (array) => {
+  for (let i = array.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [array[i], array[j]] = [array[j], array[i]];
+  }
+  return array;
+};
 
   const handleAnswerSelection = (answer) => {
     setSelectedAnswer(answer);
@@ -36,6 +45,10 @@ const QuizTaker = () => {
     } else {
       setQuizCompleted(true);
     }
+  };
+
+  const handleEndQuiz = () => {
+    setQuizCompleted(true);
   };
 
   const resetQuiz = () => {
@@ -93,7 +106,7 @@ const QuizTaker = () => {
               ))}
               {selectedAnswer && (
                 <button
-                  className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                  className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mr-2"
                   onClick={handleNextQuestion}
                 >
                   Next
@@ -101,6 +114,9 @@ const QuizTaker = () => {
               )}
             </ul>
           )}
+          <button className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded" onClick={handleEndQuiz}>
+            End Quiz
+          </button>
         </div>
       )}
     </div>
