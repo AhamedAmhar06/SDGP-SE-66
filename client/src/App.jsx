@@ -45,7 +45,7 @@ import Error404page from './components/Error404page';
 //forum
 import Forum from './pages/forum/Forum';
 
-axios.defaults.baseURL = 'http://localhost:8000';
+axios.defaults.baseURL = 'https://sdgp-se-66-1-pot7jb72ja-uc.a.run.app';
 axios.defaults.withCredentials = true;
 
 function App () {
