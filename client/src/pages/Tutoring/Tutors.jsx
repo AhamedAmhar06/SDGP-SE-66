@@ -4,12 +4,13 @@ import { Link } from 'react-router-dom'
 import { FaChalkboardTeacher } from "react-icons/fa";
 
 
+
 export default function Tutors() {
 
     const [ tutors, setTutors ] = useState([]); 
     const [ search, setSearch ] = useState('');
     const [ searchBy, setSearchBy ] = useState('name');
-
+  
     useEffect(() => {
         const fetchTutors = async () => {
           try {
@@ -65,6 +66,7 @@ export default function Tutors() {
             <select
               value={searchBy}
               onChange={(e) => setSearchBy(e.target.value)}
+
               className="p-2 m-4 font-bold border border-gray-800 rounded-md"
             >
               <option value="name ">Name</option>

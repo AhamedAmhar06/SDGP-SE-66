@@ -29,6 +29,7 @@ export default function Dashboard() {
   });
   return (
     <div>
+
       {undergradLoaded ? (
         <div className="flex flex-col items-center justify-start w-full pt-[70px] bg-gray-50">
           <div className="flex flex-row justify-center w-full max-w-[1269px]">
@@ -40,7 +41,9 @@ export default function Dashboard() {
                 {/*   <img src={profileImage} alt="Profile" className="h-[225px] w-[225px] ml-2.5 rounded-[50%] hover:scale-110 duration-300" /> */}
                   {!!undergrad && <h2 className="text-xl font-bold text-center text-NavBlue">Hi {undergrad.fName}!</h2>}
                   <p className="mt-4 font-bold text-center text-s text-NavBlue">Student</p>
+                  <p className="mt-4 font-bold text-center text-s text-NavBlue">Study Level : {undergrad.studyLevel}</p>
                   <p className="mt-2 font-bold text-center text-s text-NavBlue">{!!undergrad && <>{undergrad.university}</>}</p>
+                  <p className="mt-2 font-bold text-center text-s text-NavBlue">Email: {undergrad.email}</p>
                   <div className="flex flex-col items-center justify-start w-full mt-[72px]">
                     <div className="w-full sm:w-[100%] md:w-[100%] lg:w-[100%]">
                       <Link to='/editProfile'>
@@ -120,11 +123,11 @@ export default function Dashboard() {
                 <div className="flex flex-col items-center justify-start w-full p-[31px] border-NavBlue border border-solid rounded-[34px]">
                     <div className="flex flex-row justify-start items-center w-[97%] mb-[11px] gap-[21px]">
                       <div className="flex flex-col items-center justify-start w-[92%]">
-                        <h1 className="w-[97%] !leading-[35px]">
+                        <Link className="w-[97%] !leading-[35px]" to={`/requestedSessions/${undergrad.id}`}>
                           <span className="text-NavBlue text-[26px] font-normal">Session </span> <br />
                           <span className="text-4xl font-bold text-NavBlue">Requested</span>
                           <span className="font-normal text-NavBlue"></span>
-                        </h1>
+                        </Link>
                                 <SessionRequestedCard/>
                                 <div className="flex flex-row justify-center w-[99%] mt-1 p-[5px] bg-gray-300 rounded-[10px]">
                                   <div className="flex flex-col items-start justify-start w-[52%] gap-px">
@@ -186,6 +189,7 @@ export default function Dashboard() {
           </div>
         </div>
       ) : (null)}
+
     </div>
   );
 }

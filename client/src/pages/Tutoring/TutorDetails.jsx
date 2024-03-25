@@ -42,9 +42,6 @@ export default function TutorDetails({tutor_id}) {
         fetchUndergrad();
     });
 
-    const notifyMe = async () => {
-        
-    }
 
   return (
     <div>
@@ -58,13 +55,18 @@ export default function TutorDetails({tutor_id}) {
 
                         <br />
                         
-                        <button className="p-2 m-5 text-white duration-300 bg-NavBlue rounded-xl hover:scale-105">
+                        {/* <button className="bg-NavBlue rounded-xl text-white p-2 hover:scale-105 duration-300 m-5">
                             Request for a Session
-                        </button>
+                        </button> */}
 
+                        <Link to={`/createRequest/${tutor._id}`}>
+                            <button className="bg-NavBlue rounded-xl text-white p-2 hover:scale-105 duration-300 m-5">
+                                Request a Session
+                            </button>
+                        </Link>
+                        
                         <button 
-                            className="p-2 m-5 text-white duration-300 bg-NavBlue rounded-xl hover:scale-105"
-                        // onClick={}
+                            className="bg-NavBlue rounded-xl text-white p-2 hover:scale-105 duration-300 m-5"
                         >
                             Notify me
                         </button>

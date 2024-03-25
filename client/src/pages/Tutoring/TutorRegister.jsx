@@ -1,249 +1,83 @@
-import { useState, useEffect } from "react";
-import registerperson from "../../Assets/images/registerperson.png";
-import {toast} from 'react-hot-toast'
-import axios from "axios";
-import { useNavigate } from "react-router-dom"
-import { TiDeleteOutline } from "react-icons/ti";
+import React ,{ useEffect, useState, useContext } from 'react';
+import axios from 'axios';
+import { useParams, useNavigate } from 'react-router-dom';
+import { UndergradContext } from "../../context/undergradContext";
+import { Link } from 'react-router-dom';
 
-export default function TutorRegister() {
-  const navigate = useNavigate();
+export default function TutorDetails({tutor_id}) {
 
-  //UseState for form data
-  const [formData, setFormData] = useState({
-    fName: "",
-    lName: "",
-    email: "",
-    university: "",
-    studyLevel: "",
-    password: "",
-    confirmPassword: "",
-  });
+    const [tutor, setTutor] = useState({});
+    const { id } = useParams();
+    const [TutorLoaded, setTutorLoaded] = useState(false);
+    const { undergrad } = useContext(UndergradContext);
+    const [ undergradLoaded, setUndergradLoaded ] = useState(false);
 
-  //UseState for OTP
-  const [otpData, setOtpData] = useState({
-    email: "",
-    serverOTP: "",
-    userOTP: "",
-    emailVerified: false,
-    otpGenerated: false,
-    verified: false
-  });
+    useEffect(() => {
+        const fetchTutor = async () => {
+            try {
+                const response = await axios.post('/tutorDetails', { id });
+                setTutor(response.data);
+                if(response.data) {
+                    setTutorLoaded(true);
+                } else {
+                    window.location.reload();
+                }
+            } catch (error) {
+                console.error(error);
+            }
+        };
 
-  //Selected Subjects
-  const [selectedSubjects, setSelectedSubjects] = useState([]);
-
-  //Remove selected subjects
-  const removeSubject = (subject) => {
-    setSelectedSubjects(selectedSubjects.filter(item => item !== subject))
-  }
-
-  //Register user
-  const registerUser = async (e) => {
-    e.preventDefault();
-    const { password } = formData;
-    const { email, emailVerified } = otpData;
-    try {
-      console.log(email, password);
-
-      const {data} = await axios.post('/tutorRegister', {
-        email,
-        password,
-        subjects: selectedSubjects
-      })
-
-      if(!emailVerified) {
-        return toast.error('Email not verified')
-      }
-      if(data.error) {
-        toast.error(data.error)
-      } else {
-        toast.success('Registered successfully')
-        navigate('/dashboard')
-      }
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  //Generate OTP code
-  const generateOTP = async (e) => {
-    e.preventDefault();
-    const {email, serverOTP} = otpData;
-    // const { email } = formData;
-
-    //Check if email and names are entered
-    if ( !email ) {
-      return toast.error('Email is required')
-    }
-
-    console.log("OTP generated:", serverOTP);
-    try {
-      const {data} = await axios.post('/tutorRegisterOTP', {
-        email,
-        serverOTP
-      });
-      
-      if(data.error) {
-        toast.error(data.error)
-      } else {
-        setOtpData({...otpData, emailVerified: true});
-        toast.success(data.message)
-      }
-    } catch (error) {
-        console.log(error);
-    }
-  }
+        //To check if the user is already logged in
+        const fetchUndergrad = async () => {
+            try {
+                if(undergrad){
+                    setUndergradLoaded(true);
+                }          
+            } catch (error) {
+                console.error(error);
+            }
+        };
     
+        fetchTutor();
+        fetchUndergrad();
+    });
 
-  const verifyOTP = async (e) => {
-    e.preventDefault();
-    console.log('OTP:', otpData);
-    const {serverOTP, userOTP, verified} = otpData;
-    if(!otpData.serverOTP) {
-      return toast.error('OTP not generated')
-    }
-    if (serverOTP === userOTP) {
-      toast.success('Email verified')
-      setOtpData({...otpData, verified: true});
-    } else {
-      toast.error('Incorrect OTP')
-    }
-  }
-
-  useEffect(() => {
-    if (!otpData.serverOTP) {
-      
-      const serverOTP = `${Math.floor(100000 + Math.random() * 900000)}`;
-
-      setOtpData({...otpData, serverOTP: serverOTP, otpGenerated: true});
-      console.log("OTP generated:", otpData.serverOTP);
-    }
-  })
 
   return (
-    <section className="flex items-center justify-center min-h-screen bg-gray-50">
-      {/* Register container */}
-      <div className="flex items-center max-w-3xl p-5 bg-gray-100 shadow-lg rounded-2xl">
-        {/* Image */}
-        <div className="hidden md:w-1/2 md:block">
-          <img className="border-4 rounded-2xl border-NavBlue" src={registerperson} alt="Register Person" />
-        </div>
+    <div>
+        {TutorLoaded ? (
+            <>
+                {undergradLoaded ? (
+                    <>
+                        <h1>{tutor.fName} {tutor.lName}</h1>
+                        <p>University: {tutor.university}</p>
+                        <p>Subjects: {tutor.subjects.join(', ')}</p>
 
-        {/* Form */}
-        <div className="px-8 md:w-1/2 md:px-16">
-          <h2 className="text-2xl font-bold text-NavBlue">Tutor Registration</h2>
-          {/* <p className="mt-4 text-xs text-NavBlue">Registered already? </p> */}
-          {/* Login Button */}
-          {/* <button className="text-NavBlue" onClick={(e) => navigate('/login')}>
-            Login
-          </button> */}
+                        <br />
+                        
+                        {/* <button className="bg-NavBlue rounded-xl text-white p-2 hover:scale-105 duration-300 m-5">
+                            Request for a Session
+                        </button> */}
 
-          <form className="flex flex-col gap-4">
-            <br />
+                        <Link to={`/createRequest/${tutor._id}`}>
+                            <button className="bg-NavBlue rounded-xl text-white p-2 hover:scale-105 duration-300 m-5">
+                                Request a Session
+                            </button>
+                        </Link>
+                        
+                        <button 
+                            className="bg-NavBlue rounded-xl text-white p-2 hover:scale-105 duration-300 m-5"
+                        >
+                            Notify me
+                        </button>
+                    </>
+                ): (
+                    <h1>Please Login to the system to view tutor profiles</h1>
+                )}
+            </>
+        ) : null}
+        
 
-            <label>
-              Choose preferred subjects&nbsp; : &nbsp;
-
-              <select name="subjects" 
-                id="subjects"
-                value={selectedSubjects}
-                class="appearance-none rounded-xl pt-2 pb-2 pl-2 pr-2 border border-NavBlue"
-                onChange={(e) => setSelectedSubjects([...selectedSubjects, e.target.value])}
-              >
-                <option value="">Select Option</option>
-                <option value="Java" disabled={selectedSubjects.includes("Java")}>Java</option>
-                <option value="Python" disabled={selectedSubjects.includes("Python")}>Python</option>
-                <option value="HTML" disabled={selectedSubjects.includes("HTML")}>HTML</option>
-                <option value="CSS" disabled={selectedSubjects.includes("CSS")}>CSS</option>
-                <option value="JavaScript" disabled={selectedSubjects.includes("JavaScript")}>JavaScript</option>
-                <option value="React" disabled={selectedSubjects.includes("React")}>React</option>
-                <option value="React-Native" disabled={selectedSubjects.includes("React-Native")}>React-Native</option>
-                <option value="Kotlin" disabled={selectedSubjects.includes("Kotlin")}>Kotlin</option>
-                <option value=""></option>
-              </select>
-
-              {/* Display selected subjects */}
-              <div>
-                Selected Subjects &nbsp; :&nbsp;
-                  {selectedSubjects.map((subject, index) => (
-                    <span key={index} className="selected-subject">
-                      {subject}
-                      <span className="remove-icon" onClick={() => removeSubject(subject)}>
-                        &nbsp; X &nbsp; 
-                      </span>
-                    </span>
-                  ))}
-              </div>
-
-
-            </label>
-
-            <input
-              className="p-2 border rounded-xl"
-              type="email"
-              id="email"
-              name="email"
-              value={otpData.email}
-              onChange={(e) => {
-                setFormData({...formData, email: e.target.value})
-                setOtpData({...otpData, email: e.target.value})
-              }}
-              placeholder="Email" 
-              disabled={otpData.emailVerified}
-            />
-
-            <button className={`bg-NavBlue rounded-xl text-white py-2 hover:scale-105 duration-300 ${otpData.emailVerified && "bg-gray-300 pointer-events-none"}`}
-              disabled={otpData.emailVerified}
-             onClick={generateOTP}>
-              Generate OTP
-            </button>
-
-            <input
-              className="p-2 border rounded-xl"
-              type="text"
-              id="userOTP"
-              name="userOTP"
-              value={otpData.userOTP}
-              onChange={(e) => {
-                setOtpData({...otpData, userOTP: e.target.value})
-              }}
-              placeholder="OTP" 
-              disabled={!otpData.emailVerified || otpData.verified}
-            />
-
-            <button className={`bg-NavBlue rounded-xl text-white py-2 hover:scale-105 duration-300 ${otpData.verified && "bg-gray-300 pointer-events-none"}`}
-              onClick={verifyOTP}>
-              Verify OTP
-            </button>
-
-            
-
-            <input
-              className="p-2 border rounded-xl"
-              type="password"
-              id="password"
-              name="password"
-              value={formData.password}
-              onChange={(e) => setFormData({...formData, password: e.target.value})}
-              placeholder="Password"
-            />
-
-          <p className="mt-4 text-xs text-NavBlue">Forgot password</p>
-          {/* Login Button */}
-          <button 
-          className="text-NavBlue" 
-          onClick={(e) => navigate('/forgetpassword')}>
-            Reset
-          </button>
-          
-           {/* Register Button */}
-           <button className="py-2 text-white duration-300 bg-NavBlue rounded-xl hover:scale-105" type="submit" 
-           onClick={registerUser}>
-              Register
-            </button>
-          </form>
-        </div>
-      </div>
-    </section>
-  );
+    </div>
+  )
 }

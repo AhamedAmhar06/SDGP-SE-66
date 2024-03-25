@@ -52,43 +52,42 @@ function Navbar()  {
   });
 
   //Logout button logic
-  // const logoutUser = async () => {
-  //   try{
-  //     await axios.get('/logout');
-  //     toast.success('Logout Successful');
-  //     localStorage.removeItem('undergrad');
-  //     navigate('/login');
-  //     window.location.reload();
+  const logoutUser = async () => {
+    try{
+      await axios.get('/logout');
+      toast.success('Logout Successful');
+      localStorage.removeItem('undergrad');
+      navigate('/login');
+      window.location.reload();
 
-  //   } catch (error) {
-  //     toast.error('An error occurred. Please try again');
-  //   }
-  // }
+    } catch (error) {
+      toast.error('An error occurred. Please try again');
+    }
+  }
 
-  //Check if user is a tutor
-  // const handleTutorLogin = async () => {
-  //   try {
-  //      let { email } = data;
-  //     if (undergrad){
-  //       email = undergrad.email;
-  //       // console.log(email);
-  //       const {data} = await axios.post('/tutorLogin', {
-  //         email
-  //       });
-        // console.log(data);
+  // Check if user is a tutor
+  const handleQuestionBank = async () => {
+    try {
+       let { email } = data;
+      if (undergrad){
+        email = undergrad.email;
+        console.log(email);
+        const {data} = await axios.post('/tutorLogin', {
+          email
+        });
+        console.log(data);
 
-        //If user is not a tutor, redirect to tutor register page
-        // if(!data){
-        //   navigate('/tutorRegister');
-        // } else {
-        //   navigate('/tutorDashboard');
-          //Do the local storage thing here
-  //       }
-  //     }
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // };
+        // If user is not a tutor, redirect to tutor register page
+        if(data){
+          navigate('/optionSelector');
+        } else {
+          navigate('/questionBank');
+        }
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <>
@@ -114,20 +113,18 @@ function Navbar()  {
                     <Link to='/tutors' className='font-semibold text-NavBlue'> Tutors </Link>
                 </li>
                 <li>
-                    <Link to='/community' className='font-semibold text-NavBlue'> Community Space </Link>
-                </li>
 
-
-                <li>
-                    <Link to='/questionBank' className='font-semibold text-NavBlue'> Question Bank </Link>
-                </li>
-                
-                             
+                    <Link to='/forum' className='menu-item'> Community Space </Link>
+                </li>                  
              
 
              {auth ? (
 
               <>
+
+              <li>
+                    <button className='menu-item' onClick={handleQuestionBank}> Question Bank </button>
+                </li>
               <li>
                     <a className ="text-2xl font-semibold cursor-pointer text-NavBlue "  onClick={()=> setOpenProfile((prev)=>!prev)}><FaUser /></a>
                 </li>
