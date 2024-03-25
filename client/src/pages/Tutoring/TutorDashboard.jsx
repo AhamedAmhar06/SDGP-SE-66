@@ -1,5 +1,5 @@
 import { useContext } from "react"
-import { UndergradContext } from "../context/undergradContext";
+import { UndergradContext } from "../../context/undergradContext";
 
 export default function TutorDashboard() {
 
