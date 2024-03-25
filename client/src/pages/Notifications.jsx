@@ -73,7 +73,7 @@ export default function Notifications() {
             <h1 className="text-3xl font-bold text-center">Notifications</h1>
             <ul>
                 {notifications.map(notification => (
-                    <li key={notification._id} className={`my-4 md:flex rounded-xl p-8 md:p-5 ${notification.read ? 'bg-slate-200' : 'bg-slate-400'}`}>
+                    <li key={notification._id} className={`my-4 md:flex rounded-xl p-8 md:p-5 ${!notification.read ? 'bg-slate-200' : 'bg-slate-400'}`}>
                         <div className='flex justify-between'>
                             {notification.message} &nbsp;
                             <div className='flex justify-end rounded-2xl px-2 gap-2 '>

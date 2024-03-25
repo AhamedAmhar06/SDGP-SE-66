@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 import {Routes, Route} from 'react-router-dom'
 import Navbar from './components/Navbar';
 import Login from './pages/Login';
@@ -10,6 +10,7 @@ import Home from './pages/Home';
 
 //Auth
 import ForgetPassword from './pages/ForgetPassword';
+import Team from './pages/Team';
 import EditProfile from './pages/EditProfile';
 import Dashboard from './pages/Dashboard';
 
@@ -48,6 +49,8 @@ axios.defaults.baseURL = 'http://localhost:8000';
 axios.defaults.withCredentials = true;
 
 function App () {
+
+ 
 
   return(
     <UndergradContextProvider>
@@ -88,10 +91,12 @@ function App () {
           <Route path='/optionSelector' element={<OptionSelector/>} />
           <Route path='/notifications' element={<Notifications/>} />
           <Route path='/editProfile' element={<EditProfile/>} />
-          
+
+          <Route path='/team' element={<Team/>} />
+
       </Routes>
 
-        <Footer/>
+         <Footer />
       </div>
     </UndergradContextProvider>
     
