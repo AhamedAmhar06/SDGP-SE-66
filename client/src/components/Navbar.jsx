@@ -93,7 +93,7 @@ function Navbar()  {
   return (
     <>
      {isMenuOpen && <MobileNavbar setIsMenuOpen={setIsMenuOpen} />}
-    <div className='sticky top-0 z-50 bg-background '>
+    <div className='sticky top-0 z-10 bg-background '>
       <nav className='max-w-screen-xl px-6 py-4 mx-auto'>
         <div className='flex items-center justify-between'>
 

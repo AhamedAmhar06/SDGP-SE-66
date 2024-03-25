@@ -51,7 +51,7 @@ function Dropdown({ onClose }) {
   };
 
   return (
-    <div className='absolute flex flex-col items-center p-4 border border-t-4 border-b-4 w-35 border-NavBlue bg-background top-16 right-6 rounded-2xl' >
+    <div className='absolute flex flex-col items-center p-4 border border-t-4 border-b-4 w-35 border-NavBlue bg-background top-16 right-20 rounded-2xl' >
       <div className='absolute top-0 w-4 h-4 transform rotate-45 -translate-y-2 border-t border-l right-7 bg-background border-NavBlue'></div>
       <div className='flex flex-col gap-4'>
         <ul>

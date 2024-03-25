@@ -115,7 +115,7 @@ function MobileNavbar({ setIsMenuOpen }) {
                 
                 
             </div>
-            <div onClick={() => setIsMenuOpen(false)} className="fixed top-0 w-screen h-screen bg-overlay -z-10" />
+            <div onClick={() => setIsMenuOpen(false)} className="fixed top-0 z-50 w-screen h-screen bg-overlay" />
         </div>
     );
 };

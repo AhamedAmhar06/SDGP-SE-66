@@ -124,21 +124,11 @@ const Footer = () => {
                   </button>
                 </li>
 
-                <li>
-                  <button
-                    onClick={logoutUser}
-                    className='py-2 text-sm'
-                  >
-                    Logout
-                  </button>
-              </li>
                 
               </>
             ) : (
               <>
-                <li className='py-2 text-sm'>
-                  <Link to='/login'>Join Us</Link> 
-                </li>
+                
               </>
             )}
         </ul>
