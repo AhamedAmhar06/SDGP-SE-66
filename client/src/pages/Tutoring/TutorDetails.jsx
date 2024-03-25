@@ -42,42 +42,35 @@ export default function TutorDetails({tutor_id}) {
         fetchUndergrad();
     });
 
-
-  return (
-    <div>
+    return (
+        <div className="flex items-center justify-center h-screen">
+    <div className="bg-white p-6 rounded-lg shadow-lg w-3/4">
         {TutorLoaded ? (
             <>
                 {undergradLoaded ? (
                     <>
-                        <h1>{tutor.fName} {tutor.lName}</h1>
-                        <p>University: {tutor.university}</p>
-                        <p>Subjects: {tutor.subjects.join(', ')}</p>
+                        <h1 className="text-4xl font-bold mb-2">{tutor.fName} {tutor.lName}</h1>
+                        <p className="text-gray-700 mb-2 text-xl">E-mail: {tutor.email}</p>
+                        <p className="text-gray-700 mb-2 text-xl">University: {tutor.university}</p>
+                        
+                        <p className="text-gray-700 mb-2 text-xl">Subjects: {tutor.subjects.join(', ')}</p>
 
                         <br />
                         
-                        {/* <button className="bg-NavBlue rounded-xl text-white p-2 hover:scale-105 duration-300 m-5">
-                            Request for a Session
-                        </button> */}
-
                         <Link to={`/createRequest/${tutor._id}`}>
-                            <button className="bg-NavBlue rounded-xl text-white p-2 hover:scale-105 duration-300 m-5">
+                            <button className="bg-NavBlue text-white p-2 rounded-xl hover:scale-105 duration-300 m-5">
                                 Request a Session
                             </button>
                         </Link>
                         
-                        <button 
-                            className="bg-NavBlue rounded-xl text-white p-2 hover:scale-105 duration-300 m-5"
-                        >
-                            Notify me
-                        </button>
+                        
                     </>
                 ): (
-                    <h1>Please Login to the system to view tutor profiles</h1>
+                    <h1 className="text-red-500 font-bold text-2xl text-center">Please Login to the system to view tutor profiles</h1>
                 )}
             </>
         ) : null}
-        
-
     </div>
-  )
+</div>
+    )
 }
