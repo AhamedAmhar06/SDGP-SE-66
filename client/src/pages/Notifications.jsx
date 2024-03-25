@@ -71,20 +71,20 @@ export default function Notifications() {
             <h1 className="text-3xl font-bold text-center">Notifications</h1>
             <ul>
                 {notifications.map(notification => (
-                    <li key={notification._id} className={`my-4 md:flex rounded-xl p-8 md:p-5 ${notification.read ? 'bg-slate-200' : 'bg-slate-400'}`}>
+                    <li key={notification._id} className={`my-4 md:flex rounded-xl p-8 md:p-5 ${!notification.read ? 'bg-slate-200' : 'bg-slate-400'}`}>
                         <div className='flex justify-between'>
                             {notification.message} &nbsp;
                             <div className='flex justify-end'>
                                 <MdOutlineMarkEmailRead 
-                                    className="text-2xl text-NavBlue hover:scale-105" 
+                                    className="text-2xl text-NavBlue hover:scale-105 mx-2" 
                                     onClick={() => markAsRead(notification._id)}
                                 />
                                 <MdOutlineMarkunreadMailbox 
-                                    className="text-2xl text-NavBlue hover:scale-105" 
+                                    className="text-2xl text-NavBlue hover:scale-105 mx-2" 
                                     onClick={() => markAsUnread(notification._id)}
                                 />
                                 <MdOutlineDeleteOutline 
-                                    className="text-2xl text-NavBlue hover:scale-105" 
+                                    className="text-2xl text-NavBlue hover:scale-105 mx-2" 
                                     onClick={() => deleteNotification(notification._id)}
                                 />
                             </div>
