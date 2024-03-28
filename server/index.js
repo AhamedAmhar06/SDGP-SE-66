@@ -52,7 +52,7 @@ const server = app.listen(8000, () => console.log(`Server is running on port 800
 // Socket.io setup
 const io = new Server(server, {
   cors: {
-    origin: 'http://localhost:5173',
+    origin: ['http://localhost:5173','https://www.undergraduplift.tech/'],
     credentials: true
   }
 });
