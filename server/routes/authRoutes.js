@@ -14,7 +14,7 @@ const{createPost,getPosts,addReply,upvotePost,downvotePost,getUndergradDetails}=
 router.use(
     cors({
         credentials: true,
-        origin: 'https://www.undergraduplift.tech/'
+        origin: 'https://www.undergraduplift.tech'
     })
 );
 
