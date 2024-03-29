@@ -14,7 +14,7 @@ const{createPost,getPosts,addReply,upvotePost,downvotePost,getUndergradDetails}=
 router.use(
     cors({
         credentials: true,
-        origin: 'http://localhost:5173'
+        origin: 'https://www.undergraduplift.tech/'
     })
 );
 
