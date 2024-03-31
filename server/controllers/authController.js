@@ -134,8 +134,17 @@ const loginUser = async (req, res) => {
                 studyLevel: user.studyLevel
             }, process.env.JWT_SECRET, {}, (err, token) => {
                 if (err) throw err;
+                try{
                 res.cookie('token', token).json(user)
+                } catch(err){
+                    console.log(err);
+                    res.cookie('token', err).json(user)
+                    response.json({error: 'Error logging in'})
+                }
             });
+        }
+        else {
+            res.json('Login failed')
         }
 
     } catch (error) {
