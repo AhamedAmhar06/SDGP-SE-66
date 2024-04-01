@@ -135,7 +135,11 @@ const loginUser = async (req, res) => {
             }, process.env.JWT_SECRET, {}, (err, token) => {
                 if (err) throw err;
                 try{
-                res.cookie('token', token).json(user)
+                    res.cookie('token', token, {
+                        httpOnly: true,
+                        secure: true,
+                        sameSite: 'none'
+                    }).json(user);
                 console.log(token);
                 } catch(err){
                     console.log(err);
