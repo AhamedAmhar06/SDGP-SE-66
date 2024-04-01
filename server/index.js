@@ -52,7 +52,7 @@ const server = app.listen(8000, () => console.log(`Server is running on port 800
 // Socket.io setup
 const io = new Server(server, {
   cors: {
-    origin: 'https://www.undergraduplift.tech',
+    origin: 'http://localhost:5173',
     credentials: true
   }
 });
@@ -92,7 +92,7 @@ io.on("connection", (socket) => {
 
 // Middleware
 app.use(express.json());
-app.use(cors({ origin: 'https://www.undergraduplift.tech', credentials: true }));
+app.use(cors({ origin: 'http://localhost:5173', credentials: true }));
 app.use(cookieParser());
 app.use(express.urlencoded({ extended: false }));
 
