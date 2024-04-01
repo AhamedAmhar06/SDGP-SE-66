@@ -47,7 +47,7 @@ function Login  ()  {
 
   //To check if the user is already logged in
   useEffect(() => {
-    const fetchUndergrad = async () => {
+    async () => {
         try {
             if(undergrad){
                 setUndergradLoaded(true);
@@ -56,12 +56,11 @@ function Login  ()  {
             console.error(error);
         }
     };
-        fetchUndergrad();
   });
 
   return (
     <div>
-      { !undergradLoaded ? (
+      {/* { undergradLoaded ? ( */}
 
         <section className="flex items-center justify-center min-h-screen bg-gray-50">
 
@@ -151,7 +150,7 @@ function Login  ()  {
             </div>
           </div>
         </section>
-      ) : (null)}
+      {/* ) : (null)} */}
     </div>
   );
 }
