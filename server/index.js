@@ -96,6 +96,10 @@ app.use(cors({ origin: 'http://localhost:5173', credentials: true }));
 app.use(cookieParser());
 app.use(express.urlencoded({ extended: false }));
 
+app.get('/', (req, res) => {
+  res.send('Hello World!');
+} );
+
 // Routes
 app.use('/', require('./routes/authRoutes'));
 //app.use('/questions', questionRoutes);
