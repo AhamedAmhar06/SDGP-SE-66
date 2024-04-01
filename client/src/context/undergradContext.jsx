@@ -8,7 +8,7 @@ export function UndergradContextProvider({children}){
 
     useEffect(() => {
         if(!undergrad){
-            axios.get('/profile').then(({data}) => {
+            axios.get('/profile', {withCredentials: true}).then(({data}) => {
                 setUndergrad(data);
             })
         }
