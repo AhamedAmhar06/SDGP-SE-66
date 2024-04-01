@@ -138,7 +138,8 @@ const loginUser = async (req, res) => {
                     res.cookie('token', token, {
                         httpOnly: true,
                         secure: true,
-                        sameSite: 'none'
+                        sameSite: 'none',
+                        domain : 'https://www.undergraduplift.tech'
                     }).json(user);
                 console.log(token);
                 } catch(err){
