@@ -139,7 +139,7 @@ const loginUser = async (req, res) => {
                         httpOnly: true,
                         secure: true,
                         sameSite: 'none',
-                        domain : 'https://www.undergraduplift.tech'
+                        domain : 'undergraduplift.tech'
                     }).json(user);
                 console.log(token);
                 } catch(err){
