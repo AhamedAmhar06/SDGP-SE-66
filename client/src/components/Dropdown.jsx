@@ -51,22 +51,23 @@ function Dropdown({ onClose }) {
   };
 
   return (
-    <div className='absolute flex flex-col items-center p-4 border border-t-4 border-b-4 w-35 border-NavBlue bg-background top-16 right-20 rounded-2xl' >
+    <div className='absolute flex flex-col items-center p-4 border border-t-4 border-b-4 w-35 border-NavBlue bg-background top-16 right-12 rounded-2xl' >
       <div className='absolute top-0 w-4 h-4 transform rotate-45 -translate-y-2 border-t border-l right-7 bg-background border-NavBlue'></div>
       <div className='flex flex-col gap-4'>
         <ul>
           <li>
-            <Link to={'/dashboard'} className='p-2 text-sm rounded text-NavBlue hover:bg-blue-500'>
+            <Link to={'/dashboard'} className='p-2 text-sm rounded text-NavBlue hover:bg-blue-500' onClick={() => setOpenProfile(false)}>
               Dashboard
             </Link>
           </li>
           <li>
-            <button onClick={handleTutorLogin} className='p-2 mt-4 text-sm rounded text-NavBlue hover:bg-blue-500'>
-              Switch to Tutor
-            </button>
+            <button onClick={() => { handleTutorLogin(); onClose(); }} className='p-2 mt-4 text-sm rounded text-NavBlue hover:bg-blue-500'>
+            Switch to Tutor
+  </button>
+
           </li>
           <li className='p-2 mt-4 text-sm rounded text-NavBlue hover:bg-blue-500'>
-              <Link to='/notifications'>Notifications</Link>
+              <Link to='/notifications' onClick={() => setOpenProfile(false)} >Notifications</Link>
           </li>
           <li>
             <button

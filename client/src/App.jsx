@@ -54,7 +54,7 @@ function App () {
 
   return(
     <UndergradContextProvider>
-      <div className='bg-background'>
+      <div className='flex flex-col min-h-screen '>
         
         <Navbar/>
         <Toaster position='bottom-right' toastOptions={{duration: 2000}}/>
@@ -96,7 +96,7 @@ function App () {
 
       </Routes>
 
-         <Footer />
+         <Footer class="mt-auto" />
       </div>
     </UndergradContextProvider>
     
