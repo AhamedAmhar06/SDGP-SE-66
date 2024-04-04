@@ -56,17 +56,6 @@ export default function Notifications() {
         }
     };
 
-    const testButton = () => { 
-        try {
-            if (undergrad) {
-                const email = undergrad.email;
-                const response = axios.post('/createNotification', { email })
-                window.location.reload();
-            }
-        } catch (error) {
-            console.log(error);
-        }
-    }
 
     return (
         <div>
@@ -95,9 +84,6 @@ export default function Notifications() {
                     </li>
                 ))}
             </ul>
-            <button className="text-2xl text-NavBlue hover:scale-105" onClick={testButton}>
-                Test
-            </button>
         </div>
     );
 }
