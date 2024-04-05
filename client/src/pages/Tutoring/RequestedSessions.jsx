@@ -60,9 +60,7 @@ export default function RequestedSessions({ tutor_id}) {
                   </button>
                 </a>
                 
-              ) : (null)}
-              {/* <button onClick={() => acceptSession(request._id)} className="bg-green-500 text-white p-2 m-2 rounded-md">Accept</button>
-              <button onClick={() => declineSession(request._id)} className="bg-red-500 text-white p-2 m-2 rounded-md">Decline</button> */}
+              ) : ("Completed")}
             </div>
           </li>
         ))}

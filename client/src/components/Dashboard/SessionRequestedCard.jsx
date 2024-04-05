@@ -1,27 +1,60 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+import TutorName from '../ViewRequests/TutorName';
 
-function SessionRequestedCard() {
+export default function SessionRequestedCard({ undergradID }) {
+  
+  const id = undergradID;
+  const [requests, setRequests] = useState([]);
+
+  // Load requests
+  useEffect(() => {
+    const fetchRequests = async () => {
+      try {
+        const response = await axios.post('/getRequests', { id });
+        // Filter out completed sessions
+        const filteredRequests = response.data.filter(request => !request.completed);
+        // Sort requests based on the timestamp
+        const sortedRequests = filteredRequests.sort((a, b) => {
+          return new Date(b.createdAt) - new Date(a.createdAt);
+        });
+        setRequests(sortedRequests);
+      } catch (error) {
+        console.log(error);
+      }
+    }
+    fetchRequests();
+  }, [id]);
+
   return (
-    <div className="flex flex-row justify-center w-[99%] mt-1 p-[5px] bg-gray-300 rounded-[10px]">
-                      <div className="flex flex-col items-center justify-start w-full mt-[13px] gap-[17px]">
-                        <div className="flex flex-row justify-center items-center w-[89%]">
-                          <div className="flex flex-col items-start justify-start w-[52%] gap-px">
-                            <p className="ml-px text-sm">Figma Basics</p>
-                            <p className="!text-grey text-xs !font-helvetica"> Tutor: Ahamed Amhar</p>
-                            
-                            </div>
-                            <p className="w-[49%] ml-[-1px] text-right leading-4">
-                               <span className="text-xs text-black-900">
-                              4.00 pm - 6.00 pm
-                              <br />
-                            </span>
-                            <span className="text-xs font-bold text-black-900 font-helvetica">Saturday 25th </span>
-                            </p>
-                            </div>
-                            <button className="flex justify-center items-center w-[242px] h-[19px] px-[35px] py-[3px] !text-white bg-NavBlue rounded-[9px] text-xs hover:scale-110">Do the payment{" "}</button>
-                            
-                            </div></div>
+    <div className="container mx-auto mt-8">
+      {/* Display Requests related to the undergrad */}
+      {requests.length === 0 ? (
+        <p className="text-lg text-gray-600 transition-transform transform hover:scale-105">No sessions requested</p>
+      ) : (
+        <ul className="divide-y divide-gray-200">
+          {requests.slice(0, 3).map(request => (
+            <li key={request._id} className={`border rounded-md shadow-md transition-transform transform hover:scale-105 ${request.accepted && !request.decline ? 'bg-green-300' : 'bg-gray-200'}`}>
+              <div className={`p-4 ${request.decline ? 'bg-red-300' : ''}`}>
+                <TutorName tutor_ID={request.tutorID} />
+                <p className="text-gray-800">Subject: {request.subject}</p>
+                <p className="text-gray-800">{request.topic}</p>
+                <p className="text-gray-800">Reason: {request.reason}</p>
+                <p className="text-gray-800">Date: {request.date}</p>
+                <p className="text-gray-800">Time: {request.startTime} - {request.endTime}</p>
+                <p className="text-gray-800">Status: {request.accepted ? 'Accepted' : null} {request.decline ? 'Declined' : null} {!(request.decline || request.accepted) ? 'Processing' : null}</p>
+                {request.accepted && !request.completed && (
+                  <a href={`/session/${request._id}`} target="_blank" rel="noopener noreferrer">
+                    <button className="bg-blue-600 text-white py-2 px-4 rounded-lg hover:bg-blue-700 duration-300 mt-2">
+                      Join Now
+                    </button>
+                  </a>
+                )}
+              </div>
+            </li>
+          ))}
+        </ul>
+      )}
+    </div>
   )
 }
-
-export default SessionRequestedCard

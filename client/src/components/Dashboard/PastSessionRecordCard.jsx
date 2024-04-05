@@ -1,29 +1,53 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+import TutorName from '../ViewRequests/TutorName';
 
-function PastSessionRecordCard() {
+export default function PastSessionRecords({ undergradID }) {
+  
+  const id = undergradID;
+  const [requests, setRequests] = useState([]);
+
+  // Load requests
+  useEffect(() => {
+    const fetchRequests = async () => {
+      try {
+        const response = await axios.post('/getRequests', { id });
+        // Filter out completed sessions
+        const filteredRequests = response.data.filter(request => request.completed);
+        // Sort requests based on the timestamp
+        const sortedRequests = filteredRequests.sort((a, b) => {
+          return new Date(b.createdAt) - new Date(a.createdAt);
+        });
+        setRequests(sortedRequests);
+      } catch (error) {
+        console.log(error);
+      }
+    }
+    fetchRequests();
+  }, [id]);
+
   return (
-    <div className="flex flex-row justify-center w-full p-[15px] bg-gray-100 rounded-[10px]">
-                          <div className="flex flex-col items-start justify-start w-[98%] mt-1 ml-[5px] gap-[3px]">
-                            <div className="flex flex-row justify-between items-start w-full gap-[119px]">
-                              <div className="flex flex-col items-start justify-start gap-2">
-                                  <p className="text-xs">Figma Basics</p>
-                                  <p className="!text-grey text-xs">Participants :</p>
-                              </div>
-                              <p className="w-[34%] text-right">
-                                <span className="text-xs text-black-900">
-                                  4.00 pm - 6.00 pm
-                                  <br />
-                                </span>
-                                <span className="text-xs font-bold text-black-900 font-helvetica">Saturday 25th </span>
-                              </p>
-                            </div>
-                                 <p className="!text-grey text-xs">
-                              @name one / @name two / name three
-                            </p>
-
-                          </div>
-                        </div>
+    <div>
+      {/* Display Requests related to the undergrad */}
+      {requests.length === 0 ? (
+        <p className="text-lg text-gray-600 transition-transform transform hover:scale-105">No past session records</p>
+      ) : (
+        <ul className="divide-y divide-gray-200">
+          {requests.slice(0, 3).map(request => (
+            <li key={request._id} className={`border rounded-md shadow-md transition-transform transform hover:scale-105 bg-slate-200`}>
+              <div className={`p-4 ${request.decline ? 'bg-red-300' : ''}`}>
+                <TutorName tutor_ID={request.tutorID} />
+                <p className="text-gray-800">Subject: {request.subject}</p>
+                <p className="text-gray-800">{request.topic}</p>
+                <p className="text-gray-800">Reason: {request.reason}</p>
+                <p className="text-gray-800">Date: {request.date}</p>
+                <p className="text-gray-800">Time: {request.startTime} - {request.endTime}</p>
+                <p className="text-gray-800">Status: Completed</p>
+              </div>
+            </li>
+          ))}
+        </ul>
+      )}
+    </div>
   )
 }
-
-export default PastSessionRecordCard
