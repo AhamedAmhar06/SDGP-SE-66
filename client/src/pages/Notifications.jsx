@@ -55,7 +55,6 @@ export default function Notifications() {
             console.log(error);
         }
     };
-
     return (
         <div>
             <h1 className="text-3xl font-bold text-center">Notifications</h1>

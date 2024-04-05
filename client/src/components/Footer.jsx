@@ -66,7 +66,8 @@ const Footer = () => {
 
   return (
      
-    <div className='grid gap-2 px-4 py-10 mx-auto text-white max-auto lg:grid-cols-4 bg-NavBlue'>
+     <div className='grid gap-2 px-4 py-10 mx-auto text-white max-auto lg:grid-cols-4 sm:grid-cols-1 w-full bg-NavBlue sticky top-[100vh]'>
+
       <div>
        <img src={logo} alt='logo' className='object-contain h-24 w-60' />
 
@@ -91,38 +92,49 @@ const Footer = () => {
             <li className='py-2 text-sm'>
               <Link to='/about'>AboutUs</Link>
             </li>
-            <li className='py-2 text-sm'>
-              <Link>Sessions</Link> 
-            </li>
-            <li className='py-2 text-sm'>
-              <Link to='/tutors'>Tutors</Link>
-            </li>
+            
             <li className='py-2 text-sm'>
               <Link to='/team'> Our Team</Link>
             </li>
-            
+            {auth ? (
+              <>
+              
+                <li className='py-2 text-sm '>
+                  <Link to='/dashboard'>My account</Link> 
+                </li>
+                
+             
+
+                
+              </>
+            ) : (
+              <>
+                
+              </>
+            )}
         </ul>
     </div>
     <div className="mr-10">
         <ul>
-            <li className='py-2 text-sm mt-11'>
+            
+            
+            {auth ? (
+              <>
+              <li>
+                  <button onClick={handleTutorLogin} className='py-2 text-sm mt-11'>
+                    Switch to Tutor
+                  </button>
+                </li>
+                
+                <li className='py-2 text-sm '>
               <Link to='/questionBank'>Question Bank</Link> 
             </li>
             <li className='py-2 text-sm'>
                 <Link to='/community'> Community Space </Link> 
             </li>
-            
-            {auth ? (
-              <>
-              
-                <li className='py-2 text-sm'>
-                  <Link to='/dashboard'>My account</Link> 
-                </li>
-                <li>
-                  <button onClick={handleTutorLogin} className='py-2 text-sm'>
-                    Switch to Tutor
-                  </button>
-                </li>
+            <li className='py-2 text-sm'>
+              <Link to='/tutors'>Tutors</Link>
+            </li>
 
                 
               </>

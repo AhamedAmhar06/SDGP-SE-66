@@ -58,7 +58,7 @@ function MobileNavbar({ setIsMenuOpen }) {
     });
 
     return (
-        <div className='fixed top-0 right-0 z-50 w-1/2 h-screen'>
+        <div className='fixed top-0 right-0 z-20 w-1/2 h-screen'>
             <div className="flex flex-col w-full h-screen p-8 bg-background ">
                 <button onClick={() => setIsMenuOpen(false)} className="absolute text-4xl text-NavBlue top-4 right-4">
                    <IoClose />
@@ -79,13 +79,11 @@ function MobileNavbar({ setIsMenuOpen }) {
                     {auth ? (
                         <>
                             <li className='mb-5 font-semibold text-NavBlue'>
-                                <Link to='/community'> Community Space </Link>
+                            <Link to='/forum'> Community Space </Link>
                             </li>
-
                             <li className='mb-5 font-semibold text-NavBlue'>
-                                <Link to='/questionBank'> Question Bank </Link>
+                            <Link to='/questionBank'> Question Bank </Link>
                             </li>
-
                             <li className="mb-5 font-semibold text-NavBlue">
                                 <Link to={'/dashboard'} >Dashboard</Link>
                             </li>
@@ -116,7 +114,7 @@ function MobileNavbar({ setIsMenuOpen }) {
                 
                 
             </div>
-            <div onClick={() => setIsMenuOpen(false)} className="fixed top-0 z-50 w-screen h-screen bg-overlay" />
+            <div onClick={() => setIsMenuOpen(false)} className="fixed top-0 w-screen h-screen bg-overlay -z-10" />
         </div>
     );
 };
