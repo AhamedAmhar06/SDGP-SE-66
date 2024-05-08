@@ -28,19 +28,26 @@ export default function TutorDetails({tutor_id}) {
         };
 
         //To check if the user is already logged in
-        const fetchUndergrad = async () => {
-            try {
-                if(undergrad){
-                    setUndergradLoaded(true);
-                }          
-            } catch (error) {
-                console.error(error);
-            }
-        };
+        // const fetchUndergrad = async () => {
+        //     try {
+        //         if(undergrad){
+        //             setUndergradLoaded(true);
+        //         }          
+        //     } catch (error) {
+        //         console.error(error);
+        //     }
+        // };
     
         fetchTutor();
-        fetchUndergrad();
+        // fetchUndergrad();
     });
+
+    useEffect(() => {
+        const authStatus = localStorage.getItem('undergrad');
+        if(authStatus === 'true') {
+            setUndergradLoaded(true);
+        }
+      }, []);
 
     return (
         <div className="flex items-center justify-center h-screen">
