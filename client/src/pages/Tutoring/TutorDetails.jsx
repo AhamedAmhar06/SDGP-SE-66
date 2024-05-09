@@ -46,6 +46,8 @@ export default function TutorDetails({tutor_id}) {
         const authStatus = localStorage.getItem('undergrad');
         if(authStatus === 'true') {
             setUndergradLoaded(true);
+        } else {
+            setUndergradLoaded(false);
         }
       }, []);
 
